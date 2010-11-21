@@ -1,21 +1,18 @@
-{ "name": "node-xmpp"
-,"version": "0.2.2"
-,"main": "./lib/xmpp"
-,"description": "Idiomatic XMPP client, component & server library for node.js"
+{ "name": "ltx"
+,"version": "0.0.1"
+,"main": "./lib/index"
+,"description": "<xml for=\"node.js\">"
 ,"author": "Stephan Maka"
-,"dependencies": {"node-expat": "1.1.0"
-		 ,"node-stringprep": "0.0.2"
-		 }
 ,"repositories": [{"type": "git"
-		  ,"path": "git://github.com/astro/node-xmpp.git"
+		  ,"path": "http://github.com/astro/ltx.git"
 		  }]
-,"homepage": "http://github.com/astro/node-xmpp"
-,"bugs": "http://github.com/astro/node-xmpp/issues"
+,"homepage": "http://github.com/astro/ltx"
+,"bugs": "http://github.com/astro/ltx/issues"
 ,"maintainers": [{"name": "Astro"
 		 ,"email": "astro@spaceboyz.net"
 		 ,"web": "http://spaceboyz.net/~astro/"
 		 }]
-,"contributors": ["Stephan Maka", "Derek Hammer", "Daniel Zelisko", "Michael Geers"]
+,"contributors": ["Stephan Maka"]
 ,"licenses": [{"type": "GPLv3"}]
 ,"engine": "node"
 }

@@ -2,7 +2,7 @@ var vows = require('vows'),
 assert = require('assert'),
 ltx = require('./../lib/index');
 
-vows.describe('element').addBatch({
+vows.describe('ltx').addBatch({
     'serialization': {
 	'serialize an element': function() {
 	    var e = new ltx.Element('e');

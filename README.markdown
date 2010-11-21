@@ -1,80 +1,8 @@
-# node-xmpp
-
-idiomatic XMPP library for [node.js](http://nodejs.org/)
+# Less-Than XML
 
 
-## Installation with [npm](http://github.com/isaacs/npm)
-
-    npm install node-xmpp
-
-
-## Motivation
-
-You like [Strophe.js](http://code.stanziq.com/strophe/)? You bought a
-copy of
-[Professional XMPP Programming with JavaScript and jQuery](http://professionalxmpp.com/)?
-You even want to use the same XMPP code for the web and node.js? Then
-*you're wrong here:* go to [xmppjs](http://github.com/mwild1/xmppjs).
-
-Objectives of *node-xmpp:*
-
-* Use node.js conventions, especially `EventEmitter`, ie. for write
-  buffer control
-* Fast parsing, `node-expat` was written with this library in mind
-* Client support for both XMPP clients and components
-* Optional server infrastructure with `Router`
-* After authentication, leave trivial protocol bits to the user (later
-  we could offer helpers for entity capabilities hashing, etc)
-
-
-## Features
-
-* Client authentication with SASL DIGEST-MD5, PLAIN, ANONYMOUS, X-FACEBOOK-PLATFORM
-* `_xmpp-client._tcp` SRV record support
-* Simple JID parsing with Stringprep normalization
-* XML builder & serialization
-* xmlns-aware
-* [Component](http://xmpp.org/extensions/xep-0114.html) connections
-* Run your own server/talk to other servers with `xmpp.Router`
-
-
-## Dependencies
-
-* [node-expat](http://github.com/astro/node-expat)
-* [node-stringprep](http://github.com/astro/node-stringprep)
-
-
-## Design
-
-    ┌────────────┐ has a ┌────────────┐
-    │ net.Stream │←──────┤ Connection │
-    └────────────┘       └─────┬──────┘
-                               │
-          ┌────────────┬───────┴───┐
-          │            │           │
-    ┏━━━━━┷━━━━┓ ┏━━━━━┷━━━━━┓ ┌───┴────┐
-    ┃  Client  ┃ ┃ Component ┃ │ Server │
-    ┗━━━━━━━━━━┛ ┗━━━━━━━━━━━┛ └───┬────┘
-                                   │
-             ┌─────────────────────┤
-             │                     │
-    ┌────────┴───────┐ ┌───────────┴────┐
-    │ OutgoingServer │ │ IncomingServer │
-    └────────────────┘ └────────────────┘
-         has many ↑        ↑ has many
-          creates │        │ accepts
-                 ┏┷━━━━━━━━┷┓
-                 ┃  Router  ┃
-                 ┗━━━━━━━━━━┛
-
-
-This foundation is complemented by two basic data structures:
-
-* *JID:* a Jabber-Id, represented as a triple of `user`, `domain`,
-   `resource`
 * *Element:* any XML Element
 
-Desires about the API? Propose them ASAP!
 
 ### Building XML Elements
 
