@@ -43,7 +43,11 @@ first invokes `tree()` to retrieve the uppermost parent, the XMPP
 stanza, before sending it out the wire.
 
 
-## Destructive modification
+## Destructive manipulation
+
+Please always make sure `parent` and `children` are consistent. Don't
+append children of other parents to your own element. We're not
+adoption-safe!
 
 
 ## TODO
