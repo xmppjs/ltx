@@ -9,9 +9,14 @@ vows.describe('ltx').addBatch({
             assert.equal(el.name, 'root');
             assert.equal(0, el.children.length);
         },
-        'raises error': function() {
+        'erroneous document raises error': function() {
             assert.throws(function() {
                 ltx.parse('<root></toor>');
+            });
+        },
+        'incomplete document raises error': function() {
+            assert.throws(function() {
+                ltx.parse('<root>');
             });
         }
     }
