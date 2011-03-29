@@ -26,5 +26,26 @@ vows.describe('ltx').addBatch({
 	    var e = new ltx.Element('e').t('1 < 2').root();
 	    assert.equal(e.toString(), '<e>1 &lt; 2</e>');
 	}
+    },
+
+    'remove': {
+	'by element': function() {
+	    var el = new ltx.Element('e').
+		c('c').c('x').up().up().
+		c('c2').up().
+		c('c').up();
+	    el.remove(el.getChild('c'));
+	    assert.equal(el.getChildren('c').length, 1);
+	    assert.equal(el.getChildren('c2').length, 1);
+	},
+	'by name': function() {
+	    var el = new ltx.Element('e').
+		c('c').up().
+		c('c2').up().
+		c('c').up();
+	    el.remove('c');
+	    assert.equal(el.getChildren('c').length, 0);
+	    assert.equal(el.getChildren('c2').length, 1);
+	}
     }
 }).run();
