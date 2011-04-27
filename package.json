@@ -1,5 +1,5 @@
 { "name": "ltx"
-,"version": "0.0.4"
+,"version": "0.0.5"
 ,"main": "./lib/index"
 ,"description": "<xml for=\"node.js\">"
 ,"author": "Stephan Maka"
