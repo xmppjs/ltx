@@ -25,6 +25,14 @@ vows.describe('ltx').addBatch({
 	'serialize an element with text to entities': function() {
 	    var e = new ltx.Element('e').t('1 < 2').root();
 	    assert.equal(e.toString(), '<e>1 &lt; 2</e>');
+	},
+	'serialize an element with a number attribute': function() {
+	    var e = new ltx.Element('e', { a: 23 });
+	    assert.equal(e.toString(), '<e a="23"/>');
+	},
+	'serialize an element with number contents': function() {
+	    var e = new ltx.Element('e').t(23);
+	    assert.equal(e.toString(), '<e>23</e>');
 	}
     },
 
