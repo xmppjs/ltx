@@ -55,5 +55,53 @@ vows.describe('ltx').addBatch({
 	    assert.equal(el.getChildren('c').length, 0);
 	    assert.equal(el.getChildren('c2').length, 1);
 	}
+    },
+
+    'clone': {
+	'clones': function() {
+	    var orig = new ltx.Element('msg', { type: 'get' }).
+		c('content').t('foo').root();
+	    var clone = orig.clone();
+	    assert.equal(clone.name, orig.name);
+	    assert.equal(clone.attrs.type, orig.attrs.type);
+	    assert.equal(clone.attrs.to, orig.attrs.to);
+	    assert.equal(clone.children.length, orig.children.length);
+	    assert.equal(clone.getChildText('content'), orig.getChildText('content'));
+
+	    assert.equal(orig.getChild('content').up(), orig);
+	    assert.equal(clone.getChild('content').up(), clone);
+	},
+	'mod attr': function() {
+	    var orig = new ltx.Element('msg', { type: 'get' });
+	    var clone = orig.clone();
+	    clone.attrs.type += '-result';
+
+	    assert.equal(orig.attrs.type, 'get');
+	    assert.equal(clone.attrs.type, 'get-result');
+	},
+	'rm attr': function() {
+	    var orig = new ltx.Element('msg', { from: 'me' });
+	    var clone = orig.clone();
+	    delete clone.attrs.from;
+	    clone.attrs.to = 'you';
+
+	    assert.equal(orig.attrs.from, 'me');
+	    assert.equal(orig.attrs.to, undefined);
+	    assert.equal(clone.attrs.from, undefined);
+	    assert.equal(clone.attrs.to, 'you');
+	},
+	'mod child': function() {
+	    var orig = new ltx.Element('msg', { type: 'get' }).
+		c('content').t('foo').root();
+	    var clone = orig.clone();
+	    clone.getChild('content').
+		t('bar').
+		name = 'description';
+
+	    assert.equal(orig.children[0].name, 'content');
+	    assert.equal(orig.getChildText('content'), 'foo');
+	    assert.equal(clone.children[0].name, 'description');
+	    assert.equal(clone.getChildText('description'), 'foobar');
+	}
     }
 }).run();
