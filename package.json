@@ -15,6 +15,6 @@
 		 ,"web": "http://spaceboyz.net/~astro/"
 		 }]
 ,"contributors": ["Stephan Maka"]
-,"licenses": [{"type": "GPLv3"}]
+,"licenses": [{"type": "MIT"}]
 ,"engine": "node"
 }
