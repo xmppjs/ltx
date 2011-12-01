@@ -33,6 +33,24 @@ vows.describe('ltx').addBatch({
 	'serialize an element with number contents': function() {
 	    var e = new ltx.Element('e').t(23);
 	    assert.equal(e.toString(), '<e>23</e>');
+	},
+	'serialize with undefined attribute': function() {
+	    var e = new ltx.Element('e', { foo: undefined });
+	    assert.equal(e.toString(), '<e/>');
+	},
+	'serialize with null attribute': function() {
+	    var e = new ltx.Element('e', { foo: null });
+	    assert.equal(e.toString(), '<e/>');
+	},
+	'serialize with undefined child': function() {
+	    var e = new ltx.Element('e');
+	    e.children = [undefined];
+	    assert.equal(e.toString(), '<e></e>');
+	},
+	'serialize with null child': function() {
+	    var e = new ltx.Element('e');
+	    e.children = [null];
+	    assert.equal(e.toString(), '<e></e>');
 	}
     },
 
