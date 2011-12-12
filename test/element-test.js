@@ -122,4 +122,4 @@ vows.describe('ltx').addBatch({
 	    assert.equal(clone.getChildText('description'), 'foobar');
 	}
     }
-}).run();
+}).export(module);

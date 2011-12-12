@@ -24,4 +24,4 @@ vows.describe('ltx').addBatch({
             });
         }
     }
-}).run();
+}).export(module);

@@ -17,4 +17,5 @@
 ,"contributors": ["Stephan Maka"]
 ,"licenses": [{"type": "MIT"}]
 ,"engine": "node"
+,"scripts": {"test":"vows --spec"}
 }
