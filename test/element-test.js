@@ -31,8 +31,10 @@ vows.describe('ltx').addBatch({
 	    assert.equal(e.toString(), '<e a="23"/>');
 	},
 	'serialize an element with number contents': function() {
-	    var e = new ltx.Element('e').t(23);
-	    assert.equal(e.toString(), '<e>23</e>');
+	    var e = new ltx.Element('e');
+	    e.c('foo').t(23);
+	    e.c('bar').t(0);
+	    assert.equal(e.toString(), '<e><foo>23</foo><bar>0</bar></e>');
 	},
 	'serialize with undefined attribute': function() {
 	    var e = new ltx.Element('e', { foo: undefined });
@@ -41,6 +43,12 @@ vows.describe('ltx').addBatch({
 	'serialize with null attribute': function() {
 	    var e = new ltx.Element('e', { foo: null });
 	    assert.equal(e.toString(), '<e/>');
+	},
+	'serialize with number attribute': function() {
+	    var e = new ltx.Element('e', { foo: 23, bar: 0 });
+	    var s = e.toString();
+	    assert.ok(s.match(/foo="23"/));
+	    assert.ok(s.match(/bar="0"/));
 	},
 	'serialize with undefined child': function() {
 	    var e = new ltx.Element('e');
