@@ -27,6 +27,13 @@
   children
 * `children` is an Array of Strings and Elements
 
+## Modifying XML Elements
+
+* `remove(child)`: remove child by reference
+* `remove(name, xmlns)`: remove child by tag name and xmlns
+* `attr(attrName, value?)`: modify or get an attribute's value
+* `text(value?)`: modify or get the inner text
+* `clone()`: clones an element that is detached from the document
 
 ## Building XML Elements
 
