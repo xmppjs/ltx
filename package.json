@@ -14,7 +14,7 @@
 		 ,"email": "astro@spaceboyz.net"
 		 ,"web": "http://spaceboyz.net/~astro/"
 		 }]
-,"contributors": ["Stephan Maka"]
+,"contributors": ["Stephan Maka", "Will Fife", "Markus Kohlhase"]
 ,"licenses": [{"type": "MIT"}]
 ,"engine": "node"
 ,"devDependencies": {"vows": ">=0.5.12"}
