@@ -11,10 +11,13 @@
 * `getName()`: name without ns prefix
 * `getNS()`: element's xmlns, respects prefixes and searches upwards
 * `findNS(prefix?)`: search for xmlns of a prefix upwards
-* `getChild(name, xmlns?)`: find first children
-* `getChildren(name, xmlns?)`: find all children
-* `getChildByAttr(attr, value, xmlns?)`: find first children by a specific attribute
-* `getChildrenByAttr(attr, value, xmlns?)`: find all children by a specific attribute
+* `getChild(name, xmlns?, recursive?)`: find first children
+* `getChildren(name, xmlns?, recursive?)`: find all children
+* `getChildByAttr(attr, value, xmlns?, recursive?)`: find first children by a specific attribute
+* `getChildrenByAttr(attr, value, xmlns?, recursive?)`: find all children by a specific attribute
+* `getChildByText(text, xmlns?, recursive?)`:
+* `getChildrenByText(text, xmlns?, recursive?)`:
+* `getChildrenByFilter(filter, recursive?)`:
 * `getText()`: appends all text nodes recursively
 * `getChildText(name)`: a child's text contents
 * `root()`: uppermost parent in the tree
