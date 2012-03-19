@@ -52,6 +52,16 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
 		var el = parse(buf);
                 assert.equal(el.name, 'root');
                 assert.equal(0, el.children.length);
+	    },
+	    'utf-8 text': function() {
+		var el = parse('<?xml version="1.0" encoding="utf-8"?><text>Möwe</text>');
+                assert.equal(el.name, 'text');
+                assert.equal(el.getText(), "Möwe");
+	    },
+	    'iso8859-1 text': function() {
+		var el = parse('<?xml version="1.0" encoding="iso-8859-1"?><text>M\xF6we</text>');
+                assert.equal(el.name, 'text');
+                assert.equal(el.getText(), "Möwe");
 	    }
         }
     }).export(module);
