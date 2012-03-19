@@ -4,6 +4,8 @@
 ,"description": "<xml for=\"node.js\">"
 ,"author": "Stephan Maka"
 ,"dependencies": {"node-expat": ">=1.2.0"
+		 ,"easysax": ">=0.1.7"
+		 ,"sax": "0.3.5"
 		 }
 ,"repositories": [{"type": "git"
 		  ,"path": "http://github.com/astro/ltx.git"
