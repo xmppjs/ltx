@@ -42,7 +42,13 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
                 assert.equal(el.name, 'x:root');
                 assert.equal(el.getName(), 'root');
                 assert.ok(el.is('root', 'https://github.com/astro/ltx'));
-            }
+            },
+	    'buffer': function() {
+		var buf = new Buffer('<root/>');
+		var el = parse(buf);
+                assert.equal(el.name, 'root');
+                assert.equal(0, el.children.length);
+	    }
         }
     }).export(module);
 });
