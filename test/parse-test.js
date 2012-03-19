@@ -21,6 +21,10 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
                 var el = parse("<body>&lt;&gt;&amp;&quot;&apos;</body>");
                 assert.equal("<>&\"'", el.getText());
             },
+            'attribute with entities': function() {
+		var el = parse("<body title='&lt;&gt;&amp;&quot;&apos;'/>");
+		assert.equal("<>&\"'", el.attrs.title);
+            },
             'erroneous document raises error': function() {
                 assert.throws(function() {
                     parse('<root></toor>');
