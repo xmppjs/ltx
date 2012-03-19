@@ -18,7 +18,7 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
                 assert.equal("sa'sa'1'sasa", el.getText());
             },
             'text with entities': function() {
-                var el = parse("<body>&lt;&gt;&amp;&quot;apos;</body>");
+                var el = parse("<body>&lt;&gt;&amp;&quot;&apos;</body>");
                 assert.equal("<>&\"'", el.getText());
             },
             'erroneous document raises error': function() {
