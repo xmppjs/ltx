@@ -3,7 +3,8 @@ if (process.title === 'browser') {
     var strophe = require('Strophe.js');
     var requestAnimationFrame = require('request-animation-frame').requestAnimationFrame;
 } else {
-    var ltx = require("../lib/index");
+    var path = "../lib/index";
+    var ltx = require(path);
 }
 var util = require('util');
 
@@ -69,16 +70,16 @@ LtxTest.prototype.traverse = function(node) {
 
 function StropheTest() {
     Test.call(this);
-    this.name = "Strophe.js";
+
+    this.serialize = Strophe.serialize;
 }
 util.inherits(StropheTest, Test);
+
+StropheTest.prototype.name = "Strophe.js";
 
 StropheTest.prototype.parse = function(s) {
     return Strophe.xmlHtmlNode(s).firstChild;
 };
-
-if (this.Strophe)
-    StropheTest.prototype.serialize = Strophe.serialize;
 
 StropheTest.prototype.traverse = function(node) {
     while(node.firstChild)
