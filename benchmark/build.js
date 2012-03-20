@@ -7,7 +7,7 @@ var root = path.join(__dirname, "..");
 b.require("./lib/index-browserify.js",
     { root: root, basedir: root });
 b.alias("ltx", "./lib/index-browserify.js");
-b.addEntry('browser_benchmark.js');
+b.addEntry('benchmark.js');
 
 var fs = require('fs');
 
