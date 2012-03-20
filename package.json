@@ -1,6 +1,7 @@
 { "name": "ltx"
 ,"version": "0.1.3"
 ,"main": "./lib/index"
+,"browserify": "./lib/index-browserify.js"
 ,"description": "<xml for=\"node.js\">"
 ,"author": "Stephan Maka"
 ,"dependencies": {"node-expat": ">=1.2.0"
