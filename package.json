@@ -20,8 +20,8 @@
 ,"engine": "node"
 ,"devDependencies": {"vows": ">=0.5.12"
 		    ,"easysax": ">=0.1.7"
-		    ,"node-xml", ">=1.0.1"
-		    ,"sax": "0.3.5"
+		    ,"node-xml": ">=1.0.1"
+		    ,"sax": ">=0.3.5"
 		    ,"Strophe.js": "https://github.com/metajack/strophejs/tarball/master"
 		    ,"request-animation-frame": ">=0.1.0"
 		    }
