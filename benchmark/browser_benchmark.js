@@ -1,6 +1,7 @@
 var ltx = require("ltx");
 var strophe = require('Strophe.js');
 var util = require('util');
+var requestAnimationFrame = require('request-animation-frame').requestAnimationFrame;
 
 function now() {
     return new Date().getTime();
@@ -90,32 +91,30 @@ messages[3] += "</message>";
 var iteration = 0;
 function runTests() {
     iteration++;
-    for(var i = 0; i < 10; i++) {
-	tests.forEach(function(test) {
-	    for(var j = 0; j < messages.length; j++) {
-		var parsed, serialized;
-		test.record('parse' + j, function() {
-		    parsed = test.parse(messages[j]);
-		});
-		test.record('serialize' + j, function() {
-		    serialized = test.serialize(parsed);
-		});
-		test.record('traverse' + j, function() {
-		    test.traverse(parsed);
-		});
-	    }
-	});
-    }
+    tests.forEach(function(test) {
+	for(var j = 0; j < messages.length; j++) {
+	    var parsed, serialized;
+	    test.record('parse' + j, function() {
+		parsed = test.parse(messages[j]);
+	    });
+	    test.record('serialize' + j, function() {
+		serialized = test.serialize(parsed);
+	    });
+	    test.record('traverse' + j, function() {
+		test.traverse(parsed);
+	    });
+	}
+    });
+
+    document.body.innerHTML = "<style>.parse0, .parse1, .parse2, .parse3 { color: red; } .serialize1, .serialize2, .serialize3, .serialize4 { color: blue; }</style>\n" +
+	"<h1>Iteration " + iteration + "<h1>\n";
+    tests.forEach(function(test) {
+	document.body.innerHTML += test.report() + "<br>";
+    });
+
+    requestAnimationFrame(runTests);
 }
 
 setTimeout(function() {
-    window.setInterval(function() {
-	runTests();
-
-	document.body.innerHTML = "<style>.parse0, .parse1, .parse2, .parse3 { color: red; } .serialize1, .serialize2, .serialize3, .serialize4 { color: blue; }</style>\n" +
-	    "<h1>Iteration " + iteration + "<h1>\n";
-	tests.forEach(function(test) {
-	    document.body.innerHTML += test.report() + "<br>";
-	});
-    }, 1);
+    runTests();
 }, 1000);
