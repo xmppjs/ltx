@@ -87,7 +87,7 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
 		parser.write("mpp-tls'/><mechanisms xmlns='urn:ietf:params:xml:ns:xmpp-");
 		assert.equal(events.length, 4);
 		parser.write("sasl'><mechanism>PLAIN</mechanism><mechanism>DIGEST-MD5</");
-		assert.equal(events.length, 9);
+		assert.equal(events.length, 10);
 		parser.write("mechanism><mechanism>SCRAM-SHA-1</mechanism></mechanisms>");
 		assert.equal(events.length, 15);
 		parser.write("<register xmlns='http://jabber.org/features/iq-register'/");
