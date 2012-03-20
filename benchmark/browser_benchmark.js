@@ -115,7 +115,7 @@ setTimeout(function() {
 	document.body.innerHTML = "<style>.parse0, .parse1, .parse2, .parse3 { color: red; } .serialize1, .serialize2, .serialize3, .serialize4 { color: blue; }</style>\n" +
 	    "<h1>Iteration " + iteration + "<h1>\n";
 	tests.forEach(function(test) {
-	    document.write(test.report() + "<br>");
+	    document.body.innerHTML += test.report() + "<br>";
 	});
     }, 1);
 }, 1000);
