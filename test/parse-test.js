@@ -66,7 +66,7 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
         },
 	'SAX parsing': {
 	    'XMPP stream': function() {
-		var parser = new ltx.Parser(saxParser);
+		var parser = new saxParser();
 		var events = [];
 		parser.on('startElement', function(name) {
 		    events.push({ start: name });
@@ -79,14 +79,21 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
 		});
 		parser.write("<?xml version='1.0'?><stream:stream xmlns='jabber:client'");
 		parser.write(" xmlns:stream='http://etherx.jabber.org/streams' id='5568");
+		assert.equal(events.length, 0);
 		parser.write("90365' from='jabber.ccc.de' version='1.0' xml:lang='en'><");
+		assert.equal(events.length, 1);
 		parser.write("stream:features><starttls xmlns='urn:ietf:params:xml:ns:x");
+		assert.equal(events.length, 2);
 		parser.write("mpp-tls'/><mechanisms xmlns='urn:ietf:params:xml:ns:xmpp-");
+		assert.equal(events.length, 4);
 		parser.write("sasl'><mechanism>PLAIN</mechanism><mechanism>DIGEST-MD5</");
+		assert.equal(events.length, 9);
 		parser.write("mechanism><mechanism>SCRAM-SHA-1</mechanism></mechanisms>");
+		assert.equal(events.length, 15);
 		parser.write("<register xmlns='http://jabber.org/features/iq-register'/");
-		parser.write("></stream:features>'");
-		console.log(events);
+		assert.equal(events.length, 15);
+		parser.write("></stream:features>");
+		assert.equal(events.length, 18);
 	    }
 	}
     }).export(module);
