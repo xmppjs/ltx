@@ -20,6 +20,8 @@
 ,"contributors": ["Stephan Maka", "Will Fife", "Markus Kohlhase"]
 ,"licenses": [{"type": "MIT"}]
 ,"engine": "node"
-,"devDependencies": {"vows": ">=0.5.12"}
+,"devDependencies": {"vows": ">=0.5.12"
+		    ,"Strophe.js": "https://github.com/metajack/strophejs/tarball/master"
+		    }
 ,"scripts": {"test":"vows --spec"}
 }

@@ -1,10 +1,13 @@
 var browserify = require('browserify');
 var path = require('path');
 var b = browserify({
-    debug: true,
-    require: ["ltx/lib/sax_saxjs.js", "ltx/lib/sax_easysax.js"]
+    debug: true
 });
-b.addEntry('../benchmark/browser_benchmark.js');
+var root = path.join(__dirname, "..");
+b.require("./lib/index-browserify.js",
+    { root: root, basedir: root });
+b.alias("ltx", "./lib/index-browserify.js");
+b.addEntry('browser_benchmark.js');
 
 var fs = require('fs');
 
