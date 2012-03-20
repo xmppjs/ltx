@@ -7,7 +7,7 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
         return ltx.parse(s, saxParser);
     };
     vows.describe('ltx with ' + saxParser.name).addBatch({
-        'parsing': {
+        'DOM parsing': {
             'simple document': function() {
                 var el = parse('<root/>');
                 assert.equal(el.name, 'root');
@@ -63,6 +63,31 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
                 assert.equal(el.name, 'text');
                 assert.equal(el.getText(), "Möwe");
 	    }
-        }
+        },
+	'SAX parsing': {
+	    'XMPP stream': function() {
+		var parser = new ltx.Parser(saxParser);
+		var events = [];
+		parser.on('startElement', function(name) {
+		    events.push({ start: name });
+		});
+		parser.on('endElement', function(name) {
+		    events.push({ end: name });
+		});
+		parser.on('text', function(s) {
+		    events.push({ text: s });
+		});
+		parser.write("<?xml version='1.0'?><stream:stream xmlns='jabber:client'");
+		parser.write(" xmlns:stream='http://etherx.jabber.org/streams' id='5568");
+		parser.write("90365' from='jabber.ccc.de' version='1.0' xml:lang='en'><");
+		parser.write("stream:features><starttls xmlns='urn:ietf:params:xml:ns:x");
+		parser.write("mpp-tls'/><mechanisms xmlns='urn:ietf:params:xml:ns:xmpp-");
+		parser.write("sasl'><mechanism>PLAIN</mechanism><mechanism>DIGEST-MD5</");
+		parser.write("mechanism><mechanism>SCRAM-SHA-1</mechanism></mechanisms>");
+		parser.write("<register xmlns='http://jabber.org/features/iq-register'/");
+		parser.write("></stream:features>'");
+		console.log(events);
+	    }
+	}
     }).export(module);
 });
