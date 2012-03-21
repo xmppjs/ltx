@@ -26,6 +26,10 @@ vows.describe('ltx').addBatch({
 	    var e = new ltx.Element('e').t('1 < 2').root();
 	    assert.equal(e.toString(), '<e>1 &lt; 2</e>');
 	},
+	'serialize an element with text containing xml and preserve it': function() {
+	    var e = new ltx.Element('e', null, true).t('<p>foo</p>').root();
+	    assert.equal(e.toString(), '<e><p>foo</p></e>');
+	},
 	'serialize an element with a number attribute': function() {
 	    var e = new ltx.Element('e', { a: 23 });
 	    assert.equal(e.toString(), '<e a="23"/>');
@@ -93,6 +97,20 @@ vows.describe('ltx').addBatch({
 	    assert.equal(clone.attrs.to, orig.attrs.to);
 	    assert.equal(clone.children.length, orig.children.length);
 	    assert.equal(clone.getChildText('content'), orig.getChildText('content'));
+
+	    assert.equal(orig.getChild('content').up(), orig);
+	    assert.equal(clone.getChild('content').up(), clone);
+	},
+	'clones with text containing xml': function() {
+	    var orig = new ltx.Element('msg', { type: 'get' }, true).
+		c('content').t('foo <asdf />').root();
+	    var clone = orig.clone();
+	    assert.equal(clone.name, orig.name);
+	    assert.equal(clone.attrs.type, orig.attrs.type);
+	    assert.equal(clone.attrs.to, orig.attrs.to);
+	    assert.equal(clone.children.length, orig.children.length);
+	    assert.equal(clone.getChildText('content'), orig.getChildText('content'));
+	    assert.equal(clone.getChildText('content'), 'foo <asdf />');
 
 	    assert.equal(orig.getChild('content').up(), orig);
 	    assert.equal(clone.getChild('content').up(), clone);

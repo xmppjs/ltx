@@ -6,7 +6,7 @@
 
 ## Element traversal
 
-* `Element(name, attrs?)`: constructor
+* `Element(name, attrs?, preventEscape?)`: constructor
 * `is(name, xmlns?)`: check
 * `getName()`: name without ns prefix
 * `getNS()`: element's xmlns, respects prefixes and searches upwards
