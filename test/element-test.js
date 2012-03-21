@@ -26,6 +26,10 @@ vows.describe('ltx').addBatch({
 	    var e = new ltx.Element('e').t('1 < 2').root();
 	    assert.equal(e.toString(), '<e>1 &lt; 2</e>');
 	},
+	'serialize an element with text containing xml': function() {
+	    var e = new ltx.Element('e', null, true).t('<p>foo</p>').root();
+	    assert.equal(e.toString(), '<e><p>foo</p></e>');
+	},
 	'serialize an element with a number attribute': function() {
 	    var e = new ltx.Element('e', { a: 23 });
 	    assert.equal(e.toString(), '<e a="23"/>');
