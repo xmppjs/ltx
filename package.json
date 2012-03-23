@@ -24,6 +24,7 @@
 		    ,"node-xml": ">=1.0.1"
 		    ,"Strophe.js": "https://github.com/metajack/strophejs/tarball/master"
 		    ,"request-animation-frame": ">=0.1.0"
+		    ,"browserify": ">=1.10.4"
 		    }
 ,"scripts": {"test":"vows --spec"}
 }
