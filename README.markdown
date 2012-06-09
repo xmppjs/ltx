@@ -2,18 +2,52 @@
 
 * *Element:* any XML Element
 * Text nodes are Strings
+* Runs on node.js and browserify
+
+
+## Parsing
+
+### DOM
+
+Parse a little document at once:
+
+    el = ltx.parse("<document/>")
+
+Push parser:
+
+	p = new ltx.Parser();
+	p.on('tree', function(tree) {
+		proceed(null, tree);
+	});
+	p.on('error', function(error) {
+		proceed(error);
+	});
+
+### SAX
+
+ltx implements multiple SAX backends:
+
+* *node-expat*: libexpat binding
+* *ltx*: fast native-JavaScript parser without error handling
+* *saxjs*: native-JavaScript parser
+
+If present, they are available through
+`ltx.availableSaxParsers`. Mostly, you'll want to do:
+
+    parser = new ltx.bestSaxParser();
+
+Refer to `lib/parse.js` for the interface.
 
 
 ## Element traversal
 
-* `Element(name, attrs?)`: constructor
 * `is(name, xmlns?)`: check
 * `getName()`: name without ns prefix
 * `getNS()`: element's xmlns, respects prefixes and searches upwards
 * `findNS(prefix?)`: search for xmlns of a prefix upwards
-* `getChild(name, xmlns?, recursive?)`: find first children
+* `getChild(name, xmlns?, recursive?)`: find first child
 * `getChildren(name, xmlns?, recursive?)`: find all children
-* `getChildByAttr(attr, value, xmlns?, recursive?)`: find first children by a specific attribute
+* `getChildByAttr(attr, value, xmlns?, recursive?)`: find first child by a specific attribute
 * `getChildrenByAttr(attr, value, xmlns?, recursive?)`: find all children by a specific attribute
 * `getChildByText(text, xmlns?, recursive?)`:
 * `getChildrenByText(text, xmlns?, recursive?)`:
@@ -34,6 +68,7 @@
 
 ## Modifying XML Elements
 
+* `new Element(name, attrs?)`: constructor
 * `remove(child)`: remove child by reference
 * `remove(name, xmlns)`: remove child by tag name and xmlns
 * `attr(attrName, value?)`: modify or get an attribute's value
@@ -42,7 +77,14 @@
 
 ## Building XML Elements
 
-This resembles strophejs a bit.
+    el = new ltx.Element('root').
+		c('children');
+	el.c('child', { age: 5 }).t('Hello').up()
+	  .c('child', { age: 7 }).t('Hello').up()
+	  .c('child', { age: 99 }).t('Hello').up()
+	console.log("Serialized document:", el.root().toString());
+
+This resembles Strophejs a bit.
 
 strophejs' XML Builder is very convenient for producing XMPP
 stanzas. node-xmpp includes it in a much more primitive way: the
