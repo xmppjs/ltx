@@ -1,5 +1,5 @@
 { "name": "ltx"
-,"version": "0.2.0"
+,"version": "0.2.1"
 ,"main": "./lib/index"
 ,"browserify": "./lib/index-browserify.js"
 ,"description": "<xml for=\"node.js\" browserify=\"too\">"
