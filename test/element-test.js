@@ -148,5 +148,23 @@ vows.describe('ltx').addBatch({
             .t('bar').root();
         assert.equal(el.getChildByAttr('id', 'x', null, true).toString(), '<c id="x">bar</c>');
       }
+  },
+
+  "issue #15: Inconsistency with prefixed elements": {
+      topic: function() {
+	  return ltx.parse('<root><x:foo>bar</x:foo></root>');
+      },
+      "getChildText prefixed": function(el) {
+	  assert.equal(el.getChildText('x:foo'), null);
+      },
+      "getChildText unprefixed": function(el) {
+	  assert.equal(el.getChildText('foo'), 'bar');
+      },
+      "getChild prefixed": function(el) {
+	  assert.equal(el.getChild('x:foo'), null);
+      },
+      "getChild unprefixed": function(el) {
+	  assert.equal(el.getChild('foo').getText(), 'bar');
+      }
   }
 }).export(module);
