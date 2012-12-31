@@ -49,6 +49,7 @@ Refer to `lib/parse.js` for the interface.
 * `getChildren(name, xmlns?)`: find all children
 * `getChildByAttr(attr, value, xmlns?, recursive?)`: find first child by a specific attribute
 * `getChildrenByAttr(attr, value, xmlns?, recursive?)`: find all children by a specific attribute
+* `getChildrenByFilter(filter, recursive?)`: find all children by a custom filter function
 * `getText()`: appends all text nodes recursively
 * `getChildText(name)`: a child's text contents
 * `root()`: uppermost parent in the tree
