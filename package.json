@@ -7,15 +7,24 @@
 ,"dependencies": {"node-expat": ">=1.2.0"
 		 ,"sax": ">=0.3.5"
 		 }
-,"repositories": [{"type": "git"
-		  ,"path": "http://github.com/astro/ltx.git"
-		  }]
+,"repository": {
+    "type": "git"
+  , "url": "https://github.com/astro/ltx.git"
+}
 ,"homepage": "http://github.com/astro/ltx"
 ,"bugs": "http://github.com/astro/ltx/issues"
-,"maintainers": [{"name": "Astro"
-		 ,"email": "astro@spaceboyz.net"
-		 ,"web": "http://spaceboyz.net/~astro/"
-		 }]
+,"maintainers": [
+    {
+    	"name": "Astro"
+      , "email": "astro@spaceboyz.net"
+      , "web": "http://spaceboyz.net/~astro/"
+    },
+    {
+    	"name": "Lloyd Watkin"
+      , "email": "lloyd@evilprofessor.co.uk"
+      , "web": "http://www.evilprofessor.co.uk"
+    }
+]
 ,"contributors": ["Stephan Maka", "Will Fife", "Markus Kohlhase"]
 ,"licenses": [{"type": "MIT"}]
 ,"engine": "node"
