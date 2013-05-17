@@ -4,6 +4,9 @@
 * Text nodes are Strings
 * Runs on node.js and browserify
 
+## Build status
+
+[![Build Status](https://secure.travis-ci.org/astro/ltx.png)](http://travis-ci.org/astro/ltx)
 
 ## Parsing
 
