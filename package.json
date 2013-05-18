@@ -1,39 +1,52 @@
-{ "name": "ltx"
-,"version": "0.2.2"
-,"main": "./lib/index"
-,"browserify": "./lib/index-browserify.js"
-,"description": "<xml for=\"node.js\" browserify=\"too\">"
-,"author": "Astro"
-,"dependencies": {"node-expat": ">=1.2.0"
-		 ,"sax": ">=0.3.5"
-		 }
-,"repository": {
-    "type": "git"
-  , "url": "https://github.com/astro/ltx.git"
-}
-,"homepage": "http://github.com/astro/ltx"
-,"bugs": "http://github.com/astro/ltx/issues"
-,"maintainers": [
+{
+  "name": "ltx",
+  "version": "0.2.3",
+  "main": "./lib/index",
+  "browserify": "./lib/index-browserify.js",
+  "description": "<xml for=\"node.js\" browserify=\"too\">",
+  "author": "Astro",
+  "dependencies": {
+    "node-expat": ">=1.2.0",
+    "sax": ">=0.3.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/astro/ltx.git"
+  },
+  "homepage": "http://github.com/astro/ltx",
+  "bugs": "http://github.com/astro/ltx/issues",
+  "maintainers": [
     {
-    	"name": "Astro"
-      , "email": "astro@spaceboyz.net"
-      , "web": "http://spaceboyz.net/~astro/"
+      "name": "Astro",
+      "email": "astro@spaceboyz.net",
+      "web": "http://spaceboyz.net/~astro/"
     },
     {
-    	"name": "Lloyd Watkin"
-      , "email": "lloyd@evilprofessor.co.uk"
-      , "web": "http://www.evilprofessor.co.uk"
+      "name": "Lloyd Watkin",
+      "email": "lloyd@evilprofessor.co.uk",
+      "web": "http://www.evilprofessor.co.uk"
     }
-]
-,"contributors": ["Stephan Maka", "Will Fife", "Markus Kohlhase"]
-,"licenses": [{"type": "MIT"}]
-,"engine": "node"
-,"devDependencies": {"vows": ">=0.5.12"
-		    ,"easysax": ">=0.1.7"
-		    ,"node-xml": ">=1.0.1"
-		    ,"Strophe.js": "https://github.com/metajack/strophejs/tarball/master"
-		    ,"request-animation-frame": ">=0.1.0"
-		    ,"browserify": ">=1.10.4"
-		    }
-,"scripts": {"test":"vows --spec"}
+  ],
+  "contributors": [
+    "Stephan Maka",
+    "Will Fife",
+    "Markus Kohlhase"
+  ],
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "engine": "node",
+  "devDependencies": {
+    "vows": ">=0.5.12",
+    "easysax": ">=0.1.7",
+    "node-xml": ">=1.0.1",
+    "Strophe.js": "https://github.com/metajack/strophejs/tarball/master",
+    "request-animation-frame": ">=0.1.0",
+    "browserify": ">=1.10.4"
+  },
+  "scripts": {
+    "test": "vows --spec"
+  }
 }
