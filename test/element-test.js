@@ -59,6 +59,10 @@ vows.describe('ltx').addBatch({
             var e = new ltx.Element('e');
             e.children = [null];
             assert.equal(e.toString(), '<e></e>');
+        },
+        'serialize with integer text': function() {
+            var e = new ltx.Element('e').t(1000)
+            assert.equal(e.getText(), 1000)
         }
     },
 
