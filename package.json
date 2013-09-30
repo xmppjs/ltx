@@ -1,6 +1,6 @@
 {
   "name": "ltx",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": "./lib/index",
   "browserify": "./lib/index-browserify.js",
   "description": "<xml for=\"node.js\" browserify=\"too\">",
