@@ -107,6 +107,35 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
 		assert.equal(events.length, 15);
 		parser.write("></stream:features>");
 		assert.equal(events.length, 18);
+        },
+        'bug: partial attrs': function() {
+            var parser = new saxParser();
+            var events = [];
+            parser.on('startElement', function(name, attrs) {
+                events.push({ start: name, attrs:attrs });
+            });
+            parser.on('endElement', function(name) {
+                events.push({ end: name });
+            });
+            parser.on('text', function(s) {
+                events.push({ text: s });
+            });
+            parser.write("<");
+            parser.write("stream:features");
+            parser.write(">");
+            parser.write("<");
+            parser.write("mechanisms");
+            parser.write(" ");
+            parser.write("xmlns");
+            parser.write("=\"");
+            parser.write("urn:ietf:params:xml:ns:xmpp-sasl");
+            parser.write("\"");
+            parser.write(">");
+            assert.equal(events.length, 2);
+            testStanza(events[0], {name:'stream:features', attrs:{}});
+            testStanza(events[1], {name:'mechanisms', attrs:{
+                xmlns:"urn:ietf:params:xml:ns:xmpp-sasl"
+            }});
 	    }
 	}
     }).export(module);
