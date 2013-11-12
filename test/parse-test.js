@@ -68,8 +68,8 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
 	    'XMPP stream': function() {
 		var parser = new saxParser();
 		var events = [];
-		parser.on('startElement', function(name) {
-		    events.push({ start: name });
+		parser.on('startElement', function(name, attrs) {
+		    events.push({ start: name, attrs: attrs });
 		});
 		parser.on('endElement', function(name) {
 		    events.push({ end: name });
@@ -82,6 +82,9 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
 		assert.equal(events.length, 0);
 		parser.write("90365' from='jabber.ccc.de' version='1.0' xml:lang='en'><");
 		assert.equal(events.length, 1);
+		assert.equal(events[0].start, 'stream:stream');
+		assert.equal(events[0].attrs.xmlns, 'jabber:client');
+		assert.equal(events[0].attrs.id, '556890365');
 		parser.write("stream:features><starttls xmlns='urn:ietf:params:xml:ns:x");
 		assert.equal(events.length, 2);
 		parser.write("mpp-tls'/><mechanisms xmlns='urn:ietf:params:xml:ns:xmpp-");
