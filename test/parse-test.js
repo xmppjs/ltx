@@ -69,7 +69,7 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
 		var parser = new saxParser();
 		var events = [];
 		parser.on('startElement', function(name, attrs) {
-		    events.push({ start: name, attrs:attrs });
+		    events.push({ start: name, attrs: attrs });
 		});
 		parser.on('endElement', function(name) {
 		    events.push({ end: name });
