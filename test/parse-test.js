@@ -68,8 +68,8 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
 	    'XMPP stream': function() {
 		var parser = new saxParser();
 		var events = [];
-		parser.on('startElement', function(name) {
-		    events.push({ start: name });
+		parser.on('startElement', function(name, attrs) {
+		    events.push({ start: name, attrs: attrs });
 		});
 		parser.on('endElement', function(name) {
 		    events.push({ end: name });
@@ -82,10 +82,23 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
 		assert.equal(events.length, 0);
 		parser.write("90365' from='jabber.ccc.de' version='1.0' xml:lang='en'><");
 		assert.equal(events.length, 1);
+        testStanza(events[0], {name:'stream:stream', attrs:{
+            xmlns:"jabber:client",
+            'xmlns:stream':"http://etherx.jabber.org/streams",
+            id:"556890365",
+            from:"jabber.ccc.de",
+            version:"1.0",
+            'xml:lang':"en"
+        }});
 		parser.write("stream:features><starttls xmlns='urn:ietf:params:xml:ns:x");
 		assert.equal(events.length, 2);
+        testStanza(events[1], {name:'stream:features', attrs:{}});
 		parser.write("mpp-tls'/><mechanisms xmlns='urn:ietf:params:xml:ns:xmpp-");
 		assert.equal(events.length, 4);
+        testStanza(events[2], {name:'starttls', attrs:{
+            xmlns:"urn:ietf:params:xml:ns:xmpp-tls"
+        }});
+        assert.equal(events[3].end, 'starttls');
 		parser.write("sasl'><mechanism>PLAIN</mechanism><mechanism>DIGEST-MD5</");
 		assert.ok(events.length >= 9);
 		parser.write("mechanism><mechanism>SCRAM-SHA-1</mechanism></mechanisms>");
@@ -94,7 +107,44 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
 		assert.equal(events.length, 15);
 		parser.write("></stream:features>");
 		assert.equal(events.length, 18);
+        },
+        'bug: partial attrs': function() {
+            var parser = new saxParser();
+            var events = [];
+            parser.on('startElement', function(name, attrs) {
+                events.push({ start: name, attrs:attrs });
+            });
+            parser.on('endElement', function(name) {
+                events.push({ end: name });
+            });
+            parser.on('text', function(s) {
+                events.push({ text: s });
+            });
+            parser.write("<");
+            parser.write("stream:features");
+            parser.write(">");
+            parser.write("<");
+            parser.write("mechanisms");
+            parser.write(" ");
+            parser.write("xmlns");
+            parser.write("=\"");
+            parser.write("urn:ietf:params:xml:ns:xmpp-sasl");
+            parser.write("\"");
+            parser.write(">");
+            assert.equal(events.length, 2);
+            testStanza(events[0], {name:'stream:features', attrs:{}});
+            testStanza(events[1], {name:'mechanisms', attrs:{
+                xmlns:"urn:ietf:params:xml:ns:xmpp-sasl"
+            }});
 	    }
 	}
     }).export(module);
 });
+
+function testStanza(data, stanza) {
+    assert.equal(data.start, stanza.name);
+    assert.equal(Object.keys(data.attrs).length,
+                    Object.keys(stanza.attrs).length);
+    for (var k in stanza.attrs)
+        assert.equal(data.attrs[k], stanza.attrs[k]);
+}
