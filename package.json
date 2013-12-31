@@ -6,8 +6,8 @@
   "description": "<xml for=\"node.js\" browserify=\"too\">",
   "author": "Astro",
   "dependencies": {
-    "node-expat": ">=1.2.0",
-    "sax": ">=0.3.5"
+    "sax": ">=0.3.5",
+    "node-expat": "~2.1.4"
   },
   "repository": {
     "type": "git",
