@@ -6,7 +6,7 @@
 
 ## Build status
 
-[![Build Status](https://secure.travis-ci.org/astro/ltx.png)](http://travis-ci.org/astro/ltx)
+[![Build Status](https://secure.travis-ci.org/node-xmpp/ltx.png)](http://travis-ci.org/node-xmpp/ltx)
 
 ## Parsing
 
