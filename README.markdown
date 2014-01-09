@@ -110,3 +110,7 @@ adoption-safe!
 * More documentation
 * More tests (Using [Vows](http://vowsjs.org/))
 
+# Licence 
+
+MIT
+
