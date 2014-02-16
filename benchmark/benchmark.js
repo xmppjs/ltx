@@ -1,3 +1,5 @@
+'use strict';
+
 if (process.title === 'browser') {
     var ltx = require("ltx");
     var strophe = require('Strophe.js');

@@ -1,6 +1,8 @@
-var vows = require('vows'),
-assert = require('assert'),
-ltx = require('./../lib/index');
+'use strict';
+
+var vows = require('vows')
+  , assert = require('assert')
+  , ltx = require('./../lib/index')
 
 vows.describe('ltx').addBatch({
   'serialization': {

@@ -1,3 +1,5 @@
+'use strict';
+
 var vows = require('vows')
   , assert = require('assert')
   , Element = require('../lib/element').Element
@@ -21,12 +23,11 @@ vows.describe('unicode').addBatch({
         },
         */
         'issue-29 test #3': function() {
-           var text = '니코드<'
-           var element = new Element(
+            var text = '니코드<'
+            var element = new Element(
                'message', { to: 'you@server.com', type: 'chat' }
-           )
-               .c('body').t('니코드<'.toString('utf8'))
-           assert.equal(element.getText(), text)
+            ).c('body').t('니코드<'.toString('utf8'))
+            assert.equal(element.getText(), text)
         },
         'issue-29 test write': function() {
             var text = '유니코드'
