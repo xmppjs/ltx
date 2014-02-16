@@ -22,8 +22,8 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
                 assert.equal("<>&\"'", el.getText());
             },
             'attribute with entities': function() {
-		var el = parse("<body title='&lt;&gt;&amp;&quot;&apos;'/>");
-		assert.equal("<>&\"'", el.attrs.title);
+		        var el = parse("<body title='&lt;&gt;&amp;&quot;&apos;'/>");
+		        assert.equal("<>&\"'", el.attrs.title);
             },
             'erroneous document raises error': function() {
                 assert.throws(function() {
@@ -47,22 +47,22 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
                 assert.equal(el.getName(), 'root');
                 assert.ok(el.is('root', 'https://github.com/astro/ltx'));
             },
-	    'buffer': function() {
-		var buf = new Buffer('<root/>');
-		var el = parse(buf);
+            'buffer': function() {
+                var buf = new Buffer('<root/>');
+                var el = parse(buf);
                 assert.equal(el.name, 'root');
                 assert.equal(0, el.children.length);
-	    },
-	    'utf-8 text': function() {
-		var el = parse('<?xml version="1.0" encoding="utf-8"?><text>Möwe</text>');
+            },
+            'utf-8 text': function() {
+                var el = parse('<?xml version="1.0" encoding="utf-8"?><text>Möwe</text>');
                 assert.equal(el.name, 'text');
                 assert.equal(el.getText(), "Möwe");
-	    },
-	    'iso8859-1 text': function() {
-		var el = parse('<?xml version="1.0" encoding="iso-8859-1"?><text>M\xF6we</text>');
+            },
+            'iso8859-1 text': function() {
+                var el = parse('<?xml version="1.0" encoding="iso-8859-1"?><text>M\xF6we</text>');
                 assert.equal(el.name, 'text');
                 assert.equal(el.getText(), "Möwe");
-	    }
+            }
         },
 	'SAX parsing': {
 	    'XMPP stream': function() {
