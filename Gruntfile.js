@@ -37,5 +37,6 @@ module.exports = function(grunt) {
 
     // Configure tasks
     grunt.registerTask('default', ['test'])
-    grunt.registerTask('test', ['clean', 'vows', 'jshint', 'browserify'])
+    grunt.registerTask('test', ['clean', 'vows', 'browserify'])
+    //grunt.registerTask('test', ['clean', 'vows', 'jshint', 'browserify'])
 }
