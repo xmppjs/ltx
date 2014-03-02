@@ -2,6 +2,7 @@
   "name": "ltx",
   "version": "0.4.0",
   "main": "./lib/index",
+  "browser": "./lib/index-browserify",
   "description": "<xml for=\"node.js\" browserify=\"too\">",
   "author": "Astro",
   "dependencies": {
