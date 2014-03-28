@@ -1759,5 +1759,5 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-}).call(this,require("/home/lloyd/Dropbox/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":10,"/home/lloyd/Dropbox/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"inherits":8}]},{},[3])
+}).call(this,require("/Users/lloyd/Dropbox/code/xmpp-ftw/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":10,"/Users/lloyd/Dropbox/code/xmpp-ftw/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"inherits":8}]},{},[3])
