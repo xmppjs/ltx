@@ -13,6 +13,11 @@ function DOMElement(name, attrs) {
 
 util.inherits(DOMElement, Element)
 
+DOMElement.prototype._getElement = function(name, attrs) {
+    var element = new DOMElement(name, attrs)
+    return element
+}
+
 Object.defineProperty(DOMElement.prototype, 'localName', {
     get: function () {
         return this.getName()
@@ -291,9 +296,14 @@ Element.prototype.up = function() {
         return this
 }
 
+Element.prototype._getElement = function(name, attrs) {
+    var element = new Element(name, attrs)
+    return element
+}
+
 /** create child node and return it */
 Element.prototype.c = function(name, attrs) {
-    return this.cnode(new Element(name, attrs))
+    return this.cnode(this._getElement(name, attrs))
 }
 
 Element.prototype.cnode = function(child) {
@@ -341,7 +351,7 @@ Element.prototype.remove = function(el, xmlns) {
  * doing. Building XML with ltx is easy!
  */
 Element.prototype.clone = function() {
-    var clone = new Element(this.name, {})
+    var clone = this._getElement(this.name, {})
     for (var k in this.attrs) {
         if (this.attrs.hasOwnProperty(k))
             clone.attrs[k] = this.attrs[k]
@@ -443,6 +453,7 @@ function escapeXmlText(s) {
 
 exports.Element = Element
 exports.escapeXml = escapeXml
+
 },{}],3:[function(require,module,exports){
 'use strict';
 
