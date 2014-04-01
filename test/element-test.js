@@ -184,5 +184,12 @@ vows.describe('ltx').addBatch({
         'getChild unprefixed': function(el) {
             assert.equal(el.getChild('foo').getText(), 'bar')
         }
+    },
+
+    'issue-37: Element instanceof Fails': {
+        'instanceof': function() {
+            var el = new ltx.Element('root').c('children')
+            assert.ok(el instanceof ltx.Element)
+        }
     }
 }).export(module)
