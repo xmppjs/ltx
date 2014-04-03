@@ -153,15 +153,22 @@ vows.describe('ltx').addBatch({
             .c('b2').up().up()
             .t('foo')
             .c('c').t('cbar').up()
+            .c('b').up()
             .t('bar')
             .root()
             
             var children = el.children
-            assert.equal( children.length, 4 )
+            assert.equal( children.length, 5 )
             assert.equal( children[0].name, 'b')
             assert.equal( children[1], 'foo')
             assert.equal( children[2].name, 'c')
-            assert.equal( children[3], 'bar')
+            assert.equal( children[3].name, 'b')
+            assert.equal( children[4], 'bar')
+
+            children = el.getChildren('b')
+            assert.equal( children.length, 2 )
+            assert.equal( children[0].name, 'b' )
+            assert.equal( children[1].name, 'b' )
         },
         'getChildElements': function() {
             var el = new ltx.Element('a')
@@ -169,13 +176,15 @@ vows.describe('ltx').addBatch({
             .c('b2').up().up()
             .t('foo')
             .c('c').t('cbar').up()
+            .c('b').up()
             .t('bar')
             .root()
 
-            var children = el.getChildElements()
-            assert.equal( children.length, 2 )
+            var children = el.getChildren()
+            assert.equal( children.length, 3 )
             assert.equal( children[0].name, 'b')
             assert.equal( children[1].name, 'c')
+            assert.equal( children[2].name, 'b')
         }
     },
 
