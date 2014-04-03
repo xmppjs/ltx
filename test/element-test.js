@@ -157,11 +157,11 @@ vows.describe('ltx').addBatch({
             .root()
             
             var children = el.children
-            assert.equal( children.length, 4 )
-            assert.equal( children[0].name, 'b')
-            assert.equal( children[1], 'foo')
-            assert.equal( children[2].name, 'c')
-            assert.equal( children[3], 'bar')
+            assert.equal(children.length, 4)
+            assert.equal(children[0].name, 'b')
+            assert.equal(children[1], 'foo')
+            assert.equal(children[2].name, 'c')
+            assert.equal(children[3], 'bar')
         },
         'getChildElements': function() {
             var el = new ltx.Element('a')
@@ -173,9 +173,9 @@ vows.describe('ltx').addBatch({
             .root()
 
             var children = el.getChildElements()
-            assert.equal( children.length, 2 )
-            assert.equal( children[0].name, 'b')
-            assert.equal( children[1].name, 'c')
+            assert.equal(children.length, 2)
+            assert.equal(children[0].name, 'b')
+            assert.equal(children[1].name, 'c')
         }
     },
 
