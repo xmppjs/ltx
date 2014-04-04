@@ -277,6 +277,17 @@ Element.prototype.getChildText = function(name, xmlns) {
     return child ? child.getText() : null
 }
 
+/**
+ * Return all direct descendents that are Elements.
+ * This differs from `getChildren` in that it will exclude text nodes,
+ * processing instructions, etc.
+ */
+Element.prototype.getChildElements = function() {
+    return this.getChildrenByFilter(function(child) {
+        return child instanceof Element
+    })
+}
+
 /*** Builder ***/
 
 /** returns uppermost parent */
@@ -1153,6 +1164,13 @@ process.browser = true;
 process.env = {};
 process.argv = [];
 
+function noop() {}
+
+process.on = noop;
+process.once = noop;
+process.off = noop;
+process.emit = noop;
+
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
 }
@@ -1759,5 +1777,5 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-}).call(this,require("/Users/lloyd/Dropbox/code/xmpp-ftw/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":10,"/Users/lloyd/Dropbox/code/xmpp-ftw/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"inherits":8}]},{},[3])
+}).call(this,require("/home/lloyd/Dropbox/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":10,"/home/lloyd/Dropbox/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"inherits":8}]},{},[3])
