@@ -63,6 +63,16 @@ vows.describe('ltx').addBatch({
         'serialize with integer text': function() {
             var e = new ltx.Element('e').t(1000)
             assert.equal(e.getText(), 1000)
+        },
+        'serialize to json': function() {
+            var e = new ltx.Element('e', { foo: 23, bar: 0, nil:null }).c('f').t(1000).up()
+            assert.deepEqual(e.toJSON(), {
+                name: 'e',
+                attrs: { foo: 23, bar: 0, nil:null },
+                children: [
+                    { name: 'f', attrs: {}, children: [1000] }
+                ]
+            })
         }
     },
     'remove': {
