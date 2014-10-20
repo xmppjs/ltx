@@ -87,6 +87,19 @@ DOMElement.prototype.removeAttribute = function (name) {
     this.attr(name, null)
 }
 
+DOMElement.prototype.removeAttributeNS = function (ns, name) {
+    var prefix
+    if (ns === 'http://www.w3.org/XML/1998/namespace') {
+        prefix = 'xml'
+    } else {
+        var nss = this.getXmlns()
+        prefix = nss[ns] || ''
+    }
+    if (prefix) {
+        this.attr([prefix, name].join(':'), null)
+    }
+}
+
 DOMElement.prototype.appendChild = function (el) {
     this.cnode(el)
 }
