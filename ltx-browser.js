@@ -122,8 +122,8 @@ module.exports = DOMElement
 function Element(name, attrs) {
     this.name = name
     this.parent = null
-    this.attrs = attrs || {}
     this.children = []
+    this.setAttrs(attrs);
 }
 
 /*** Accessors ***/
@@ -194,6 +194,15 @@ Element.prototype.getXmlns = function() {
     return namespaces
 }
 
+Element.prototype.setAttrs = function(attrs) {
+    this.attrs = {}
+    if (attrs) {
+        for (var i in attrs) {
+            if (attrs.hasOwnProperty(i))
+                this.attrs[i] = attrs[i]
+        }
+    }
+};
 
 /**
  * xmlns can be null, returns the matching attribute.
@@ -375,11 +384,7 @@ Element.prototype.remove = function(el, xmlns) {
  * doing. Building XML with ltx is easy!
  */
 Element.prototype.clone = function() {
-    var clone = this._getElement(this.name, {})
-    for (var k in this.attrs) {
-        if (this.attrs.hasOwnProperty(k))
-            clone.attrs[k] = this.attrs[k]
-    }
+    var clone = this._getElement(this.name, this.attrs)
     for (var i = 0; i < this.children.length; i++) {
         var child = this.children[i]
         clone.cnode(child.clone ? child.clone() : child)

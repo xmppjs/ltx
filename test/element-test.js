@@ -5,6 +5,17 @@ var vows = require('vows')
   , ltx = require('./../lib/index')
 
 vows.describe('ltx').addBatch({
+    'new element': {
+        'doesn\'t reference original attrs object': function() {
+            var o = {'foo': 'bar'}
+            var e = new ltx.Element('e', o)
+            assert.notEqual(e.attrs, o)
+            e.attrs.bar = 'foo'
+            assert.equal(o.bar, undefined)
+            o.foobar = 'barfoo'
+            assert.equal(e.attrs.foobar, undefined)
+        }
+    },
     'serialization': {
         'serialize an element': function() {
             var e = new ltx.Element('e')
@@ -154,7 +165,7 @@ vows.describe('ltx').addBatch({
             assert.equal(orig.getChildText('content'), 'foo')
             assert.equal(clone.children[0].name, 'description')
             assert.equal(clone.getChildText('description'), 'foobar')
-        }
+        },
     },
     'children': {
         'getChildren': function() {
@@ -165,7 +176,7 @@ vows.describe('ltx').addBatch({
             .c('c').t('cbar').up()
             .t('bar')
             .root()
-            
+
             var children = el.children
             assert.equal(children.length, 4)
             assert.equal(children[0].name, 'b')
