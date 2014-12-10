@@ -123,7 +123,7 @@ function Element(name, attrs) {
     this.name = name
     this.parent = null
     this.children = []
-    this.setAttrs(attrs);
+    this.setAttrs(attrs)
 }
 
 /*** Accessors ***/
@@ -196,13 +196,10 @@ Element.prototype.getXmlns = function() {
 
 Element.prototype.setAttrs = function(attrs) {
     this.attrs = {}
-    if (attrs) {
-        for (var i in attrs) {
-            if (attrs.hasOwnProperty(i))
-                this.attrs[i] = attrs[i]
-        }
-    }
-};
+    Object.keys(attrs || {}).forEach(function(key) {
+        this.attrs[key] = attrs[key]
+    }, this)
+}
 
 /**
  * xmlns can be null, returns the matching attribute.
@@ -426,7 +423,7 @@ Element.prototype.toJSON = function() {
         name: this.name,
         attrs: this.attrs,
         children: this.children.map(function(child) {
-            return child && child.toJSON ? child.toJSON() : child;
+            return child && child.toJSON ? child.toJSON() : child
         })
     }
 }
@@ -813,11 +810,12 @@ SaxLtx.prototype.end = function(data) {
 
 function unescapeXml(s) {
     return s.
-        replace(/\&amp;/g, '&').
-        replace(/\&lt;/g, '<').
-        replace(/\&gt;/g, '>').
-        replace(/\&quot;/g, '"').
-        replace(/\&apos;/g, '\'')
+        replace(/\&(amp|#38);/g, '&').
+        replace(/\&(lt|#60);/g, '<').
+        replace(/\&(gt|#62);/g, '>').
+        replace(/\&(quot|#34);/g, '"').
+        replace(/\&(apos|#39);/g, '\'').
+        replace(/\&(nbsp|#160);/g, '\n')
 }
 
 },{"events":7,"util":11}],7:[function(require,module,exports){
@@ -880,8 +878,10 @@ EventEmitter.prototype.emit = function(type) {
       er = arguments[1];
       if (er instanceof Error) {
         throw er; // Unhandled 'error' event
+      } else {
+        throw TypeError('Uncaught, unspecified "error" event.');
       }
-      throw TypeError('Uncaught, unspecified "error" event.');
+      return false;
     }
   }
 
@@ -966,10 +966,7 @@ EventEmitter.prototype.addListener = function(type, listener) {
                     'leak detected. %d listeners added. ' +
                     'Use emitter.setMaxListeners() to increase limit.',
                     this._events[type].length);
-      if (typeof console.trace === 'function') {
-        // not supported in IE 10
-        console.trace();
-      }
+      console.trace();
     }
   }
 
@@ -1196,11 +1193,8 @@ process.argv = [];
 function noop() {}
 
 process.on = noop;
-process.addListener = noop;
 process.once = noop;
 process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
 process.emit = noop;
 
 process.binding = function (name) {
@@ -1809,5 +1803,5 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-}).call(this,require("JkpR2F"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":10,"JkpR2F":9,"inherits":8}]},{},[3])
+}).call(this,require("/Users/lloyd/MyStuff/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":10,"/Users/lloyd/MyStuff/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"inherits":8}]},{},[3])
