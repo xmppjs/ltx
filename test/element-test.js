@@ -7,7 +7,7 @@ var vows = require('vows')
 vows.describe('ltx').addBatch({
     'new element': {
         'doesn\'t reference original attrs object': function() {
-            var o = {'foo': 'bar'}
+            var o = { foo: 'bar' }
             var e = new ltx.Element('e', o)
             assert.notEqual(e.attrs, o)
             e.attrs.bar = 'foo'
