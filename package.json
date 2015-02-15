@@ -41,18 +41,19 @@
   ],
   "engine": "node",
   "devDependencies": {
-    "easysax": ">=0.1.7",
-    "node-xml": ">=1.0.1",
     "Strophe.js": "https://github.com/metajack/strophejs/tarball/master",
-    "request-animation-frame": ">=0.1.0",
-    "vows": "~0.7.0",
-    "grunt-vows": "~0.4.0",
+    "easysax": ">=0.1.7",
     "grunt": "~0.4.2",
-    "grunt-contrib-clean": "~0.5.0",
     "grunt-browserify": "~1.3.1",
-    "grunt-contrib-jshint": "~0.8.0"
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-vows": "~0.4.0",
+    "node-xml": ">=1.0.1",
+    "request-animation-frame": ">=0.1.0",
+    "vows": "~0.7.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "./node_modules/.bin/grunt test"
   }
 }
