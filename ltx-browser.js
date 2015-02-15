@@ -138,10 +138,11 @@ Element.prototype.is = function(name, xmlns) {
 
 /* without prefix */
 Element.prototype.getName = function() {
-    if (this.name.indexOf(':') >= 0)
+    if (this.name.indexOf(':') >= 0) {
         return this.name.substr(this.name.indexOf(':') + 1)
-    else
+    } else {
         return this.name
+    }
 }
 
 /**
@@ -151,9 +152,8 @@ Element.prototype.getNS = function() {
     if (this.name.indexOf(':') >= 0) {
         var prefix = this.name.substr(0, this.name.indexOf(':'))
         return this.findNS(prefix)
-    } else {
-        return this.findNS()
     }
+    return this.findNS()
 }
 
 /**
@@ -162,17 +162,19 @@ Element.prototype.getNS = function() {
 Element.prototype.findNS = function(prefix) {
     if (!prefix) {
         /* default namespace */
-        if (this.attrs.xmlns)
+        if (this.attrs.xmlns) {
             return this.attrs.xmlns
-        else if (this.parent)
+        } else if (this.parent) {
             return this.parent.findNS()
+        }
     } else {
         /* prefixed namespace */
         var attr = 'xmlns:' + prefix
-        if (this.attrs[attr])
+        if (this.attrs[attr]) {
             return this.attrs[attr]
-        else if (this.parent)
+        } else if (this.parent) {
             return this.parent.findNS(prefix)
+        }
     }
 }
 
@@ -182,8 +184,9 @@ Element.prototype.findNS = function(prefix) {
 Element.prototype.getXmlns = function() {
     var namespaces = {}
 
-    if (this.parent)
+    if (this.parent) {
         namespaces = this.parent.getXmlns()
+    }
 
     for (var attr in this.attrs) {
         var m = attr.match('xmlns:?(.*)')
@@ -196,22 +199,29 @@ Element.prototype.getXmlns = function() {
 
 Element.prototype.setAttrs = function(attrs) {
     this.attrs = {}
-    Object.keys(attrs || {}).forEach(function(key) {
-        this.attrs[key] = attrs[key]
-    }, this)
+
+    if (typeof attrs === 'string')
+        this.attrs.xmlns = attrs
+    else if (attrs) {
+        Object.keys(attrs).forEach(function(key) {
+            this.attrs[key] = attrs[key]
+        }, this)
+    }
 }
 
 /**
  * xmlns can be null, returns the matching attribute.
  **/
 Element.prototype.getAttr = function(name, xmlns) {
-    if (!xmlns)
+    if (!xmlns) {
         return this.attrs[name]
+    }
 
     var namespaces = this.getXmlns()
 
-    if (!namespaces[xmlns])
+    if (!namespaces[xmlns]) {
         return null
+    }
 
     return this.attrs[[namespaces[xmlns], name].join(':')]
 }
@@ -260,7 +270,9 @@ Element.prototype.getChildrenByAttr = function(attr, val, xmlns, recursive) {
             result.push(child.getChildrenByAttr(attr, val, xmlns, true))
         }
     }
-    if (recursive) result = [].concat.apply([], result)
+    if (recursive) {
+        result = [].concat.apply([], result)
+    }
     return result
 }
 
@@ -311,19 +323,19 @@ Element.prototype.getChildElements = function() {
 
 /** returns uppermost parent */
 Element.prototype.root = function() {
-    if (this.parent)
+    if (this.parent) {
         return this.parent.root()
-    else
-        return this
+    }
+    return this
 }
 Element.prototype.tree = Element.prototype.root
 
 /** just parent or itself */
 Element.prototype.up = function() {
-    if (this.parent)
+    if (this.parent) {
         return this.parent
-    else
-        return this
+    }
+    return this
 }
 
 Element.prototype._getElement = function(name, attrs) {
@@ -338,7 +350,9 @@ Element.prototype.c = function(name, attrs) {
 
 Element.prototype.cnode = function(child) {
     this.children.push(child)
-    child.parent = this
+    if (typeof child === 'object') {
+        child.parent = this
+    }
     return child
 }
 
@@ -1803,5 +1817,5 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-}).call(this,require("/Users/lloyd/MyStuff/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":10,"/Users/lloyd/MyStuff/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"inherits":8}]},{},[3])
+}).call(this,require("/home/lloyd/Dropbox/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":10,"/home/lloyd/Dropbox/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"inherits":8}]},{},[3])
