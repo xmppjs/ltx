@@ -14,6 +14,12 @@ vows.describe('ltx').addBatch({
             assert.equal(o.bar, undefined)
             o.foobar = 'barfoo'
             assert.equal(e.attrs.foobar, undefined)
+        },
+        'set xmlns attribute if a string is passed as second argument': function() {
+            var ns = 'xmlns:test'
+            var e = new ltx.Element('e', ns)
+            assert.equal(e.attrs.xmlns, ns)
+            assert.equal(e.getAttr('xmlns'), ns)
         }
     },
     'serialization': {
