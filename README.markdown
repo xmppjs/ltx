@@ -10,7 +10,7 @@
 
 # Documentation
 
-For documentation please see http://node-xmpp.github.io/doc/ltx-less-than-xml.html
+For documentation please see http://node-xmpp.github.io/doc/ltx.html
 
 
 ## TODO
