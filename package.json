@@ -34,11 +34,7 @@
     "Julien Genestoux",
     "▟ ▖▟ ▖"
   ],
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ],
+  "license": "MIT",
   "engine": "node",
   "devDependencies": {
     "Strophe.js": "https://github.com/metajack/strophejs/tarball/master",
