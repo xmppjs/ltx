@@ -2,7 +2,8 @@
 
 var vows = require('vows')
   , assert = require('assert')
-  , ltx = require('./../lib/index')
+  , ltx = require('../lib/index')
+  , Element = require('../lib/element').Element
 
 vows.describe('ltx').addBatch({
     'new element': {
@@ -20,6 +21,18 @@ vows.describe('ltx').addBatch({
             var e = new ltx.Element('e', ns)
             assert.equal(e.attrs.xmlns, ns)
             assert.equal(e.getAttr('xmlns'), ns)
+        }
+    },
+    'createElement': {
+        'create a new element and set children': function() {
+            var c = new ltx.Element('bar')
+            var e = ltx.createElement('foo', {'foo': 'bar'}, 'foo', c)
+            assert(e instanceof Element)
+            assert(e.is('foo'))
+            assert.equal(e.attrs.foo, 'bar')
+            assert.equal(e.children.length, 2)
+            assert.equal(e.children[0], 'foo')
+            assert.equal(e.children[1], c)
         }
     },
     'serialization': {

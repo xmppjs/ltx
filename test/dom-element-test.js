@@ -35,6 +35,18 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
 
                 assert.equal(body.getChild('p').textContent, 'DOM')
             }
-        }
+        },
+        'createElement': {
+            'create a new element and set children': function() {
+                var c = new ltx.DOMElement('bar')
+                var e = ltx.createDOMElement('foo', {'foo': 'bar'}, 'foo', c)
+                assert(e instanceof ltx.DOMElement)
+                assert.equal(e.localName, 'foo')
+                assert.equal(e.getAttribute('foo'), 'bar')
+                assert.equal(e.childNodes.length, 2)
+                assert.equal(e.childNodes[0], 'foo')
+                assert.equal(e.childNodes[1], c)
+            }
+        },
     }).export(module)
 })

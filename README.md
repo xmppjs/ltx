@@ -18,7 +18,7 @@ For documentation please see http://node-xmpp.org/doc/ltx.html
 * More documentation
 * More tests (Using [Vows](http://vowsjs.org/))
 
-# Licence 
+# Licence
 
 MIT
 

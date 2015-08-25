@@ -108,6 +108,18 @@ DOMElement.prototype.removeChild = function (el) {
     this.remove(el)
 }
 
+DOMElement.createElement = function(name, attrs /*, child1, child2, ...*/) {
+    var el = new DOMElement(name, attrs)
+
+    var children = Array.prototype.slice.call(arguments, 2)
+
+    children.forEach(function(child) {
+        el.appendChild(child)
+    })
+    return el
+}
+
+
 module.exports = DOMElement
 
 },{"./element":2,"util":11}],2:[function(require,module,exports){
@@ -485,6 +497,18 @@ Element.prototype.write = function(writer) {
     }
 }
 
+Element.createElement = function(name, attrs /*, child1, child2, ...*/) {
+    var el = new Element(name, attrs)
+
+    var children = Array.prototype.slice.call(arguments, 2)
+
+    children.forEach(function(child) {
+        el.cnode(child)
+    })
+    return el
+}
+
+
 function escapeXml(s) {
     return s.
         replace(/\&/g, '&amp;').
@@ -514,20 +538,28 @@ parse.availableSaxParsers.push(parse.bestSaxParser = require('./sax/sax_ltx'))
 
 /* SHIM */
 module.exports = require('./index')
+
 },{"./index":4,"./parse":5,"./sax/sax_ltx":6}],4:[function(require,module,exports){
 'use strict';
 
 var parse = require('./parse')
+var element = require('./element')
+var Element = element.Element
+var DOMElement = require('./dom-element')
 
 /**
  * The only (relevant) data structure
  */
-exports.Element = require('./dom-element')
+exports.Element = DOMElement
+exports.createElement = Element.createElement
+
+exports.DOMElement = DOMElement
+exports.createDOMElement = DOMElement.createElement
 
 /**
  * Helper
  */
-exports.escapeXml = require('./element').escapeXml
+exports.escapeXml = element.escapeXml
 
 /**
  * DOM parser interface
@@ -892,10 +924,8 @@ EventEmitter.prototype.emit = function(type) {
       er = arguments[1];
       if (er instanceof Error) {
         throw er; // Unhandled 'error' event
-      } else {
-        throw TypeError('Uncaught, unspecified "error" event.');
       }
-      return false;
+      throw TypeError('Uncaught, unspecified "error" event.');
     }
   }
 
@@ -980,7 +1010,10 @@ EventEmitter.prototype.addListener = function(type, listener) {
                     'leak detected. %d listeners added. ' +
                     'Use emitter.setMaxListeners() to increase limit.',
                     this._events[type].length);
-      console.trace();
+      if (typeof console.trace === 'function') {
+        // not supported in IE 10
+        console.trace();
+      }
     }
   }
 
@@ -1207,8 +1240,11 @@ process.argv = [];
 function noop() {}
 
 process.on = noop;
+process.addListener = noop;
 process.once = noop;
 process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
 process.emit = noop;
 
 process.binding = function (name) {
@@ -1817,5 +1853,5 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-}).call(this,require("/home/lloyd/Dropbox/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":10,"/home/lloyd/Dropbox/code/node-xmpp/ltx/node_modules/grunt-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"inherits":8}]},{},[3])
+}).call(this,require("JkpR2F"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":10,"JkpR2F":9,"inherits":8}]},{},[3])
