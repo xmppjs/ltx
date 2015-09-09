@@ -34,19 +34,21 @@
   "license": "MIT",
   "engine": "node",
   "devDependencies": {
-    "sax": "~1.1.1",
-    "node-expat": "~2.3.0",
+    "sax": "^1.1.1",
+    "node-expat": "^2.3.10",
     "Strophe.js": "https://github.com/metajack/strophejs/tarball/master",
-    "easysax": ">=0.1.7",
-    "grunt": "~0.4.2",
-    "grunt-browserify": "~4.0.0",
-    "grunt-cli": "~0.1.13",
-    "grunt-contrib-clean": "~0.6.0",
-    "grunt-contrib-jshint": "~0.11.2",
-    "grunt-vows": "~0.4.0",
-    "node-xml": ">=1.0.1",
-    "request-animation-frame": ">=0.1.0",
-    "vows": "~0.8.1"
+    "easysax": "^0.1.14",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^4.0.1",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-vows": "^0.4.2",
+    "node-expat": "^2.3.9",
+    "node-xml": "^1.0.2",
+    "request-animation-frame": "^0.1.1",
+    "sax": "^1.1.2",
+    "vows": "^0.8.1"
   },
   "scripts": {
     "test": "./node_modules/.bin/grunt test"
