@@ -2,11 +2,12 @@
 
 var vows = require('vows')
   , assert = require('assert')
-  , ltx = require('./../lib/index')
+  , ltx = require('../lib/index')
+  , parsers = require('../lib/parsers')
 
-ltx.availableSaxParsers.forEach(function(saxParser) {
+parsers.forEach(function(Parser) {
     var parse = function(s) {
-        return ltx.parse(s, saxParser)
+        return ltx.parse(s, {Parser: Parser, Element: ltx.DOMElement})
     }
     vows.describe('Parsing returns DOMElement\'s').addBatch({
         'DOMElement': {
@@ -15,6 +16,7 @@ ltx.availableSaxParsers.forEach(function(saxParser) {
                     '<p>DOM</p></body></message>'
                 var el = parse(stanza)
 
+                assert(el.getChild('body') instanceof ltx.DOMElement)
                 assert.equal(el.getChild('body').constructor.name, 'DOMElement')
                 var body = el.getChild('body')
                 assert.isDefined(body.localName)

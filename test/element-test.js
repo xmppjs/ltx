@@ -3,7 +3,7 @@
 var vows = require('vows')
   , assert = require('assert')
   , ltx = require('../lib/index')
-  , Element = require('../lib/element').Element
+  , Element = require('../lib/Element')
 
 vows.describe('ltx').addBatch({
     'new element': {

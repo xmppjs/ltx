@@ -2,13 +2,14 @@
 
 var vows = require('vows')
   , assert = require('assert')
-  , ltx = require('./../lib/index')
+  , ltx = require('../lib/index')
+  , parsers = require('../lib/parsers')
 
-ltx.availableSaxParsers.forEach(function(SaxParser) {
+parsers.forEach(function(Parser) {
     var parse = function(s) {
-        return ltx.parse(s, SaxParser)
+        return ltx.parse(s, {Parser: Parser})
     }
-    vows.describe('ltx with ' + SaxParser.name).addBatch({
+    vows.describe('ltx with ' + Parser.name).addBatch({
         'DOM parsing': {
             'simple document': function() {
                 var el = parse('<root/>')
@@ -69,7 +70,7 @@ ltx.availableSaxParsers.forEach(function(SaxParser) {
         'SAX parsing': {
             /* jshint -W071 */
             'XMPP stream': function() {
-                var parser = new SaxParser()
+                var parser = new Parser()
                 var events = []
                 parser.on('startElement', function(name, attrs) {
                     events.push({ start: name, attrs: attrs })
@@ -112,7 +113,7 @@ ltx.availableSaxParsers.forEach(function(SaxParser) {
                 assert.equal(events.length, 18)
             },
             'bug: partial attrs': function() {
-                var parser = new SaxParser()
+                var parser = new Parser()
                 var events = []
                 parser.on('startElement', function(name, attrs) {
                     events.push({ start: name, attrs:attrs })
