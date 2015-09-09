@@ -5,10 +5,6 @@
   "browser": "./lib/index-browserify",
   "description": "<xml for=\"node.js\" browserify=\"too\">",
   "author": "Astro",
-  "dependencies": {
-    "sax": "~1.1.1",
-    "node-expat": "~2.3.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/astro/ltx.git"
@@ -38,6 +34,8 @@
   "license": "MIT",
   "engine": "node",
   "devDependencies": {
+    "sax": "~1.1.1",
+    "node-expat": "~2.3.0",
     "Strophe.js": "https://github.com/metajack/strophejs/tarball/master",
     "easysax": ">=0.1.7",
     "grunt": "~0.4.2",
