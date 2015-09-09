@@ -5,12 +5,9 @@
   "browser": "./lib/index-browserify",
   "description": "<xml for=\"node.js\" browserify=\"too\">",
   "author": "Astro",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/astro/ltx.git"
-  },
-  "homepage": "http://github.com/astro/ltx",
-  "bugs": "http://github.com/astro/ltx/issues",
+  "repository": "github:node-xmpp/ltx",
+  "homepage": "http://github.com/node-xmpp/ltx",
+  "bugs": "http://github.com/node-xmpp/ltx/issues",
   "maintainers": [
     {
       "name": "Astro",
