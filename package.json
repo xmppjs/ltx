@@ -33,12 +33,7 @@
   "devDependencies": {
     "benchmark": "^1.0.0",
     "easysax": "^0.1.14",
-    "grunt": "^0.4.5",
-    "grunt-browserify": "^4.0.1",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-jshint": "^0.11.3",
-    "grunt-vows": "^0.4.2",
+    "eslint": "^1.3.1",
     "microtime": "^2.0.0",
     "node-expat": "^2.3.9",
     "node-xml": "^1.0.2",
@@ -46,7 +41,10 @@
     "vows": "^0.8.1"
   },
   "scripts": {
-    "test": "./node_modules/.bin/grunt test"
+    "webify": "browserify -s ltx lib/index.js -o ltx.js",
+    "unit": "./node_modules/.bin/vows --spec",
+    "lint": "./node_modules/.bin/eslint .",
+    "test": "npm run unit && npm run lint && npm run webify"
   },
   "dependencies": {
     "inherits": "^2.0.1"

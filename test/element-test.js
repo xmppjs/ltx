@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 var vows = require('vows')
   , assert = require('assert')
@@ -184,7 +184,7 @@ vows.describe('ltx').addBatch({
             assert.equal(orig.getChildText('content'), 'foo')
             assert.equal(clone.children[0].name, 'description')
             assert.equal(clone.getChildText('description'), 'foobar')
-        },
+        }
     },
     'children': {
         'getChildren': function() {

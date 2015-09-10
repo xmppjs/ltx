@@ -6,7 +6,7 @@ var parsers = require('./lib/parsers')
 
 var XML = [
     '<message to="foo@bar" from="bar@to" type="chat" id="foobar">',
-        '<body>Where there is love there is life.</body>',
+    '<body>Where there is love there is life.</body>',
     '</message>'
 ].join('')
 
@@ -19,9 +19,9 @@ parsers.forEach(function(Parser) {
 })
 
 suite.on('cycle', function(event) {
-  console.log(event.target.toString())
+    console.log(event.target.toString())
 })
 .on('complete', function() {
-  console.log('Fastest is ' + this.filter('fastest').pluck('name'))
+    console.log('Fastest is ' + this.filter('fastest').pluck('name'))
 })
 .run({'async': true})
