@@ -4,10 +4,11 @@ var vows = require('vows')
   , assert = require('assert')
   , ltx = require('../lib/index')
   , parsers = require('../lib/parsers')
+  , DOMElement = require('../lib/DOMElement')
 
 parsers.forEach(function(Parser) {
     var parse = function(s) {
-        return ltx.parse(s, {Parser: Parser, Element: ltx.DOMElement})
+        return ltx.parse(s, {Parser: Parser, Element: DOMElement})
     }
     vows.describe('Parsing returns DOMElement\'s').addBatch({
         'DOMElement': {
@@ -16,7 +17,7 @@ parsers.forEach(function(Parser) {
                     '<p>DOM</p></body></message>'
                 var el = parse(stanza)
 
-                assert(el.getChild('body') instanceof ltx.DOMElement)
+                assert(el.getChild('body') instanceof DOMElement)
                 assert.equal(el.getChild('body').constructor.name, 'DOMElement')
                 var body = el.getChild('body')
                 assert.isDefined(body.localName)
@@ -40,9 +41,9 @@ parsers.forEach(function(Parser) {
         },
         'createElement': {
             'create a new element and set children': function() {
-                var c = new ltx.DOMElement('bar')
-                var e = ltx.createDOMElement('foo', {'foo': 'bar'}, 'foo', c)
-                assert(e instanceof ltx.DOMElement)
+                var c = new DOMElement('bar')
+                var e = DOMElement.createElement('foo', {'foo': 'bar'}, 'foo', c)
+                assert(e instanceof DOMElement)
                 assert.equal(e.localName, 'foo')
                 assert.equal(e.getAttribute('foo'), 'bar')
                 assert.equal(e.childNodes.length, 2)
