@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         jshint: {
-            allFiles: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js'],
+            allFiles: ['*.js', 'lib/**/*.js', 'test/**/*.js'],
             options: {
                 jshintrc: '.jshintrc',
             }
@@ -20,7 +20,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-        clean: ['ltx-browser.js'],
+        clean: ['ltx.js'],
         vows: {
             all: {
                 options: {
