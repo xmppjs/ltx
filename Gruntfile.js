@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         browserify: {
             dist: {
                 files: {
-                    'ltx-browser.js': ['./lib/index-browserify.js']
+                    'ltx.js': ['./lib/index.js']
                 },
                 options: {
                     debug: grunt.cli.options.debug

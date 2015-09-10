@@ -1,0 +1,10 @@
+test/
+
+.editorconfig
+.gitignore
+.jshintrc
+.npmignore
+.travis.yml
+benchmark.js
+CONTRIBUTING.md
+Gruntfile.js

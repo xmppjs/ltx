@@ -2,7 +2,7 @@
 
 var vows = require('vows')
   , assert = require('assert')
-  , Element = require('../lib/element').Element
+  , Element = require('../lib/Element')
 
 vows.describe('unicode').addBatch({
     'unicode forming': {
