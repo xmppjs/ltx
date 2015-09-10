@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 var vows = require('vows')
   , assert = require('assert')
@@ -50,6 +50,6 @@ parsers.forEach(function(Parser) {
                 assert.equal(e.childNodes[0], 'foo')
                 assert.equal(e.childNodes[1], c)
             }
-        },
+        }
     }).export(module)
 })
