@@ -1,17 +1,17 @@
 # Less-Than XML
 
+`<xml for=\"JavaScript\">`
+
+[![build status](https://img.shields.io/travis/node-xmpp/ltx/master.svg?style=flat-square)](https://travis-ci.org/node-xmpp/ltx/branches)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
+
 * *Element:* any XML Element
 * Text nodes are Strings
-* Runs on node.js and browserify
-
-## Build status
-
-[![Build Status](https://secure.travis-ci.org/node-xmpp/ltx.png)](http://travis-ci.org/node-xmpp/ltx)
+* Runs on Node.js and browsers
 
 # Documentation
 
 For documentation please see http://node-xmpp.org/doc/ltx.html
-
 
 ## TODO
 

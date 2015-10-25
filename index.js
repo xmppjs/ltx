@@ -1,9 +1,9 @@
 'use strict'
 
-var parse = require('./parse')
-var Parser = require('./Parser')
-var escape = require('./escape')
-var Element = require('./Element')
+var parse = require('./lib/parse')
+var Parser = require('./lib/Parser')
+var escape = require('./lib/escape')
+var Element = require('./lib/Element')
 
 /**
  * Element
