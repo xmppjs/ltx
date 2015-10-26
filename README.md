@@ -13,6 +13,15 @@
 
 For documentation please see http://node-xmpp.org/doc/ltx.html
 
+# Test
+
+```
+npm install -g standard browserify
+```
+
+npm test
+
+
 ## TODO
 
 * More documentation
