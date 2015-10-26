@@ -29,6 +29,7 @@
   "license": "MIT",
   "engine": "node",
   "scripts": {
+    "preversion": "npm test",
     "webify": "browserify -s ltx index.js -o ltx.js",
     "unit": "vows --spec",
     "lint": "standard",
