@@ -1,10 +1,8 @@
 node_modules/
 
 !.editorconfig
-!.eslintignore
-!.eslintrc
 !.gitignore
 !.npmignore
 !.travis.yml
 
-ltx.js
+/ltx.js
