@@ -5,7 +5,7 @@ var assert = require('assert')
 var ltx = require('..')
 var Element = require('../lib/Element')
 
-vows.describe('ltx').addBatch({
+vows.describe('Element').addBatch({
   'new element': {
     "doesn't reference original attrs object": function () {
       var o = { foo: 'bar' }

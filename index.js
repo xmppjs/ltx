@@ -9,6 +9,7 @@ var Element = require('./lib/Element')
  * Element
  */
 exports.Element = Element
+exports.equals = Element.equals
 exports.createElement = Element.createElement
 
 /**
