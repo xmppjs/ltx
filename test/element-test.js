@@ -98,7 +98,7 @@ vows.describe('Element').addBatch({
       var e = new ltx.Element('e', { foo: 23, bar: 0, nil: null }).c('f').t(1000).up()
       assert.deepEqual(e.toJSON(), {
         name: 'e',
-        attrs: { foo: 23, bar: 0, nil: null },
+        attrs: { foo: 23, bar: 0 },
         children: [
           { name: 'f', attrs: {}, children: [1000] }
         ]
