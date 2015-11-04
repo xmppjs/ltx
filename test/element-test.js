@@ -135,6 +135,24 @@ vows.describe('Element').addBatch({
       assert.equal(el.getAttr('title', 'http://site.tld/job'), 'hacker')
     }
   },
+  'setAttrs': {
+    'it adds the new attributes': function () {
+      var el = new Element('foo')
+      assert.equal(Object.keys(el.attrs).length, 0)
+      el.setAttrs({foo: 'bar'})
+      assert.equal(Object.keys(el.attrs).length, 1)
+      assert.equal(el.attrs.foo, 'bar')
+    },
+    'it does not replace attrs': function () {
+      var el = new Element('foo', {bar: 'foo'})
+      var attrs = {foo: 'bar'}
+      el.setAttrs(attrs)
+      assert(el.attrs !== attrs)
+      assert.equal(Object.keys(el.attrs).length, 2)
+      assert.equal(el.attrs.bar, 'foo')
+      assert.equal(el.attrs.foo, 'bar')
+    }
+  },
   'clone': {
     'clones': function () {
       var orig = new ltx.Element('msg', { type: 'get' }).c('content').t('foo').root()
