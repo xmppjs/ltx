@@ -39,6 +39,20 @@ vows.describe('equality').addBatch({
       var d = new Element('foo', {b: 'c', a: 'b'})
       assert.equal(c.attrsEquals(d), true)
     },
+    'it returns true if elements attributes are serialized equaly': function () {
+      var a = new Element('foo', {foo: 'false'})
+      var b = new Element('foo', {foo: false})
+      assert.equal(a.attrsEquals(b), true)
+
+      var c = new Element('foo', {foo: '0'})
+      var d = new Element('foo', {foo: 0})
+      assert.equal(c.attrsEquals(d), true)
+
+      var foo = {toString: function () { return 'hello' }}
+      var e = new Element('foo', {foo: foo})
+      var f = new Element('foo', {foo: 'hello'})
+      assert.equal(e.attrsEquals(f), true)
+    },
     'it returns false if elements attributes differ': function () {
       var a = new Element('foo', {a: 'b'})
       var b = new Element('foo')
@@ -51,6 +65,10 @@ vows.describe('equality').addBatch({
       var e = new Element('foo', {b: 'a'})
       var f = new Element('foo', {a: 'b'})
       assert.equal(e.attrsEquals(f), false)
+
+      var g = new Element('foo', {foo: 'bar'})
+      var h = new Element('foo', {bar: 'bar'})
+      assert.equal(g.attrsEquals(h), false)
     }
   },
   'childrenEquals': {
