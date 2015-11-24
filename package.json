@@ -30,10 +30,10 @@
   "engine": "node",
   "scripts": {
     "preversion": "npm test",
-    "webify": "browserify -s ltx index.js -o ltx.js",
+    "bundle": "browserify -s ltx index.js -o bundle.js",
     "unit": "vows --spec",
     "lint": "standard",
-    "test": "npm run unit && npm run lint && npm run webify"
+    "test": "npm run unit && npm run lint && npm run bundle"
   },
   "dependencies": {
     "inherits": "^2.0.1"
