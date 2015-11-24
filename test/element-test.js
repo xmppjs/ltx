@@ -3,13 +3,13 @@
 var vows = require('vows')
 var assert = require('assert')
 var ltx = require('..')
-var Element = require('../lib/Element')
+var Element = ltx.Element
 
 vows.describe('Element').addBatch({
   'new element': {
     "doesn't reference original attrs object": function () {
       var o = { foo: 'bar' }
-      var e = new ltx.Element('e', o)
+      var e = new Element('e', o)
       assert.notEqual(e.attrs, o)
       e.attrs.bar = 'foo'
       assert.equal(o.bar, undefined)
@@ -18,84 +18,72 @@ vows.describe('Element').addBatch({
     },
     'set xmlns attribute if a string is passed as second argument': function () {
       var ns = 'xmlns:test'
-      var e = new ltx.Element('e', ns)
+      var e = new Element('e', ns)
       assert.equal(e.attrs.xmlns, ns)
       assert.equal(e.getAttr('xmlns'), ns)
     }
   },
-  'createElement': {
-    'create a new element and set children': function () {
-      var c = new ltx.Element('bar')
-      var e = ltx.createElement('foo', {'foo': 'bar'}, 'foo', c)
-      assert(e instanceof Element)
-      assert(e.is('foo'))
-      assert.equal(e.attrs.foo, 'bar')
-      assert.equal(e.children.length, 2)
-      assert.equal(e.children[0], 'foo')
-      assert.equal(e.children[1], c)
-    }
-  },
   'serialization': {
     'serialize an element': function () {
-      var e = new ltx.Element('e')
+      var e = new Element('e')
       assert.equal(e.toString(), '<e/>')
     },
     'serialize an element with attributes': function () {
-      var e = new ltx.Element('e', { a1: 'foo' })
+      var e = new Element('e', { a1: 'foo' })
       assert.equal(e.toString(), '<e a1="foo"/>')
     },
     'serialize an element with attributes to entities': function () {
-      var e = new ltx.Element('e', { a1: '"well"' })
+      var e = new Element('e', { a1: '"well"' })
       assert.equal(e.toString(), '<e a1="&quot;well&quot;"/>')
     },
     'serialize an element with text': function () {
-      var e = new ltx.Element('e').t('bar').root()
+      var e = new Element('e').t('bar').root()
       assert.equal(e.toString(), '<e>bar</e>')
     },
     'serialize an element with text to entities': function () {
-      var e = new ltx.Element('e').t('1 < 2').root()
+      var e = new Element('e').t('1 < 2').root()
       assert.equal(e.toString(), '<e>1 &lt; 2</e>')
     },
     'serialize an element with a number attribute': function () {
-      var e = new ltx.Element('e', { a: 23 })
+      var e = new Element('e', { a: 23 })
       assert.equal(e.toString(), '<e a="23"/>')
     },
     'serialize an element with number contents': function () {
-      var e = new ltx.Element('e')
+      var e = new Element('e')
       e.c('foo').t(23)
       e.c('bar').t(0)
       assert.equal(e.toString(), '<e><foo>23</foo><bar>0</bar></e>')
     },
     'serialize with undefined attribute': function () {
-      var e = new ltx.Element('e', { foo: undefined })
+      var e = new Element('e', { foo: undefined })
       assert.equal(e.toString(), '<e/>')
     },
     'serialize with null attribute': function () {
-      var e = new ltx.Element('e', { foo: null })
+      var e = new Element('e', { foo: null })
       assert.equal(e.toString(), '<e/>')
     },
     'serialize with number attribute': function () {
-      var e = new ltx.Element('e', { foo: 23, bar: 0 })
+      var e = new Element('e', { foo: 23, bar: 0 })
       var s = e.toString()
       assert.ok(s.match(/foo="23"/))
       assert.ok(s.match(/bar="0"/))
     },
     'serialize with undefined child': function () {
-      var e = new ltx.Element('e')
+      var e = new Element('e')
       e.children = [undefined]
       assert.equal(e.toString(), '<e></e>')
     },
     'serialize with null child': function () {
-      var e = new ltx.Element('e')
+      var e = new Element('e')
       e.children = [null]
       assert.equal(e.toString(), '<e></e>')
     },
     'serialize with integer text': function () {
-      var e = new ltx.Element('e').t(1000)
+      var e = new Element('e').t(1000)
       assert.equal(e.getText(), 1000)
     },
     'serialize to json': function () {
-      var e = new ltx.Element('e', { foo: 23, bar: 0, nil: null }).c('f').t(1000).up()
+      var e = new Element('e', { foo: 23, bar: 0, nil: null }).c('f').t(1000).up()
       assert.deepEqual(e.toJSON(), {
         name: 'e',
         attrs: { foo: 23, bar: 0, nil: null },
@@ -107,13 +95,13 @@ vows.describe('Element').addBatch({
   },
   'remove': {
     'by element': function () {
-      var el = new ltx.Element('e').c('c').c('x').up().up().c('c2').up().c('c').up()
+      var el = new Element('e').c('c').c('x').up().up().c('c2').up().c('c').up()
       el.remove(el.getChild('c'))
       assert.equal(el.getChildren('c').length, 1)
       assert.equal(el.getChildren('c2').length, 1)
     },
     'by name': function () {
-      var el = new ltx.Element('e').c('c').up().c('c2').up().c('c').up()
+      var el = new Element('e').c('c').up().c('c2').up().c('c').up()
       el.remove('c')
       assert.equal(el.getChildren('c').length, 0)
       assert.equal(el.getChildren('c2').length, 1)
@@ -135,9 +123,45 @@ vows.describe('Element').addBatch({
       assert.equal(el.getAttr('title', 'http://site.tld/job'), 'hacker')
     }
   },
+  // extensively tested in equality-test.js
+  'equality': {
+    'name': function () {
+      var a = new Element('foo')
+      var b = new Element('foo')
+      assert.equal(a.nameEquals(a), true)
+      assert.equal(a.nameEquals(b), true)
+      assert.equal(b.nameEquals(a), true)
+
+      b = new Element('b')
+      assert.equal(a.nameEquals(b), false)
+      assert.equal(b.nameEquals(a), false)
+    },
+    'attrs': function () {
+      var a = new Element('foo', {foo: 'bar'})
+      var b = new Element('foo', {foo: 'bar'})
+      assert.equal(a.attrsEquals(a), true)
+      assert.equal(a.attrsEquals(b), true)
+      assert.equal(b.attrsEquals(a), true)
+
+      b = new Element('foo', {bar: 'foo'})
+      assert.equal(a.attrsEquals(b), false)
+      assert.equal(b.attrsEquals(a), false)
+    },
+    'children': function () {
+      var a = new Element('foo').c('foo').root()
+      var b = new Element('foo').c('foo').root()
+      assert.equal(a.childrenEquals(a), true)
+      assert.equal(a.childrenEquals(b), true)
+      assert.equal(b.childrenEquals(a), true)
+
+      b = new Element('foo').c('bar').root()
+      assert.equal(a.childrenEquals(b), false)
+      assert.equal(b.childrenEquals(a), false)
+    }
+  },
   'clone': {
     'clones': function () {
-      var orig = new ltx.Element('msg', { type: 'get' }).c('content').t('foo').root()
+      var orig = new Element('msg', { type: 'get' }).c('content').t('foo').root()
       var clone = orig.clone()
       assert.equal(clone.name, orig.name)
       assert.equal(clone.attrs.type, orig.attrs.type)
@@ -149,7 +173,7 @@ vows.describe('Element').addBatch({
       assert.equal(clone.getChild('content').up(), clone)
     },
     'mod attr': function () {
-      var orig = new ltx.Element('msg', { type: 'get' })
+      var orig = new Element('msg', { type: 'get' })
       var clone = orig.clone()
       clone.attrs.type += '-result'
 
@@ -157,7 +181,7 @@ vows.describe('Element').addBatch({
       assert.equal(clone.attrs.type, 'get-result')
     },
     'rm attr': function () {
-      var orig = new ltx.Element('msg', { from: 'me' })
+      var orig = new Element('msg', { from: 'me' })
       var clone = orig.clone()
       delete clone.attrs.from
       clone.attrs.to = 'you'
@@ -168,7 +192,7 @@ vows.describe('Element').addBatch({
       assert.equal(clone.attrs.to, 'you')
     },
     'mod child': function () {
-      var orig = new ltx.Element('msg', { type: 'get' }).c('content').t('foo').root()
+      var orig = new Element('msg', { type: 'get' }).c('content').t('foo').root()
       var clone = orig.clone()
       clone.getChild('content').t('bar').name = 'description'
 
@@ -180,7 +204,7 @@ vows.describe('Element').addBatch({
   },
   'children': {
     'getChildren': function () {
-      var el = new ltx.Element('a')
+      var el = new Element('a')
         .c('b')
         .c('b2').up().up()
         .t('foo')
@@ -196,7 +220,7 @@ vows.describe('Element').addBatch({
       assert.equal(children[3], 'bar')
     },
     'getChildElements': function () {
-      var el = new ltx.Element('a')
+      var el = new Element('a')
         .c('b')
         .c('b2').up().up()
         .t('foo')
@@ -213,7 +237,7 @@ vows.describe('Element').addBatch({
 
   'recursive': {
     'getChildrenByAttr': function () {
-      var el = new ltx.Element('a')
+      var el = new Element('a')
         .c('b')
         .c('c', {myProperty: 'x'}).t('bar').up().up().up()
         .c('d', {id: 'x'})
@@ -224,7 +248,7 @@ vows.describe('Element').addBatch({
       assert.equal(results[1].toString(), '<e myProperty="x"/>')
     },
     'getChildByAttr': function () {
-      var el = new ltx.Element('a')
+      var el = new Element('a')
         .c('b')
         .c('c', {id: 'x'})
         .t('bar').root()
@@ -252,8 +276,8 @@ vows.describe('Element').addBatch({
 
   'issue-37: Element instanceof Fails': {
     'instanceof': function () {
-      var el = new ltx.Element('root').c('children')
-      assert.ok(el instanceof ltx.Element)
+      var el = new Element('root').c('children')
+      assert.ok(el instanceof Element)
     }
   }
 }).export(module)
