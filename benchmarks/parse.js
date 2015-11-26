@@ -1,11 +1,11 @@
 'use strict'
 
 var benchmark = require('benchmark')
-var ltx = require('./index')
-var parsers = require('./lib/parsers')
+var ltx = require('../index')
+var parsers = require('../lib/parsers')
 
 var XML = [
-  '<message to="foo@bar" from="bar@to" type="chat" id="foobar">',
+  '<message to="foo@bar" from="bar@foo" type="chat" id="foobar">',
   '<body>Where there is love there is life.</body>',
   '</message>'
 ].join('')
