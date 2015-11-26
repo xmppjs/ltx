@@ -29,6 +29,7 @@
   "license": "MIT",
   "engine": "node",
   "scripts": {
+    "prepublish": "npm run bundle",
     "preversion": "npm test",
     "bundle": "browserify -s ltx index.js -o bundle.js",
     "unit": "vows --spec",
