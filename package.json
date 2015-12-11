@@ -29,6 +29,7 @@
   "license": "MIT",
   "engine": "node",
   "scripts": {
+    "prepublish": "npm run bundle",
     "preversion": "npm test",
     "bundle": "browserify -s ltx index.js -o bundle.js",
     "unit": "vows --spec",
@@ -40,11 +41,11 @@
   },
   "devDependencies": {
     "benchmark": "^1.0.0",
-    "easysax": "^0.1.14",
+    "libxmljs": "^0.16.1",
     "microtime": "^2.0.0",
-    "node-expat": "^2.3.10",
+    "node-expat": "^2.3.12",
     "node-xml": "^1.0.2",
-    "sax": "^1.1.2",
+    "sax": "^1.1.4",
     "vows": "^0.8.1"
   }
 }
