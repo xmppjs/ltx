@@ -162,6 +162,8 @@ parsers.forEach(function (Parser) {
 })
 
 function testStanza (data, stanza) {
+  console.log('data', data)
+  console.log('stanza', stanza)
   assert.equal(data.start, stanza.name)
   assert.equal(Object.keys(data.attrs).length,
     Object.keys(stanza.attrs).length)
