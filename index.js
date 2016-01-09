@@ -17,7 +17,9 @@ exports.childrenEqual = equal.children
 exports.createElement = createElement
 
 exports.escapeXML = escape.escapeXML
+exports.unescapeXML = escape.unescapeXML
 exports.escapeXMLText = escape.escapeXMLText
+exports.unescapeXMLText = escape.unescapeXMLText
 
 exports.Parser = Parser
 exports.parse = parse
