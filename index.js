@@ -6,6 +6,9 @@ var escape = require('./lib/escape')
 var Element = require('./lib/Element')
 var equal = require('./lib/equal')
 var createElement = require('./lib/createElement')
+var tag = require('./lib/tag')
+
+exports = module.exports = tag
 
 exports.Element = Element
 
@@ -21,3 +24,5 @@ exports.escapeXMLText = escape.escapeXMLText
 
 exports.Parser = Parser
 exports.parse = parse
+
+exports.tag = tag
