@@ -1,5 +1,9 @@
 'use strict'
 
+/*
+  benchmark the parsing speed of the supported backends
+ */
+
 var benchmark = require('benchmark')
 var ltx = require('../index')
 var parsers = require('../lib/parsers')
@@ -10,18 +14,12 @@ var XML = [
   '</message>'
 ].join('')
 
-var suite = new benchmark.Suite('parse')
+var suite = new benchmark.Suite('backends parse')
 
 parsers.forEach(function (Parser) {
-  suite.add(Parser.name, function () {
+  suite.add(Parser.name.slice(3), function () {
     ltx.parse(XML, {Parser: Parser})
   })
 })
 
-suite.on('cycle', function (event) {
-  console.log(event.target.toString())
-})
-  .on('complete', function () {
-    console.log('Fastest is ' + this.filter('fastest').map('name'))
-  })
-  .run({'async': true})
+module.exports = suite

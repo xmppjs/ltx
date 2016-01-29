@@ -31,6 +31,7 @@
   "scripts": {
     "prepublish": "npm run bundle",
     "preversion": "npm test",
+    "benchmark": "node benchmarks/",
     "bundle": "browserify -s ltx index.js -o bundle.js",
     "unit": "vows --spec",
     "lint": "standard",
@@ -40,12 +41,12 @@
     "inherits": "^2.0.1"
   },
   "devDependencies": {
-    "benchmark": "^2.0.0",
+    "benchmark": "^2.1.0",
     "libxmljs": "^0.17.0",
     "microtime": "^2.0.0",
     "node-expat": "^2.3.12",
     "node-xml": "^1.0.2",
-    "sax": "^1.1.4",
+    "sax": "^1.1.5",
     "vows": "^0.8.1"
   }
 }

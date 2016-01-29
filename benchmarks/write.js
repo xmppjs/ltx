@@ -1,5 +1,9 @@
 'use strict'
 
+/*
+  benchmark the serialization speed of the the supported backends
+ */
+
 var benchmark = require('benchmark')
 var parsers = require('../lib/parsers')
 
@@ -9,20 +13,14 @@ var XML = [
   '</message>'
 ].join('')
 
-var suite = new benchmark.Suite('write')
+var suite = new benchmark.Suite('backends write')
 
 parsers.forEach(function (Parser) {
   var parser = new Parser()
   parser.write('<r>')
-  suite.add(Parser.name, function () {
+  suite.add(Parser.name.slice(3), function () {
     parser.write(XML)
   })
 })
 
-suite.on('cycle', function (event) {
-  console.log(event.target.toString())
-})
-  .on('complete', function () {
-    console.log('Fastest is ' + this.filter('fastest').map('name'))
-  })
-  .run({'async': true})
+module.exports = suite
