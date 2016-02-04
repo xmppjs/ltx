@@ -20,7 +20,7 @@ Features:
   * [node-xml](https://github.com/dylang/node-xml)
   * [node-expat](https://github.com/node-xmpp/node-expat)
   * [libxmljs](https://github.com/polotek/libxmljs)
-  * [ltx](https://github.com/node-xmpp/ltx/blob/master/lib/parsers/ltx.js) (default and fastest see [Benchmarks](#benchmarks))
+  * [ltx](https://github.com/node-xmpp/ltx/blob/master/lib/parsers/ltx.js) (default and fastest see [Benchmark](#benchmark))
 * [JSX](https://facebook.github.io/jsx/) compatible (use `ltx.createElement` pragma)
 * [tagged template](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/template_strings) support `` ltx`<foo bar="${baz}">` ``
 
