@@ -7,12 +7,12 @@
 
 ltx is a fast XML builder, parser and manipulation library for JavaScript.
 
-The builder is a convenient and succint API to build XML documents represented in memory as JavaScript primitives that can be serialized to XML strings. It provides a [JSX](https://facebook.github.io/jsx/) compatible API as well.
+The builder is a convenient and succinct API to build XML documents represented in memory as JavaScript primitives that can be serialized to XML strings. It provides a [JSX](https://facebook.github.io/jsx/) compatible API as well.
 
-The parser can parse XML documents or streams and support diffrent backends.
+The parser can parse XML documents or streams and support different backends.
 
 Features:
-* Succint API to build and manipulate XML objects
+* Succinct API to build and manipulate XML objects
 * parse XML strings
 * parse XML streams
 * multiple parser backends
@@ -20,8 +20,9 @@ Features:
   * [node-xml](https://github.com/dylang/node-xml)
   * [node-expat](https://github.com/node-xmpp/node-expat)
   * [libxmljs](https://github.com/polotek/libxmljs)
-  * [ltx](https://github.com/node-xmpp/ltx/blob/master/lib/parsers/ltx.js) (default)
-* [JSX](https://facebook.github.io/jsx/) compatible
+  * [ltx](https://github.com/node-xmpp/ltx/blob/master/lib/parsers/ltx.js) (default and fastest see [Benchmarks](#benchmarks))
+* [JSX](https://facebook.github.io/jsx/) compatible (use `ltx.createElement` pragma)
+* [tagged template](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/template_strings) support `` ltx`<foo bar="${baz}">` ``
 
 ## Install
 
@@ -34,8 +35,7 @@ For documentation please see http://node-xmpp.org/doc/ltx.html
 ## Benchmark
 
 ```
-node benchmarks/parse.js
-node benchmarks/write.js
+npm run benchmark
 ```
 
 ## Test
@@ -48,4 +48,3 @@ npm test
 ## Licence
 
 MIT
-
