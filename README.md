@@ -1,36 +1,48 @@
-# Less-Than XML
+ltx
+===
 
-`<xml for=\"JavaScript\">`
+`JavaScript XML library`
 
 [![build status](https://img.shields.io/travis/node-xmpp/ltx/master.svg?style=flat-square)](https://travis-ci.org/node-xmpp/ltx/branches)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
 
-ltx is a fast XML builder, parser and manipulation library for JavaScript.
+ltx is a fast XML builder, parser, serialization and manipulation library for JavaScript.
 
-The builder is a convenient and succinct API to build XML documents represented in memory as JavaScript primitives that can be serialized to XML strings. It provides a [JSX](https://facebook.github.io/jsx/) compatible API as well.
+The builder is a convenient and succinct API to build XML documents represented in memory as JavaScript primitives that can be serialized to XML strings.
 
-The parser can parse XML documents or streams and support different backends.
+The parser can parse XML documents or streams and support [multiple parsers](#parsers).
 
 Features:
-* Succinct API to build and manipulate XML objects
+* succinct API to build and manipulate XML objects
 * parse XML strings
 * parse XML streams
-* multiple parser backends
-  * [sax-js](https://github.com/isaacs/sax-js)
-  * [node-xml](https://github.com/dylang/node-xml)
-  * [node-expat](https://github.com/node-xmpp/node-expat)
-  * [libxmljs](https://github.com/polotek/libxmljs)
-  * [ltx](https://github.com/node-xmpp/ltx/blob/master/lib/parsers/ltx.js) (default and fastest see [Benchmark](#benchmark))
-* [JSX](https://facebook.github.io/jsx/) compatible (use `ltx.createElement` pragma)
+* [multiple parser backends](#parsers)
+* [JSX](https://facebook.github.io/jsx/) compatible (with `ltx.createElement` pragma)
 * [tagged template](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/template_strings) support `` ltx`<foo bar="${baz}">` ``
 
 ## Install
 
 `npm install ltx`
 
+## Parsers
+
+By default ltx uses its own parser which is the fastest but doesn't support advanced XML features.
+ltx supports third party parsers when such features are needed.
+
+| parser                                                                                     | ops/sec | native | stream |
+|--------------------------------------------------------------------------------------------|--------:|:------:|:------:|
+| [sax-js](https://github.com/isaacs/sax-js)                                                 |  99,412 | ☐      | ☑      |
+| [node-xml](https://github.com/dylang/node-xml)                                             | 130,631 | ☐      | ☑      |
+| [libxmljs](https://github.com/polotek/libxmljs)                                            | 276,136 | ☑      | ☐      |
+| [node-expat](https://github.com/node-xmpp/node-expat)                                      | 322,769 | ☑      | ☑      |
+| **[ltx/lib/parsers/ltx](https://github.com/node-xmpp/ltx/blob/master/lib/parsers/ltx.js)** | 641,327 | ☐      | ☑      |
+
+
+From [ltx/benchmarks/parsers.js](https://github.com/node-xmpp/ltx/blob/master/benchmarks/parsers.js), higher is better.
+
 ## Documentation
 
-For documentation please see http://node-xmpp.org/doc/ltx.html
+http://node-xmpp.org/doc/ltx.html
 
 ## Benchmark
 
