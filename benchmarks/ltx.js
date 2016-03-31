@@ -56,15 +56,15 @@ suite.add('parse', function () {
   parse(XML)
 })
 
-suite.add('serialize', function () {
-  el.toString()
-})
-
 suite.add('createElement (jsx)', function () {
   createElement(
     'message', {to: 'foo@bar', from: 'bar@foo', type: 'chat', id: 'foobar'},
     createElement('body', null, 'Where there is love there is life.')
   )
+})
+
+suite.add('serialize', function () {
+  el.toString()
 })
 
 suite.add('clone', function () {
