@@ -2,6 +2,7 @@
 
 var vows = require('vows')
 var assert = require('assert')
+var inherits = require('inherits')
 var ltx = require('..')
 var Element = ltx.Element
 
@@ -200,6 +201,15 @@ vows.describe('Element').addBatch({
       assert.equal(orig.getChildText('content'), 'foo')
       assert.equal(clone.children[0].name, 'description')
       assert.equal(clone.getChildText('description'), 'foobar')
+    },
+    'use original constructor for the clone': function () {
+      var Foo = function (name, attrs) {
+        Element.call(this, name, attrs)
+      }
+      inherits(Foo, Element)
+      var foo = new Foo()
+      assert(foo.clone() instanceof Element)
+      assert(foo.clone() instanceof Foo)
     }
   },
   'children': {
