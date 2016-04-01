@@ -7,6 +7,7 @@ var Element = require('./lib/Element')
 var equal = require('./lib/equal')
 var createElement = require('./lib/createElement')
 var tag = require('./lib/tag')
+var json = require('./lib/json')
 
 exports = module.exports = tag
 
@@ -28,3 +29,6 @@ exports.Parser = Parser
 exports.parse = parse
 
 exports.tag = tag
+
+exports.toJSON = json.to
+exports.fromJSON = json.from
