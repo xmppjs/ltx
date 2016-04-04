@@ -1,5 +1,10 @@
 'use strict'
 
+/*
+ * benchmark the parsing speed of the supported backends
+ * difference with parse.js benchmark is that this doesn't use ltx at all
+*/
+
 var benchmark = require('benchmark')
 var node_xml = require('node-xml')
 var libxml = require('libxmljs')
