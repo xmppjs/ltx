@@ -53,10 +53,6 @@ npm run benchmark
 ## Test
 
 ```
-npm install -g standard browserify
+npm install
 npm test
 ```
-
-## Licence
-
-MIT

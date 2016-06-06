@@ -15,7 +15,16 @@ vows.describe('tag').addBatch({
     // var r = tag`<foo>${'bar'}</foo>`
     var r = tag(['<foo>', '</foo>'], 'bar')
     assert(r instanceof Element)
-    var c = ltx.createElement('foo').t('bar')
+    var c = new Element('foo').t('bar')
+    assert(c.equals(r))
+    assert(r.equals(c))
+    assert.strictEqual(r.toString(), c.toString())
+  },
+  'multiple substitutions': function () {
+    // var r = tag`<foo a="${'b'}">${'bar'}</foo>`
+    var r = tag(['<foo a="', '">', '</foo>'], 'b', 'bar')
+    assert(r instanceof Element)
+    var c = new Element('foo', {a: 'b'}).t('bar')
     assert(c.equals(r))
     assert(r.equals(c))
     assert.strictEqual(r.toString(), c.toString())
