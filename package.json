@@ -6,18 +6,6 @@
   "repository": "github:node-xmpp/ltx",
   "homepage": "http://github.com/node-xmpp/ltx",
   "bugs": "http://github.com/node-xmpp/ltx/issues",
-  "maintainers": [
-    {
-      "name": "Astro",
-      "email": "astro@spaceboyz.net",
-      "web": "http://spaceboyz.net/~astro/"
-    },
-    {
-      "name": "Lloyd Watkin",
-      "email": "lloyd@evilprofessor.co.uk",
-      "web": "http://www.evilprofessor.co.uk"
-    }
-  ],
   "contributors": [
     "Stephan Maka",
     "Will Fife",
@@ -42,11 +30,13 @@
   },
   "devDependencies": {
     "benchmark": "^2.1.0",
+    "browserify": "^13.0.1",
     "libxmljs": "^0.18.0",
     "microtime": "^2.0.0",
     "node-expat": "^2.3.13",
     "node-xml": "^1.0.2",
     "sax": "^1.1.5",
+    "standard": "^7.1.2",
     "vows": "^0.8.1"
   }
 }
