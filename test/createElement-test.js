@@ -16,5 +16,13 @@ vows.describe('createElement').addBatch({
     assert.equal(e.children.length, 2)
     assert.equal(e.children[0], 'foo')
     assert.equal(e.children[1], c)
+  },
+  'null and undefined children are discarded': function () {
+    var e = createElement('foo', null, undefined, 'bar', null, createElement('test'), 'baz')
+    var b = new Element('foo')
+      .t('bar')
+      .c('test').up()
+      .t('baz')
+    assert.equal(e.root().toString(), b.root().toString())
   }
 }).export(module)
