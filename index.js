@@ -7,6 +7,7 @@ var Element = require('./lib/Element')
 var equal = require('./lib/equal')
 var createElement = require('./lib/createElement')
 var tag = require('./lib/tag')
+var tagString = require('./lib/tagString')
 var is = require('./lib/is')
 
 exports = module.exports = tag
@@ -33,3 +34,4 @@ exports.Parser = Parser
 exports.parse = parse
 
 exports.tag = tag
+exports.tagString = tagString
