@@ -156,6 +156,24 @@ parsers.forEach(function (Parser) {
             xmlns: 'urn:ietf:params:xml:ns:xmpp-sasl'
           }
         })
+      },
+      'bug: elements in comments': function () {
+        var parser = new Parser()
+        var events = []
+        parser.on('startElement', function (name, attrs) {
+          events.push({ start: name, attrs: attrs })
+        })
+        parser.on('endElement', function (name) {
+          events.push({ end: name })
+        })
+        parser.on('comment', function (s) {
+          events.push({ comment: s })
+        })
+        parser.write("<?xml version='1.0'?><!-- <foo></foo><bar></bar> --><root></root>");
+          assert.deepEqual(events, [
+              { start: 'root' , attrs: {} },
+              { end: 'root' }
+          ]);
       }
     }
   }).export(module)
