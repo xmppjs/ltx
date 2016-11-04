@@ -169,11 +169,11 @@ parsers.forEach(function (Parser) {
         parser.on('comment', function (s) {
           events.push({ comment: s })
         })
-        parser.write("<?xml version='1.0'?><!-- <foo></foo><bar></bar> --><root></root>");
-          assert.deepEqual(events, [
-              { start: 'root' , attrs: {} },
-              { end: 'root' }
-          ]);
+        parser.write("<?xml version='1.0'?><!-- <foo></foo><bar></bar> --><root></root>")
+        assert.deepEqual(events, [
+          { start: 'root', attrs: {} },
+          { end: 'root' }
+        ])
       }
     }
   }).export(module)
