@@ -3,4 +3,7 @@
 !.npmignore
 !.travis.yml
 
+node_modules/
+
 bundle.js
+yarn.lock

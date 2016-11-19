@@ -32,11 +32,11 @@
     "benchmark": "^2.1.0",
     "browserify": "^13.0.1",
     "libxmljs": "^0.18.0",
-    "microtime": "^2.0.0",
+    "microtime": "^2.1.2",
     "node-expat": "^2.3.13",
     "node-xml": "^1.0.2",
     "sax": "^1.1.5",
-    "standard": "^7.1.2",
+    "standard": "^8.5.0",
     "vows": "^0.8.1"
   }
 }
