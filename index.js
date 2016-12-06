@@ -9,6 +9,8 @@ var createElement = require('./lib/createElement')
 var tag = require('./lib/tag')
 var tagString = require('./lib/tagString')
 var is = require('./lib/is')
+var clone = require('./lib/clone')
+var stringify = require('./lib/stringify')
 
 exports = module.exports = tag
 
@@ -23,6 +25,7 @@ exports.isNode = is.isNode
 exports.isElement = is.isElement
 exports.isText = is.isText
 
+exports.clone = clone
 exports.createElement = createElement
 
 exports.escapeXML = escape.escapeXML
@@ -35,3 +38,5 @@ exports.parse = parse
 
 exports.tag = tag
 exports.tagString = tagString
+
+exports.stringify = stringify
