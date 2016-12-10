@@ -12,7 +12,9 @@ var is = require('./lib/is')
 var clone = require('./lib/clone')
 var stringify = require('./lib/stringify')
 
-exports = module.exports = tag
+exports = module.exports = function ltx () {
+  return tag.apply(null, arguments)
+}
 
 exports.Element = Element
 

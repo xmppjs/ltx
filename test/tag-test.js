@@ -8,7 +8,6 @@ var Element = ltx.Element
 
 vows.describe('tag').addBatch({
   'exported correctly': function () {
-    assert.equal(ltx, tag)
     assert.equal(ltx.tag, tag)
   },
   'parses the string and return an Element object': function () {
