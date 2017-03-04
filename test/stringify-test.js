@@ -35,5 +35,31 @@ vows.describe('stringify').addBatch({
 
     assert.equal(stringify(el, 2), expected)
     assert.equal(stringify(el, '  '), expected)
+  },
+  'ignores empty string children': function () {
+    const el = {
+      name: 'foo',
+      attrs: {},
+      children: ['', 'bar', '']
+    }
+    assert.equal(stringify(el), '<foo>bar</foo>')
+  },
+  'ignores deep empty string children': function () {
+    const el = {
+      name: 'foo',
+      attrs: {},
+      children: [
+        '',
+        {
+          name: 'bar',
+          attrs: {},
+          children: [
+            '', '', ''
+          ]
+        },
+        ''
+      ]
+    }
+    assert.equal(stringify(el), '<foo><bar></bar></foo>')
   }
 }).export(module)
