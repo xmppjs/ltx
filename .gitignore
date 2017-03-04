@@ -3,7 +3,7 @@
 !.npmignore
 !.travis.yml
 
+dist/
 node_modules/
 
 bundle.js
-yarn.lock

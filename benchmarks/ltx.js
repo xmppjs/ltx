@@ -3,7 +3,7 @@
 /*
   benchmark the speed of the different methods to create elements
   Not all tests are equally functional but it gives a good idea of what to expect from
-  the different techniques.
+  the different methods.
  */
 
 var benchmark = require('benchmark')
@@ -23,11 +23,13 @@ var el = parse(XML)
 var suite = new benchmark.Suite('ltx')
 
 suite.add('tag with template literal', function () {
+  /* eslint-disable */
   tag`
     <message to="${'foo@bar'}" from="${'bar@foo'}" type="${'chat'}" id="${'foobar'}">
       <body>${'Where there is love there is life.'}</body>
     </message>
   `
+  /* eslint-enable */
 })
 
 suite.add('tag with direct call', function () {
