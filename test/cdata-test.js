@@ -19,6 +19,11 @@ vows.describe('sax_ltx').addBatch({
       var el = parse('<root><![CDATA[Content]]></root>')
       assert.equal(el.name, 'root')
       assert.equal(el.getText(), 'Content')
+    },
+    'do not unescape CDATA content': function () {
+      var el = parse('<root><![CDATA[Content &amp; "more content&quot;]]></root>')
+      assert.equal(el.name, 'root')
+      assert.equal(el.getText(), 'Content &amp; "more content&quot;')
     }
   }
 }).export(module)
