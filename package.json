@@ -19,7 +19,7 @@
     "prepublish": "npm run bundle",
     "preversion": "npm test",
     "benchmark": "node benchmarks/",
-    "bundle": "browserify -s ltx index.js -o bundle.js && cp bundle.js dist/ltx.js",
+    "bundle": "browserify -s ltx index.js -o dist/ltx.js",
     "unit": "vows --spec",
     "lint": "standard",
     "test": "npm run unit && npm run lint && npm run bundle"
