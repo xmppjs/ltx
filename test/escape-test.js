@@ -48,6 +48,21 @@ vows.describe('escape').addBatch({
     },
     'unescapes \'': function () {
       assert.strictEqual(unescapeXML('&apos;'), '\'')
+    },
+    'unescapes numeric entities': function () {
+      assert.strictEqual(unescapeXML('&#64;'), '@')
+    },
+    'unescapes hexadecimal entities': function () {
+      assert.strictEqual(unescapeXML('&#x40;'), '@')
+    },
+    'unescapes multibyte hex entities': function () {
+      assert.strictEqual(unescapeXML('&#x1f40d;'), '\uD83D\uDC0D')
+    },
+    'unescapes multibyte uppercase hex entities': function () {
+      assert.strictEqual(unescapeXML('&#x1F40D;'), '\uD83D\uDC0D')
+    },
+    'unescapes multibyte decimal entities': function () {
+      assert.strictEqual(unescapeXML('&#128013;'), '\uD83D\uDC0D')
     }
   },
   'escapeXMLText': {
