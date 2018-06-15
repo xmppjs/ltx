@@ -52,6 +52,9 @@ vows.describe('escape').addBatch({
     'unescapes numeric entities': function () {
       assert.strictEqual(unescapeXML('&#64;'), '@')
     },
+    'throws on invalid characters': function () {
+      assert.throws(() => unescapeXML('&#0;'), Error)
+    },
     'unescapes hexadecimal entities': function () {
       assert.strictEqual(unescapeXML('&#x40;'), '@')
     },
