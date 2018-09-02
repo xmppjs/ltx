@@ -40,10 +40,6 @@ ltx supports third party parsers when such features are needed.
 
 From [ltx/benchmarks/parsers.js](https://github.com/node-xmpp/ltx/blob/master/benchmarks/parsers.js), higher is better.
 
-## Documentation
-
-http://node-xmpp.org/doc/ltx.html
-
 ## Benchmark
 
 ```
