@@ -7,7 +7,7 @@ var stringify = require('../lib/stringify')
 
 vows.describe('stringify').addBatch({
   'is exported correctly': function () {
-    assert.equal(ltx.stringify, stringify)
+    assert.strictEqual(ltx.stringify, stringify)
   },
   'returns the same result than .toString()': function () {
     const el = ltx`
@@ -19,7 +19,7 @@ vows.describe('stringify').addBatch({
         </child>
       </foo>
     `
-    assert.equal(el.toString(), stringify(el))
+    assert.strictEqual(el.toString(), stringify(el))
   },
   'indents correctly': function () {
     const el = ltx`<foo><bar hello="world">text<self/></bar></foo>`
@@ -33,8 +33,8 @@ vows.describe('stringify').addBatch({
       '</foo>'
     ].join('\n')
 
-    assert.equal(stringify(el, 2), expected)
-    assert.equal(stringify(el, '  '), expected)
+    assert.strictEqual(stringify(el, 2), expected)
+    assert.strictEqual(stringify(el, '  '), expected)
   },
   'ignores empty string children': function () {
     const el = {
@@ -42,7 +42,7 @@ vows.describe('stringify').addBatch({
       attrs: {},
       children: ['', 'bar', '']
     }
-    assert.equal(stringify(el), '<foo>bar</foo>')
+    assert.strictEqual(stringify(el), '<foo>bar</foo>')
   },
   'ignores deep empty string children': function () {
     const el = {
@@ -60,6 +60,6 @@ vows.describe('stringify').addBatch({
         ''
       ]
     }
-    assert.equal(stringify(el), '<foo><bar></bar></foo>')
+    assert.strictEqual(stringify(el), '<foo><bar></bar></foo>')
   }
 }).export(module)

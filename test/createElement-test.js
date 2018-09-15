@@ -9,13 +9,13 @@ var createElement = ltx.createElement
 vows.describe('createElement').addBatch({
   'create a new element and set children': function () {
     var c = new Element('bar')
-    var e = createElement('foo', {'foo': 'bar'}, 'foo', c)
+    var e = createElement('foo', { 'foo': 'bar' }, 'foo', c)
     assert(e instanceof Element)
     assert(e.is('foo'))
-    assert.equal(e.attrs.foo, 'bar')
-    assert.equal(e.children.length, 2)
-    assert.equal(e.children[0], 'foo')
-    assert.equal(e.children[1], c)
+    assert.strictEqual(e.attrs.foo, 'bar')
+    assert.strictEqual(e.children.length, 2)
+    assert.strictEqual(e.children[0], 'foo')
+    assert.strictEqual(e.children[1], c)
   },
   'null and undefined children are discarded': function () {
     var e = createElement('foo', null, undefined, 'bar', null, createElement('test'), 'baz')
@@ -23,6 +23,6 @@ vows.describe('createElement').addBatch({
       .t('bar')
       .c('test').up()
       .t('baz')
-    assert.equal(e.root().toString(), b.root().toString())
+    assert.strictEqual(e.root().toString(), b.root().toString())
   }
 }).export(module)
