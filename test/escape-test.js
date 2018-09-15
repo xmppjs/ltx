@@ -12,70 +12,70 @@ var unescapeXMLText = escape.unescapeXMLText
 vows.describe('escape').addBatch({
   'escapeXML': {
     'exported correctly': function () {
-      assert.equal(ltx.escapeXML, escapeXML)
+      assert.strictEqual(ltx.escapeXML, escapeXML)
     },
     'escapes &': function () {
-      assert.equal(escapeXML('&'), '&amp;')
+      assert.strictEqual(escapeXML('&'), '&amp;')
     },
     'escapes <': function () {
-      assert.equal(escapeXML('<'), '&lt;')
+      assert.strictEqual(escapeXML('<'), '&lt;')
     },
     'escapes >': function () {
-      assert.equal(escapeXML('>'), '&gt;')
+      assert.strictEqual(escapeXML('>'), '&gt;')
     },
     'escapes "': function () {
-      assert.equal(escapeXML('"'), '&quot;')
+      assert.strictEqual(escapeXML('"'), '&quot;')
     },
     'escapes \'': function () {
-      assert.equal(escapeXML('\''), '&apos;')
+      assert.strictEqual(escapeXML('\''), '&apos;')
     }
   },
   'unescapeXML': {
     'exported correctly': function () {
-      assert.equal(ltx.unescapeXML, unescapeXML)
+      assert.strictEqual(ltx.unescapeXML, unescapeXML)
     },
     'unescapes &': function () {
-      assert.equal(unescapeXML('&amp;'), '&')
+      assert.strictEqual(unescapeXML('&amp;'), '&')
     },
     'unescapes <': function () {
-      assert.equal(unescapeXML('&lt;'), '<')
+      assert.strictEqual(unescapeXML('&lt;'), '<')
     },
     'unescapes >': function () {
-      assert.equal(unescapeXML('&gt;'), '>')
+      assert.strictEqual(unescapeXML('&gt;'), '>')
     },
     'unescapes "': function () {
-      assert.equal(unescapeXML('&quot;'), '"')
+      assert.strictEqual(unescapeXML('&quot;'), '"')
     },
     'unescapes \'': function () {
-      assert.equal(unescapeXML('&apos;'), '\'')
+      assert.strictEqual(unescapeXML('&apos;'), '\'')
     }
   },
   'escapeXMLText': {
     'exported correctly': function () {
-      assert.equal(ltx.escapeXMLText, escapeXMLText)
+      assert.strictEqual(ltx.escapeXMLText, escapeXMLText)
     },
     'escapes &': function () {
-      assert.equal(escapeXMLText('&'), '&amp;')
+      assert.strictEqual(escapeXMLText('&'), '&amp;')
     },
     'escapes <': function () {
-      assert.equal(escapeXMLText('<'), '&lt;')
+      assert.strictEqual(escapeXMLText('<'), '&lt;')
     },
     'escapes >': function () {
-      assert.equal(escapeXMLText('>'), '&gt;')
+      assert.strictEqual(escapeXMLText('>'), '&gt;')
     }
   },
   'unescapeXMLText': {
     'exported correctly': function () {
-      assert.equal(ltx.unescapeXMLText, unescapeXMLText)
+      assert.strictEqual(ltx.unescapeXMLText, unescapeXMLText)
     },
     'unescapes &': function () {
-      assert.equal(unescapeXMLText('&amp;'), '&')
+      assert.strictEqual(unescapeXMLText('&amp;'), '&')
     },
     'unescapes <': function () {
-      assert.equal(unescapeXMLText('&lt;'), '<')
+      assert.strictEqual(unescapeXMLText('&lt;'), '<')
     },
     'unescapes >': function () {
-      assert.equal(unescapeXMLText('&gt;'), '>')
+      assert.strictEqual(unescapeXMLText('&gt;'), '>')
     }
   }
 }).export(module)

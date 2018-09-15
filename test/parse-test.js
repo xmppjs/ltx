@@ -7,26 +7,26 @@ var parsers = require('../lib/parsers')
 
 parsers.forEach(function (Parser) {
   var parse = function (s) {
-    return ltx.parse(s, {Parser: Parser})
+    return ltx.parse(s, { Parser: Parser })
   }
   vows.describe('ltx with ' + Parser.name).addBatch({
     'DOM parsing': {
       'simple document': function () {
         var el = parse('<root/>')
-        assert.equal(el.name, 'root')
-        assert.equal(0, el.children.length)
+        assert.strictEqual(el.name, 'root')
+        assert.strictEqual(0, el.children.length)
       },
       'text with commas': function () {
         var el = parse("<body>sa'sa'1'sasa</body>")
-        assert.equal("sa'sa'1'sasa", el.getText())
+        assert.strictEqual("sa'sa'1'sasa", el.getText())
       },
       'text with entities': function () {
         var el = parse('<body>&lt;&gt;&amp;&quot;&apos;</body>')
-        assert.equal('<>&"\'', el.getText())
+        assert.strictEqual('<>&"\'', el.getText())
       },
       'attribute with entities': function () {
         var el = parse("<body title='&lt;&gt;&amp;&quot;&apos;'/>")
-        assert.equal('<>&"\'', el.attrs.title)
+        assert.strictEqual('<>&"\'', el.attrs.title)
       },
       'erroneous document raises error': function () {
         assert.throws(function () {
@@ -40,32 +40,32 @@ parsers.forEach(function (Parser) {
       },
       'namespace declaration': function () {
         var el = parse("<root xmlns='https://github.com/astro/ltx'/>")
-        assert.equal(el.name, 'root')
-        assert.equal(el.attrs.xmlns, 'https://github.com/astro/ltx')
+        assert.strictEqual(el.name, 'root')
+        assert.strictEqual(el.attrs.xmlns, 'https://github.com/astro/ltx')
         assert.ok(el.is('root', 'https://github.com/astro/ltx'))
       },
       'namespace declaration with prefix': function () {
         var el = parse("<x:root xmlns:x='https://github.com/astro/ltx'/>")
-        assert.equal(el.name, 'x:root')
-        assert.equal(el.getName(), 'root')
+        assert.strictEqual(el.name, 'x:root')
+        assert.strictEqual(el.getName(), 'root')
         assert.ok(el.is('root', 'https://github.com/astro/ltx'))
       },
       'buffer': function () {
-        var buf = new Buffer('<root/>')
+        var buf = Buffer.from('<root/>')
         var el = parse(buf)
-        assert.equal(el.name, 'root')
-        assert.equal(0, el.children.length)
+        assert.strictEqual(el.name, 'root')
+        assert.strictEqual(0, el.children.length)
       },
       'utf-8 text': function () {
         var el = parse('<?xml version="1.0" encoding="utf-8"?><text>Möwe</text>')
-        assert.equal(el.name, 'text')
-        assert.equal(el.getText(), 'Möwe')
+        assert.strictEqual(el.name, 'text')
+        assert.strictEqual(el.getText(), 'Möwe')
       },
       'iso8859-1 text': function () {
         if (Parser.name === 'SaxLibxmljs') return
         var el = parse('<?xml version="1.0" encoding="iso-8859-1"?><text>M\xF6we</text>')
-        assert.equal(el.name, 'text')
-        assert.equal(el.getText(), 'Möwe')
+        assert.strictEqual(el.name, 'text')
+        assert.strictEqual(el.getText(), 'Möwe')
       }
     },
     'SAX parsing': {
@@ -83,9 +83,9 @@ parsers.forEach(function (Parser) {
         })
         parser.write("<?xml version='1.0'?><stream:stream xmlns='jabber:client'")
         parser.write(" xmlns:stream='http://etherx.jabber.org/streams' id='5568")
-        assert.equal(events.length, 0)
+        assert.strictEqual(events.length, 0)
         parser.write("90365' from='jabber.ccc.de' version='1.0' xml:lang='en'><")
-        assert.equal(events.length, 1)
+        assert.strictEqual(events.length, 1)
         testStanza(events[0], {
           name: 'stream:stream',
           attrs: {
@@ -98,25 +98,25 @@ parsers.forEach(function (Parser) {
           }
         })
         parser.write("stream:features><starttls xmlns='urn:ietf:params:xml:ns:x")
-        assert.equal(events.length, 2)
-        testStanza(events[1], {name: 'stream:features', attrs: {}})
+        assert.strictEqual(events.length, 2)
+        testStanza(events[1], { name: 'stream:features', attrs: {} })
         parser.write("mpp-tls'/><mechanisms xmlns='urn:ietf:params:xml:ns:xmpp-")
-        assert.equal(events.length, 4)
+        assert.strictEqual(events.length, 4)
         testStanza(events[2], {
           name: 'starttls',
           attrs: {
             xmlns: 'urn:ietf:params:xml:ns:xmpp-tls'
           }
         })
-        assert.equal(events[3].end, 'starttls')
+        assert.strictEqual(events[3].end, 'starttls')
         parser.write("sasl'><mechanism>PLAIN</mechanism><mechanism>DIGEST-MD5</")
         assert.ok(events.length >= 9)
         parser.write('mechanism><mechanism>SCRAM-SHA-1</mechanism></mechanisms>')
-        assert.equal(events.length, 15)
+        assert.strictEqual(events.length, 15)
         parser.write("<register xmlns='http://jabber.org/features/iq-register'/")
-        assert.equal(events.length, 15)
+        assert.strictEqual(events.length, 15)
         parser.write('></stream:features>')
-        assert.equal(events.length, 18)
+        assert.strictEqual(events.length, 18)
       },
       'bug: partial attrs': function () {
         var parser = new Parser()
@@ -143,7 +143,7 @@ parsers.forEach(function (Parser) {
         parser.write('urn:ietf:params:xml:ns:xmpp-sasl')
         parser.write('"')
         parser.write('>')
-        assert.equal(events.length, 2)
+        assert.strictEqual(events.length, 2)
         testStanza(events[0], {
           name: 'stream:features',
           attrs: {
@@ -170,7 +170,7 @@ parsers.forEach(function (Parser) {
           events.push({ comment: s })
         })
         parser.write("<?xml version='1.0'?><!-- <foo></foo><bar></bar> --><root></root>")
-        assert.deepEqual(events, [
+        assert.deepStrictEqual(events, [
           { start: 'root', attrs: {} },
           { end: 'root' }
         ])
@@ -180,9 +180,9 @@ parsers.forEach(function (Parser) {
 })
 
 function testStanza (data, stanza) {
-  assert.equal(data.start, stanza.name)
-  assert.equal(Object.keys(data.attrs).length, Object.keys(stanza.attrs).length)
+  assert.strictEqual(data.start, stanza.name)
+  assert.strictEqual(Object.keys(data.attrs).length, Object.keys(stanza.attrs).length)
   for (var k in stanza.attrs) {
-    assert.equal(data.attrs[k], stanza.attrs[k])
+    assert.strictEqual(data.attrs[k], stanza.attrs[k])
   }
 }

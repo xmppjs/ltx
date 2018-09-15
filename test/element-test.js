@@ -11,57 +11,57 @@ vows.describe('Element').addBatch({
     "doesn't reference original attrs object": function () {
       var o = { foo: 'bar' }
       var e = new Element('e', o)
-      assert.notEqual(e.attrs, o)
+      assert.notStrictEqual(e.attrs, o)
       e.attrs.bar = 'foo'
-      assert.equal(o.bar, undefined)
+      assert.strictEqual(o.bar, undefined)
       o.foobar = 'barfoo'
-      assert.equal(e.attrs.foobar, undefined)
+      assert.strictEqual(e.attrs.foobar, undefined)
     },
     'set xmlns attribute if a string is passed as second argument': function () {
       var ns = 'xmlns:test'
       var e = new Element('e', ns)
-      assert.equal(e.attrs.xmlns, ns)
-      assert.equal(e.getAttr('xmlns'), ns)
+      assert.strictEqual(e.attrs.xmlns, ns)
+      assert.strictEqual(e.getAttr('xmlns'), ns)
     }
   },
   'serialization': {
     'serialize an element': function () {
       var e = new Element('e')
-      assert.equal(e.toString(), '<e/>')
+      assert.strictEqual(e.toString(), '<e/>')
     },
     'serialize an element with attributes': function () {
       var e = new Element('e', { a1: 'foo' })
-      assert.equal(e.toString(), '<e a1="foo"/>')
+      assert.strictEqual(e.toString(), '<e a1="foo"/>')
     },
     'serialize an element with attributes to entities': function () {
       var e = new Element('e', { a1: '"well"' })
-      assert.equal(e.toString(), '<e a1="&quot;well&quot;"/>')
+      assert.strictEqual(e.toString(), '<e a1="&quot;well&quot;"/>')
     },
     'serialize an element with text': function () {
       var e = new Element('e').t('bar').root()
-      assert.equal(e.toString(), '<e>bar</e>')
+      assert.strictEqual(e.toString(), '<e>bar</e>')
     },
     'serialize an element with text to entities': function () {
       var e = new Element('e').t('1 < 2').root()
-      assert.equal(e.toString(), '<e>1 &lt; 2</e>')
+      assert.strictEqual(e.toString(), '<e>1 &lt; 2</e>')
     },
     'serialize an element with a number attribute': function () {
       var e = new Element('e', { a: 23 })
-      assert.equal(e.toString(), '<e a="23"/>')
+      assert.strictEqual(e.toString(), '<e a="23"/>')
     },
     'serialize an element with number contents': function () {
       var e = new Element('e')
       e.c('foo').t(23)
       e.c('bar').t(0)
-      assert.equal(e.toString(), '<e><foo>23</foo><bar>0</bar></e>')
+      assert.strictEqual(e.toString(), '<e><foo>23</foo><bar>0</bar></e>')
     },
     'serialize with undefined attribute': function () {
       var e = new Element('e', { foo: undefined })
-      assert.equal(e.toString(), '<e/>')
+      assert.strictEqual(e.toString(), '<e/>')
     },
     'serialize with null attribute': function () {
       var e = new Element('e', { foo: null })
-      assert.equal(e.toString(), '<e/>')
+      assert.strictEqual(e.toString(), '<e/>')
     },
     'serialize with number attribute': function () {
       var e = new Element('e', { foo: 23, bar: 0 })
@@ -72,20 +72,20 @@ vows.describe('Element').addBatch({
     'serialize with undefined child': function () {
       var e = new Element('e')
       e.children = [undefined]
-      assert.equal(e.toString(), '<e></e>')
+      assert.strictEqual(e.toString(), '<e></e>')
     },
     'serialize with null child': function () {
       var e = new Element('e')
       e.children = [null]
-      assert.equal(e.toString(), '<e></e>')
+      assert.strictEqual(e.toString(), '<e></e>')
     },
     'serialize with integer text': function () {
       var e = new Element('e').t(1000)
-      assert.equal(e.getText(), 1000)
+      assert.strictEqual(e.getText(), '1000')
     },
     'serialize to json': function () {
       var e = new Element('e', { foo: 23, bar: 0, nil: null }).c('f').t(1000).up()
-      assert.deepEqual(e.toJSON(), {
+      assert.deepStrictEqual(e.toJSON(), {
         name: 'e',
         attrs: { foo: 23, bar: 0, nil: null },
         children: [
@@ -98,14 +98,14 @@ vows.describe('Element').addBatch({
     'by element': function () {
       var el = new Element('e').c('c').c('x').up().up().c('c2').up().c('c').up()
       el.remove(el.getChild('c'))
-      assert.equal(el.getChildren('c').length, 1)
-      assert.equal(el.getChildren('c2').length, 1)
+      assert.strictEqual(el.getChildren('c').length, 1)
+      assert.strictEqual(el.getChildren('c2').length, 1)
     },
     'by name': function () {
       var el = new Element('e').c('c').up().c('c2').up().c('c').up()
       el.remove('c')
-      assert.equal(el.getChildren('c').length, 0)
-      assert.equal(el.getChildren('c2').length, 1)
+      assert.strictEqual(el.getChildren('c').length, 0)
+      assert.strictEqual(el.getChildren('c2').length, 1)
     }
   },
   'getAttr': {
@@ -114,14 +114,14 @@ vows.describe('Element').addBatch({
         '<person name="julien" job:title="hacker" /></team>'
       var doc = ltx.parse(stanza)
       var el = doc.getChild('person')
-      assert.equal(el.getAttr('name'), 'julien')
+      assert.strictEqual(el.getAttr('name'), 'julien')
     },
     'with ns': function () {
       var stanza = '<team xmlns:job="http://site.tld/job">' +
         '<person name="julien" job:title="hacker" /></team>'
       var doc = ltx.parse(stanza)
       var el = doc.getChild('person')
-      assert.equal(el.getAttr('title', 'http://site.tld/job'), 'hacker')
+      assert.strictEqual(el.getAttr('title', 'http://site.tld/job'), 'hacker')
     }
   },
   // extensively tested in equality-test.js
@@ -129,57 +129,57 @@ vows.describe('Element').addBatch({
     'name': function () {
       var a = new Element('foo')
       var b = new Element('foo')
-      assert.equal(a.nameEquals(a), true)
-      assert.equal(a.nameEquals(b), true)
-      assert.equal(b.nameEquals(a), true)
+      assert.strictEqual(a.nameEquals(a), true)
+      assert.strictEqual(a.nameEquals(b), true)
+      assert.strictEqual(b.nameEquals(a), true)
 
       b = new Element('b')
-      assert.equal(a.nameEquals(b), false)
-      assert.equal(b.nameEquals(a), false)
+      assert.strictEqual(a.nameEquals(b), false)
+      assert.strictEqual(b.nameEquals(a), false)
     },
     'attrs': function () {
-      var a = new Element('foo', {foo: 'bar'})
-      var b = new Element('foo', {foo: 'bar'})
-      assert.equal(a.attrsEquals(a), true)
-      assert.equal(a.attrsEquals(b), true)
-      assert.equal(b.attrsEquals(a), true)
+      var a = new Element('foo', { foo: 'bar' })
+      var b = new Element('foo', { foo: 'bar' })
+      assert.strictEqual(a.attrsEquals(a), true)
+      assert.strictEqual(a.attrsEquals(b), true)
+      assert.strictEqual(b.attrsEquals(a), true)
 
-      b = new Element('foo', {bar: 'foo'})
-      assert.equal(a.attrsEquals(b), false)
-      assert.equal(b.attrsEquals(a), false)
+      b = new Element('foo', { bar: 'foo' })
+      assert.strictEqual(a.attrsEquals(b), false)
+      assert.strictEqual(b.attrsEquals(a), false)
     },
     'children': function () {
       var a = new Element('foo').c('foo').root()
       var b = new Element('foo').c('foo').root()
-      assert.equal(a.childrenEquals(a), true)
-      assert.equal(a.childrenEquals(b), true)
-      assert.equal(b.childrenEquals(a), true)
+      assert.strictEqual(a.childrenEquals(a), true)
+      assert.strictEqual(a.childrenEquals(b), true)
+      assert.strictEqual(b.childrenEquals(a), true)
 
       b = new Element('foo').c('bar').root()
-      assert.equal(a.childrenEquals(b), false)
-      assert.equal(b.childrenEquals(a), false)
+      assert.strictEqual(a.childrenEquals(b), false)
+      assert.strictEqual(b.childrenEquals(a), false)
     }
   },
   'clone': {
     'clones': function () {
       var orig = new Element('msg', { type: 'get' }).c('content').t('foo').root()
       var clone = orig.clone()
-      assert.equal(clone.name, orig.name)
-      assert.equal(clone.attrs.type, orig.attrs.type)
-      assert.equal(clone.attrs.to, orig.attrs.to)
-      assert.equal(clone.children.length, orig.children.length)
-      assert.equal(clone.getChildText('content'), orig.getChildText('content'))
+      assert.strictEqual(clone.name, orig.name)
+      assert.strictEqual(clone.attrs.type, orig.attrs.type)
+      assert.strictEqual(clone.attrs.to, orig.attrs.to)
+      assert.strictEqual(clone.children.length, orig.children.length)
+      assert.strictEqual(clone.getChildText('content'), orig.getChildText('content'))
 
-      assert.equal(orig.getChild('content').up(), orig)
-      assert.equal(clone.getChild('content').up(), clone)
+      assert.strictEqual(orig.getChild('content').up(), orig)
+      assert.strictEqual(clone.getChild('content').up(), clone)
     },
     'mod attr': function () {
       var orig = new Element('msg', { type: 'get' })
       var clone = orig.clone()
       clone.attrs.type += '-result'
 
-      assert.equal(orig.attrs.type, 'get')
-      assert.equal(clone.attrs.type, 'get-result')
+      assert.strictEqual(orig.attrs.type, 'get')
+      assert.strictEqual(clone.attrs.type, 'get-result')
     },
     'rm attr': function () {
       var orig = new Element('msg', { from: 'me' })
@@ -187,20 +187,20 @@ vows.describe('Element').addBatch({
       delete clone.attrs.from
       clone.attrs.to = 'you'
 
-      assert.equal(orig.attrs.from, 'me')
-      assert.equal(orig.attrs.to, undefined)
-      assert.equal(clone.attrs.from, undefined)
-      assert.equal(clone.attrs.to, 'you')
+      assert.strictEqual(orig.attrs.from, 'me')
+      assert.strictEqual(orig.attrs.to, undefined)
+      assert.strictEqual(clone.attrs.from, undefined)
+      assert.strictEqual(clone.attrs.to, 'you')
     },
     'mod child': function () {
       var orig = new Element('msg', { type: 'get' }).c('content').t('foo').root()
       var clone = orig.clone()
       clone.getChild('content').t('bar').name = 'description'
 
-      assert.equal(orig.children[0].name, 'content')
-      assert.equal(orig.getChildText('content'), 'foo')
-      assert.equal(clone.children[0].name, 'description')
-      assert.equal(clone.getChildText('description'), 'foobar')
+      assert.strictEqual(orig.children[0].name, 'content')
+      assert.strictEqual(orig.getChildText('content'), 'foo')
+      assert.strictEqual(clone.children[0].name, 'description')
+      assert.strictEqual(clone.getChildText('description'), 'foobar')
     },
     'use original constructor for the clone': function () {
       var Foo = function (name, attrs) {
@@ -223,11 +223,11 @@ vows.describe('Element').addBatch({
         .root()
 
       var children = el.children
-      assert.equal(children.length, 4)
-      assert.equal(children[0].name, 'b')
-      assert.equal(children[1], 'foo')
-      assert.equal(children[2].name, 'c')
-      assert.equal(children[3], 'bar')
+      assert.strictEqual(children.length, 4)
+      assert.strictEqual(children[0].name, 'b')
+      assert.strictEqual(children[1], 'foo')
+      assert.strictEqual(children[2].name, 'c')
+      assert.strictEqual(children[3], 'bar')
     },
     'getChildElements': function () {
       var el = new Element('a')
@@ -239,9 +239,9 @@ vows.describe('Element').addBatch({
         .root()
 
       var children = el.getChildElements()
-      assert.equal(children.length, 2)
-      assert.equal(children[0].name, 'b')
-      assert.equal(children[1].name, 'c')
+      assert.strictEqual(children.length, 2)
+      assert.strictEqual(children[0].name, 'b')
+      assert.strictEqual(children[1].name, 'c')
     }
   },
 
@@ -249,20 +249,20 @@ vows.describe('Element').addBatch({
     'getChildrenByAttr': function () {
       var el = new Element('a')
         .c('b')
-        .c('c', {myProperty: 'x'}).t('bar').up().up().up()
-        .c('d', {id: 'x'})
-        .c('e', {myProperty: 'x'}).root()
+        .c('c', { myProperty: 'x' }).t('bar').up().up().up()
+        .c('d', { id: 'x' })
+        .c('e', { myProperty: 'x' }).root()
 
       var results = el.getChildrenByAttr('myProperty', 'x', null, true)
-      assert.equal(results[0].toString(), '<c myProperty="x">bar</c>')
-      assert.equal(results[1].toString(), '<e myProperty="x"/>')
+      assert.strictEqual(results[0].toString(), '<c myProperty="x">bar</c>')
+      assert.strictEqual(results[1].toString(), '<e myProperty="x"/>')
     },
     'getChildByAttr': function () {
       var el = new Element('a')
         .c('b')
-        .c('c', {id: 'x'})
+        .c('c', { id: 'x' })
         .t('bar').root()
-      assert.equal(el.getChildByAttr('id', 'x', null, true).toString(), '<c id="x">bar</c>')
+      assert.strictEqual(el.getChildByAttr('id', 'x', null, true).toString(), '<c id="x">bar</c>')
     }
   },
 
@@ -271,16 +271,16 @@ vows.describe('Element').addBatch({
       return ltx.parse('<root><x:foo>bar</x:foo></root>')
     },
     'getChildText prefixed': function (el) {
-      assert.equal(el.getChildText('x:foo'), null)
+      assert.strictEqual(el.getChildText('x:foo'), null)
     },
     'getChildText unprefixed': function (el) {
-      assert.equal(el.getChildText('foo'), 'bar')
+      assert.strictEqual(el.getChildText('foo'), 'bar')
     },
     'getChild prefixed': function (el) {
-      assert.equal(el.getChild('x:foo'), null)
+      assert.strictEqual(el.getChild('x:foo'), undefined)
     },
     'getChild unprefixed': function (el) {
-      assert.equal(el.getChild('foo').getText(), 'bar')
+      assert.strictEqual(el.getChild('foo').getText(), 'bar')
     }
   },
 

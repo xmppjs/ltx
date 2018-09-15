@@ -18,7 +18,7 @@ var suite = new benchmark.Suite('backends parse')
 
 parsers.forEach(function (Parser) {
   suite.add(Parser.name.slice(3), function () {
-    ltx.parse(XML, {Parser: Parser})
+    ltx.parse(XML, { Parser: Parser })
   })
 })
 

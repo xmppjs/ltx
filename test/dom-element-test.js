@@ -8,7 +8,7 @@ var DOMElement = require('../lib/DOMElement')
 
 parsers.forEach(function (Parser) {
   var parse = function (s) {
-    return ltx.parse(s, {Parser: Parser, Element: DOMElement})
+    return ltx.parse(s, { Parser: Parser, Element: DOMElement })
   }
   vows.describe("Parsing returns DOMElement's").addBatch({
     'DOMElement': {
@@ -18,37 +18,37 @@ parsers.forEach(function (Parser) {
         var el = parse(stanza)
 
         assert(el.getChild('body') instanceof DOMElement)
-        assert.equal(el.getChild('body').constructor.name, 'DOMElement')
+        assert.strictEqual(el.getChild('body').constructor.name, 'DOMElement')
         var body = el.getChild('body')
         assert.isDefined(body.localName)
-        assert.equal(body.localName, 'body')
+        assert.strictEqual(body.localName, 'body')
 
         assert.isDefined(body.namespaceURI)
-        assert.equal(body.namespaceURI, 'http://www.w3.org/1999/xhtml')
+        assert.strictEqual(body.namespaceURI, 'http://www.w3.org/1999/xhtml')
 
         assert.isDefined(body.parentNode)
-        assert.equal(body.parentNode.getName(), 'message')
+        assert.strictEqual(body.parentNode.getName(), 'message')
 
         assert.isDefined(body.childNodes)
         assert.isArray(body.childNodes)
-        assert.equal(body.childNodes.length, 1)
+        assert.strictEqual(body.childNodes.length, 1)
 
         assert.isDefined(body.textContent)
-        assert.equal(body.textContent, '')
+        assert.strictEqual(body.textContent, '')
 
-        assert.equal(body.getChild('p').textContent, 'DOM')
+        assert.strictEqual(body.getChild('p').textContent, 'DOM')
       }
     },
     'createElement': {
       'create a new element and set children': function () {
         var c = new DOMElement('bar')
-        var e = DOMElement.createElement('foo', {'foo': 'bar'}, 'foo', c)
+        var e = DOMElement.createElement('foo', { 'foo': 'bar' }, 'foo', c)
         assert(e instanceof DOMElement)
-        assert.equal(e.localName, 'foo')
-        assert.equal(e.getAttribute('foo'), 'bar')
-        assert.equal(e.childNodes.length, 2)
-        assert.equal(e.childNodes[0], 'foo')
-        assert.equal(e.childNodes[1], c)
+        assert.strictEqual(e.localName, 'foo')
+        assert.strictEqual(e.getAttribute('foo'), 'bar')
+        assert.strictEqual(e.childNodes.length, 2)
+        assert.strictEqual(e.childNodes[0], 'foo')
+        assert.strictEqual(e.childNodes[1], c)
       }
     }
   }).export(module)

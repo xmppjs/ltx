@@ -9,7 +9,7 @@ var Element = ltx.Element
 vows.describe('isNode').addBatch({
   'isNode': {
     'exported correctly': function () {
-      assert.equal(ltx.isNode, is.isNode)
+      assert.strictEqual(ltx.isNode, is.isNode)
     },
     'returns true for Element': function () {
       assert.strictEqual(is.isNode(new Element()), true)
@@ -25,7 +25,7 @@ vows.describe('isNode').addBatch({
   },
   'isElement': {
     'exported correctly': function () {
-      assert.equal(ltx.isElement, is.isElement)
+      assert.strictEqual(ltx.isElement, is.isElement)
     },
     'returns true for Element': function () {
       assert.strictEqual(is.isElement(new Element()), true)
@@ -38,7 +38,7 @@ vows.describe('isNode').addBatch({
   },
   'isText': {
     'exported correctly': function () {
-      assert.equal(ltx.isText, is.isText)
+      assert.strictEqual(ltx.isText, is.isText)
     },
     'returns true for strings': function () {
       assert.strictEqual(is.isText('foo'), true)

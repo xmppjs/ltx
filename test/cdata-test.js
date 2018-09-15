@@ -10,20 +10,20 @@ var Parser = parsers.find(function (parser) {
 })
 
 var parse = function (s) {
-  return ltx.parse(s, {Parser: Parser})
+  return ltx.parse(s, { Parser: Parser })
 }
 
 vows.describe('sax_ltx').addBatch({
   'CDATA parsing': {
     'issue-19: parse CDATA content as text': function () {
       var el = parse('<root><![CDATA[Content]]></root>')
-      assert.equal(el.name, 'root')
-      assert.equal(el.getText(), 'Content')
+      assert.strictEqual(el.name, 'root')
+      assert.strictEqual(el.getText(), 'Content')
     },
     'do not unescape CDATA content': function () {
       var el = parse('<root><![CDATA[Content &amp; "more content&quot;]]></root>')
-      assert.equal(el.name, 'root')
-      assert.equal(el.getText(), 'Content &amp; "more content&quot;')
+      assert.strictEqual(el.name, 'root')
+      assert.strictEqual(el.getText(), 'Content &amp; "more content&quot;')
     }
   }
 }).export(module)

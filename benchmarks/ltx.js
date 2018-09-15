@@ -60,7 +60,7 @@ suite.add('parse', function () {
 
 suite.add('createElement (jsx)', function () {
   createElement(
-    'message', {to: 'foo@bar', from: 'bar@foo', type: 'chat', id: 'foobar'},
+    'message', { to: 'foo@bar', from: 'bar@foo', type: 'chat', id: 'foobar' },
     createElement('body', null, 'Where there is love there is life.')
   )
 })
@@ -74,7 +74,7 @@ suite.add('clone', function () {
 })
 
 suite.add('Element', function () {
-  new Element('message', {to: 'foo@bar', from: 'bar@foo', type: 'chat', id: 'foobar'})
+  new Element('message', { to: 'foo@bar', from: 'bar@foo', type: 'chat', id: 'foobar' })
     .c('body').t('Where there is love there is life.').root()
 })
 
