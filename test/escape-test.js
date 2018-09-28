@@ -49,8 +49,8 @@ vows.describe('escape').addBatch({
     'unescapes \'': function () {
       assert.strictEqual(unescapeXML('&apos;'), '\'')
     },
-    'leaves invalid entities alone': function () {
-      assert.strictEqual(unescapeXML('&foobar;'), '&foobar;')
+    'throws on invalid entities': function () {
+      assert.throws(() => unescapeXML('&foobar;'), Error, 'Illegal XML entity &foobar;')
     },
     'unescapes numeric entities': function () {
       assert.strictEqual(unescapeXML('&#64;'), '@')
