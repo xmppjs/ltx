@@ -64,7 +64,7 @@ var suite = new benchmark.Suite('XML parsers comparison')
 parsers.forEach(function (parser) {
   parser.parse('<r>')
   suite.add(parser.name, function () {
-    parser.parse('<foo bar="baz">quux</foo>')
+    parser.parse('<foo bar="urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6">urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6 urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6</foo>')
   })
 })
 
