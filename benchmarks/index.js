@@ -1,12 +1,13 @@
 'use strict'
 
-var readdir = require('fs').readdirSync
-var basename = require('path').basename
+const suites = [
+  require('./ltx'),
+  require('./parsers'),
+  require('./parse'),
+  require('./write')
+]
 
-readdir(__dirname).forEach(function (file) {
-  if (file === basename(__filename)) return
-
-  var suite = require('./' + file)
+suites.forEach(function (suite) {
   console.log('suite', suite.name)
   suite
     .on('cycle', function (event) {

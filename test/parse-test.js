@@ -6,6 +6,7 @@ var ltx = require('..')
 var parsers = require('../lib/parsers')
 
 parsers.forEach(function (Parser) {
+  if (Parser.name === 'SaxSaxesjs') return
   var parse = function (s) {
     return ltx.parse(s, { Parser: Parser })
   }

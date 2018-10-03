@@ -10,8 +10,12 @@ var nodeXml = require('node-xml')
 var libxml = require('libxmljs')
 var expat = require('node-expat')
 var sax = require('sax')
-// var ltx = require('..')
+var saxes = require('saxes')
 var LtxSaxParser = require('../lib/parsers/ltx')
+var fs = require('fs')
+var path = require('path')
+
+var XML = fs.readFileSync(path.join(__dirname, 'data.xml'), 'utf8')
 
 function NodeXmlParser () {
   var parser = new nodeXml.SaxParser(function (cb) {})
@@ -34,6 +38,13 @@ function SaxParser () {
   }
   this.name = 'sax'
 }
+function SaxesParser () {
+  var parser = new saxes.SaxesParser({ fragment: true })
+  this.parse = function (s) {
+    parser.write(s).close()
+  }
+  this.name = 'saxes'
+}
 function ExpatParser () {
   var parser = new expat.Parser()
   this.parse = function (s) {
@@ -51,6 +62,7 @@ function LtxParser () {
 
 var parsers = [
   SaxParser,
+  SaxesParser,
   NodeXmlParser,
   LibXmlJsParser,
   ExpatParser,
@@ -64,7 +76,7 @@ var suite = new benchmark.Suite('XML parsers comparison')
 parsers.forEach(function (parser) {
   parser.parse('<r>')
   suite.add(parser.name, function () {
-    parser.parse('<foo bar="urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6">urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6 urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6</foo>')
+    parser.parse(XML)
   })
 })
 
