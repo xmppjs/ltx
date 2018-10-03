@@ -6,12 +6,10 @@
 
 var benchmark = require('benchmark')
 var parsers = require('../lib/parsers')
+var fs = require('fs')
+var path = require('path')
 
-var XML = [
-  '<message to="foo@bar" from="bar@foo" type="chat" id="foobar">',
-  '<body>Where there is love there is life.</body>',
-  '</message>'
-].join('')
+var XML = fs.readFileSync(path.join(__dirname, 'data.xml'), 'utf8')
 
 var suite = new benchmark.Suite('backends write')
 
