@@ -41,7 +41,7 @@ function SaxParser () {
 function SaxesParser () {
   var parser = new saxes.SaxesParser({ fragment: true })
   this.parse = function (s) {
-    parser.write(s).close()
+    parser.write(s)
   }
   this.name = 'saxes'
 }
