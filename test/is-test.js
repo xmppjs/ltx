@@ -7,7 +7,7 @@ var is = require('../lib/is')
 var Element = ltx.Element
 
 vows.describe('isNode').addBatch({
-  'isNode': {
+  isNode: {
     'exported correctly': function () {
       assert.strictEqual(ltx.isNode, is.isNode)
     },
@@ -23,7 +23,7 @@ vows.describe('isNode').addBatch({
       })
     }
   },
-  'isElement': {
+  isElement: {
     'exported correctly': function () {
       assert.strictEqual(ltx.isElement, is.isElement)
     },
@@ -36,7 +36,7 @@ vows.describe('isNode').addBatch({
       })
     }
   },
-  'isText': {
+  isText: {
     'exported correctly': function () {
       assert.strictEqual(ltx.isText, is.isText)
     },

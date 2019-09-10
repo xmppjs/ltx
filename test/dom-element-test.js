@@ -11,7 +11,7 @@ parsers.forEach(function (Parser) {
     return ltx.parse(s, { Parser: Parser, Element: DOMElement })
   }
   vows.describe("Parsing returns DOMElement's").addBatch({
-    'DOMElement': {
+    DOMElement: {
       'Returns DOMElement on parse': function () {
         var stanza = '<message><body xmlns="http://www.w3.org/1999/xhtml">' +
           '<p>DOM</p></body></message>'
@@ -39,10 +39,10 @@ parsers.forEach(function (Parser) {
         assert.strictEqual(body.getChild('p').textContent, 'DOM')
       }
     },
-    'createElement': {
+    createElement: {
       'create a new element and set children': function () {
         var c = new DOMElement('bar')
-        var e = DOMElement.createElement('foo', { 'foo': 'bar' }, 'foo', c)
+        var e = DOMElement.createElement('foo', { foo: 'bar' }, 'foo', c)
         assert(e instanceof DOMElement)
         assert.strictEqual(e.localName, 'foo')
         assert.strictEqual(e.getAttribute('foo'), 'bar')
