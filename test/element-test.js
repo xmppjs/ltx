@@ -24,7 +24,7 @@ vows.describe('Element').addBatch({
       assert.strictEqual(e.getAttr('xmlns'), ns)
     }
   },
-  'serialization': {
+  serialization: {
     'serialize an element': function () {
       var e = new Element('e')
       assert.strictEqual(e.toString(), '<e/>')
@@ -94,7 +94,7 @@ vows.describe('Element').addBatch({
       })
     }
   },
-  'remove': {
+  remove: {
     'by element': function () {
       var el = new Element('e').c('c').c('x').up().up().c('c2').up().c('c').up()
       el.remove(el.getChild('c'))
@@ -108,7 +108,7 @@ vows.describe('Element').addBatch({
       assert.strictEqual(el.getChildren('c2').length, 1)
     }
   },
-  'getAttr': {
+  getAttr: {
     'without ns': function () {
       var stanza = '<team xmlns:job="http://site.tld/job">' +
         '<person name="julien" job:title="hacker" /></team>'
@@ -125,8 +125,8 @@ vows.describe('Element').addBatch({
     }
   },
   // extensively tested in equality-test.js
-  'equality': {
-    'name': function () {
+  equality: {
+    name: function () {
       var a = new Element('foo')
       var b = new Element('foo')
       assert.strictEqual(a.nameEquals(a), true)
@@ -137,7 +137,7 @@ vows.describe('Element').addBatch({
       assert.strictEqual(a.nameEquals(b), false)
       assert.strictEqual(b.nameEquals(a), false)
     },
-    'attrs': function () {
+    attrs: function () {
       var a = new Element('foo', { foo: 'bar' })
       var b = new Element('foo', { foo: 'bar' })
       assert.strictEqual(a.attrsEquals(a), true)
@@ -148,7 +148,7 @@ vows.describe('Element').addBatch({
       assert.strictEqual(a.attrsEquals(b), false)
       assert.strictEqual(b.attrsEquals(a), false)
     },
-    'children': function () {
+    children: function () {
       var a = new Element('foo').c('foo').root()
       var b = new Element('foo').c('foo').root()
       assert.strictEqual(a.childrenEquals(a), true)
@@ -160,8 +160,8 @@ vows.describe('Element').addBatch({
       assert.strictEqual(b.childrenEquals(a), false)
     }
   },
-  'clone': {
-    'clones': function () {
+  clone: {
+    clones: function () {
       var orig = new Element('msg', { type: 'get' }).c('content').t('foo').root()
       var clone = orig.clone()
       assert.strictEqual(clone.name, orig.name)
@@ -212,8 +212,8 @@ vows.describe('Element').addBatch({
       assert(foo.clone() instanceof Foo)
     }
   },
-  'children': {
-    'getChildren': function () {
+  children: {
+    getChildren: function () {
       var el = new Element('a')
         .c('b')
         .c('b2').up().up()
@@ -229,7 +229,7 @@ vows.describe('Element').addBatch({
       assert.strictEqual(children[2].name, 'c')
       assert.strictEqual(children[3], 'bar')
     },
-    'getChildElements': function () {
+    getChildElements: function () {
       var el = new Element('a')
         .c('b')
         .c('b2').up().up()
@@ -245,8 +245,8 @@ vows.describe('Element').addBatch({
     }
   },
 
-  'recursive': {
-    'getChildrenByAttr': function () {
+  recursive: {
+    getChildrenByAttr: function () {
       var el = new Element('a')
         .c('b')
         .c('c', { myProperty: 'x' }).t('bar').up().up().up()
@@ -257,7 +257,7 @@ vows.describe('Element').addBatch({
       assert.strictEqual(results[0].toString(), '<c myProperty="x">bar</c>')
       assert.strictEqual(results[1].toString(), '<e myProperty="x"/>')
     },
-    'getChildByAttr': function () {
+    getChildByAttr: function () {
       var el = new Element('a')
         .c('b')
         .c('c', { id: 'x' })
@@ -285,7 +285,7 @@ vows.describe('Element').addBatch({
   },
 
   'issue-37: Element instanceof Fails': {
-    'instanceof': function () {
+    instanceof: function () {
       var el = new Element('root').c('children')
       assert.ok(el instanceof Element)
     }

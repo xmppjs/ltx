@@ -9,7 +9,7 @@ var createElement = ltx.createElement
 vows.describe('createElement').addBatch({
   'create a new element and set children': function () {
     var c = new Element('bar')
-    var e = createElement('foo', { 'foo': 'bar' }, 'foo', c)
+    var e = createElement('foo', { foo: 'bar' }, 'foo', c)
     assert(e instanceof Element)
     assert(e.is('foo'))
     assert.strictEqual(e.attrs.foo, 'bar')

@@ -51,7 +51,7 @@ parsers.forEach(function (Parser) {
         assert.strictEqual(el.getName(), 'root')
         assert.ok(el.is('root', 'https://github.com/astro/ltx'))
       },
-      'buffer': function () {
+      buffer: function () {
         var buf = Buffer.from('<root/>')
         var el = parse(buf)
         assert.strictEqual(el.name, 'root')

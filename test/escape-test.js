@@ -10,7 +10,7 @@ var escapeXMLText = escape.escapeXMLText
 var unescapeXMLText = escape.unescapeXMLText
 
 vows.describe('escape').addBatch({
-  'escapeXML': {
+  escapeXML: {
     'exported correctly': function () {
       assert.strictEqual(ltx.escapeXML, escapeXML)
     },
@@ -30,7 +30,7 @@ vows.describe('escape').addBatch({
       assert.strictEqual(escapeXML('\''), '&apos;')
     }
   },
-  'unescapeXML': {
+  unescapeXML: {
     'exported correctly': function () {
       assert.strictEqual(ltx.unescapeXML, unescapeXML)
     },
@@ -71,7 +71,7 @@ vows.describe('escape').addBatch({
       assert.strictEqual(unescapeXML('&#128013;'), '\uD83D\uDC0D')
     }
   },
-  'escapeXMLText': {
+  escapeXMLText: {
     'exported correctly': function () {
       assert.strictEqual(ltx.escapeXMLText, escapeXMLText)
     },
@@ -85,7 +85,7 @@ vows.describe('escape').addBatch({
       assert.strictEqual(escapeXMLText('>'), '&gt;')
     }
   },
-  'unescapeXMLText': {
+  unescapeXMLText: {
     'exported correctly': function () {
       assert.strictEqual(ltx.unescapeXMLText, unescapeXMLText)
     },

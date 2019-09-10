@@ -10,7 +10,7 @@ var childrenEqual = ltx.childrenEqual
 var equal = ltx.equal
 
 vows.describe('equality').addBatch({
-  'nameEqual': {
+  nameEqual: {
     'it returns true if elements name are equal': function () {
       var a = new Element('foo')
       var b = new Element('foo')
@@ -34,7 +34,7 @@ vows.describe('equality').addBatch({
       assert.strictEqual(nameEqual(e, f), false)
     }
   },
-  'attrsEqual': {
+  attrsEqual: {
     'it returns true if elements attributes are equal': function () {
       var a = new Element('foo', { a: 'b', b: 'c' })
       var b = new Element('foo', { a: 'b', b: 'c' })
@@ -76,7 +76,7 @@ vows.describe('equality').addBatch({
       assert.strictEqual(attrsEqual(g, h), false)
     }
   },
-  'childrenEqual': {
+  childrenEqual: {
     'it returns true if elements children are equal': function () {
       var a = new Element('foo').c('bar').up().c('foo').root()
       assert.strictEqual(childrenEqual(a, a), true)
@@ -100,7 +100,7 @@ vows.describe('equality').addBatch({
       assert.strictEqual(childrenEqual(a, b), false)
     }
   },
-  'equal': {
+  equal: {
     'it returns true if elements are equal': function () {
       var a = new Element('a', { foo: 'bar' }).c('hello').root()
       assert.strictEqual(equal(a, a), true)
