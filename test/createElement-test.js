@@ -24,5 +24,14 @@ vows.describe('createElement').addBatch({
       .c('test').up()
       .t('baz')
     assert.strictEqual(e.root().toString(), b.root().toString())
+  },
+  'create a new function element': function () {
+    function c (attrs) {
+      return new Element('foo', { foo: attrs.foo })
+    }
+    var e = createElement(c, { foo: 'bar' })
+    assert(e instanceof Element)
+    assert(e.is('foo'))
+    assert.strictEqual(e.attrs.foo, 'bar')
   }
 }).export(module)
