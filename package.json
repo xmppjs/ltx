@@ -3,9 +3,9 @@
   "version": "2.9.2",
   "description": "<xml for=\"JavaScript\">",
   "author": "Astro",
-  "repository": "github:node-xmpp/ltx",
-  "homepage": "http://github.com/node-xmpp/ltx",
-  "bugs": "http://github.com/node-xmpp/ltx/issues",
+  "repository": "github:xmppjs/ltx",
+  "homepage": "http://github.com/xmppjs/ltx",
+  "bugs": "http://github.com/xmppjs/ltx/issues",
   "contributors": [
     "Stephan Maka",
     "Will Fife",
@@ -29,14 +29,14 @@
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "browserify": "^16.5.0",
+    "browserify": "^16.5.2",
     "libxmljs": "^0.19.7",
     "microtime": "^3.0.0",
     "node-expat": "^2.3.18",
     "node-xml": "^1.0.2",
     "sax": "^1.2.4",
-    "saxes": "^3.1.11",
-    "standard": "^14.3.1",
-    "vows": "^0.8.2"
+    "saxes": "^5.0.1",
+    "standard": "^14.3.4",
+    "vows": "^0.8.3"
   }
 }
