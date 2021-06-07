@@ -6,12 +6,39 @@ var ltx = require('..')
 var parsers = require('../lib/parsers')
 var h = ltx.createElement
 
-var Parser = parsers.find(function (parser) {
+var LTXParser = parsers.find(function (parser) {
   return (parser.name === 'SaxLtx')
 })
 
 var parse = function (s) {
-  return ltx.parse(s, { Parser: Parser })
+  return ltx.parse(s, { Parser: LTXParser })
+}
+
+var Parser = require('../lib/Parser')
+
+var parseChunks = function (chunks) {
+  var p = new Parser()
+
+  var result = null
+  var error = null
+
+  p.on('tree', function (tree) {
+    result = tree
+  })
+  p.on('error', function (e) {
+    error = e
+  })
+
+  for (var chunk of chunks) {
+    p.write(chunk)
+  }
+  p.end()
+
+  if (error) {
+    throw error
+  } else {
+    return result
+  }
 }
 
 vows.describe('sax_ltx').addBatch({
@@ -29,6 +56,14 @@ vows.describe('sax_ltx').addBatch({
     'issue-132': () => {
       var el = parse('<a><b><![CDATA[]]></b><b><![CDATA[--><c>&d;]]></b></a>')
       assert.deepStrictEqual(el, h('a', null, h('b', null, ''), h('b', null, '--><c>&d;')))
+    },
+    'split CDATA between chunks': () => {
+      var el1 = parseChunks(['<root><![CDA', 'TA[Content]]></root>'])
+      assert.strictEqual(el1.getText(), 'Content')
+      var el2 = parseChunks(['<root><![CDATA[Con', 'tent]]></root>'])
+      assert.strictEqual(el2.getText(), 'Content')
+      var el3 = parseChunks(['<root><![CDATA[Content]]', '></root>'])
+      assert.strictEqual(el3.getText(), 'Content')
     }
   }
 }).export(module)
