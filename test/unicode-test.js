@@ -3,6 +3,7 @@
 var vows = require('vows')
 var assert = require('assert')
 var Element = require('../lib/Element')
+var parseChunks = require('./helpers').parseChunks
 
 vows.describe('unicode').addBatch({
   'unicode forming': {
@@ -40,6 +41,11 @@ vows.describe('unicode').addBatch({
         assert.strictEqual(result.shift(), c)
       })
       assert.strictEqual(result.length, 0)
+    },
+    'Unicode buffers': () => {
+      var buffer = Buffer.from('<root><![CDATA[Ποδήλατο]]></root>', 'utf-8')
+      var el1 = parseChunks([buffer.slice(0, 18), buffer.slice(18)])
+      assert.strictEqual(el1.getText(), 'Ποδήλατο')
     }
   }
 }).export(module)

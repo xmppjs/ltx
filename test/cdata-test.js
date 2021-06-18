@@ -5,6 +5,7 @@ var assert = require('assert')
 var ltx = require('..')
 var parsers = require('../lib/parsers')
 var h = ltx.createElement
+var parseChunks = require('./helpers').parseChunks
 
 var LTXParser = parsers.find(function (parser) {
   return (parser.name === 'SaxLtx')
@@ -12,33 +13,6 @@ var LTXParser = parsers.find(function (parser) {
 
 var parse = function (s) {
   return ltx.parse(s, { Parser: LTXParser })
-}
-
-var Parser = require('../lib/Parser')
-
-var parseChunks = function (chunks) {
-  var p = new Parser()
-
-  var result = null
-  var error = null
-
-  p.on('tree', function (tree) {
-    result = tree
-  })
-  p.on('error', function (e) {
-    error = e
-  })
-
-  for (var chunk of chunks) {
-    p.write(chunk)
-  }
-  p.end()
-
-  if (error) {
-    throw error
-  } else {
-    return result
-  }
 }
 
 vows.describe('sax_ltx').addBatch({
