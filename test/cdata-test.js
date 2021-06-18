@@ -64,6 +64,15 @@ vows.describe('sax_ltx').addBatch({
       assert.strictEqual(el2.getText(), 'Content')
       var el3 = parseChunks(['<root><![CDATA[Content]]', '></root>'])
       assert.strictEqual(el3.getText(), 'Content')
+
+      var str = '<root><![CDATA[Content]]></root>'
+      for (var i = 0; i < str.length; i++) {
+        var chunks = [
+          str.substr(0, i) || '',
+          str.substring(i) || ''
+        ]
+        assert.strictEqual(parseChunks(chunks).toString(), '<root>Content</root>')
+      }
     }
   }
 }).export(module)
