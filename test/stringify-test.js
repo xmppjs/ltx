@@ -21,6 +21,30 @@ vows.describe('stringify').addBatch({
     `
     assert.strictEqual(el.toString(), stringify(el))
   },
+  'while having entities in text, return the same result than .toString()': function () {
+    const el = ltx`
+      <foo bar="foo">
+        &gt;text
+        <child foo="bar">
+          &lt;text
+          <self-closing/>
+        </child>
+      </foo>
+    `
+    assert.strictEqual(el.toString(), stringify(el))
+  },
+  'while having entities in attribute, return the same result than .toString()': function () {
+    const el = ltx`
+      <foo bar="&amp;foo">
+        &gt;text
+        <child foo="&amp;bar">
+          &lt;text
+          <self-closing/>
+        </child>
+      </foo>
+    `
+    assert.strictEqual(el.toString(), stringify(el))
+  },
   'indents correctly': function () {
     const el = ltx`<foo><bar hello="world">text<self/></bar></foo>`
 
