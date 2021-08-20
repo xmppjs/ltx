@@ -33,6 +33,8 @@ module.exports = {
       { overrides: { "?": "before", ":": "before" } },
     ],
     "capitalized-comments": 0,
+    "no-var": ["error"],
+    "prefer-const": ["error"],
     "prefer-rest-params": ["error"],
     "prefer-spread": ["error"],
     "prefer-destructuring": [

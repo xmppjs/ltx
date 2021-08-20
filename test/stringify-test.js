@@ -1,9 +1,9 @@
 "use strict";
 
-var vows = require("vows");
-var assert = require("assert");
-var ltx = require("..");
-var stringify = require("../lib/stringify");
+const vows = require("vows");
+const assert = require("assert");
+const ltx = require("..");
+const stringify = require("../lib/stringify");
 
 vows
   .describe("stringify")

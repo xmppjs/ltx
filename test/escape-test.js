@@ -1,13 +1,13 @@
 "use strict";
 
-var vows = require("vows");
-var assert = require("assert");
-var ltx = require("..");
-var escape = require("../lib/escape");
-var escapeXML = escape.escapeXML;
-var unescapeXML = escape.unescapeXML;
-var escapeXMLText = escape.escapeXMLText;
-var unescapeXMLText = escape.unescapeXMLText;
+const vows = require("vows");
+const assert = require("assert");
+const ltx = require("..");
+const escape = require("../lib/escape");
+const { escapeXML } = escape;
+const { unescapeXML } = escape;
+const { escapeXMLText } = escape;
+const { unescapeXMLText } = escape;
 
 vows
   .describe("escape")

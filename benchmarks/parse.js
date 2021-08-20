@@ -4,20 +4,20 @@
   benchmark the parsing speed of the supported backends
  */
 
-var benchmark = require("benchmark");
-var ltx = require("../index");
-var parsers = require("../lib/parsers");
-var fs = require("fs");
-var path = require("path");
+const benchmark = require("benchmark");
+const ltx = require("../index");
+const parsers = require("../lib/parsers");
+const fs = require("fs");
+const path = require("path");
 
-var XML = fs.readFileSync(path.join(__dirname, "data.xml"), "utf8");
+const XML = fs.readFileSync(path.join(__dirname, "data.xml"), "utf8");
 
-var suite = new benchmark.Suite("backends parse");
+const suite = new benchmark.Suite("backends parse");
 
-parsers.forEach(function (Parser) {
-  suite.add(Parser.name.slice(3), function () {
+for (const Parser of parsers) {
+  suite.add(Parser.name.slice(3), () => {
     ltx.parse(XML, { Parser: Parser });
   });
-});
+}
 
 module.exports = suite;

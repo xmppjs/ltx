@@ -1,13 +1,13 @@
 "use strict";
 
-var vows = require("vows");
-var assert = require("assert");
-var ltx = require("..");
-var parsers = require("../lib/parsers");
+const vows = require("vows");
+const assert = require("assert");
+const ltx = require("..");
+const parsers = require("../lib/parsers");
 
-parsers.forEach(function (Parser) {
-  if (Parser.name === "SaxSaxesjs") return;
-  var parse = function (s) {
+for (const Parser of parsers) {
+  if (Parser.name === "SaxSaxesjs") continue;
+  const parse = function (s) {
     return ltx.parse(s, { Parser: Parser });
   };
   vows
@@ -15,52 +15,52 @@ parsers.forEach(function (Parser) {
     .addBatch({
       "DOM parsing": {
         "simple document": function () {
-          var el = parse("<root/>");
+          const el = parse("<root/>");
           assert.strictEqual(el.name, "root");
           assert.strictEqual(0, el.children.length);
         },
         "text with commas": function () {
-          var el = parse("<body>sa'sa'1'sasa</body>");
+          const el = parse("<body>sa'sa'1'sasa</body>");
           assert.strictEqual("sa'sa'1'sasa", el.getText());
         },
         "text with entities": function () {
-          var el = parse("<body>&lt;&gt;&amp;&quot;&apos;</body>");
+          const el = parse("<body>&lt;&gt;&amp;&quot;&apos;</body>");
           assert.strictEqual("<>&\"'", el.getText());
         },
         "attribute with entities": function () {
-          var el = parse("<body title='&lt;&gt;&amp;&quot;&apos;'/>");
+          const el = parse("<body title='&lt;&gt;&amp;&quot;&apos;'/>");
           assert.strictEqual("<>&\"'", el.attrs.title);
         },
         "erroneous document raises error": function () {
-          assert.throws(function () {
+          assert.throws(() => {
             parse("<root></toor>");
           });
         },
         "incomplete document raises error": function () {
-          assert.throws(function () {
+          assert.throws(() => {
             parse("<root>");
           });
         },
         "namespace declaration": function () {
-          var el = parse("<root xmlns='https://github.com/astro/ltx'/>");
+          const el = parse("<root xmlns='https://github.com/astro/ltx'/>");
           assert.strictEqual(el.name, "root");
           assert.strictEqual(el.attrs.xmlns, "https://github.com/astro/ltx");
           assert.ok(el.is("root", "https://github.com/astro/ltx"));
         },
         "namespace declaration with prefix": function () {
-          var el = parse("<x:root xmlns:x='https://github.com/astro/ltx'/>");
+          const el = parse("<x:root xmlns:x='https://github.com/astro/ltx'/>");
           assert.strictEqual(el.name, "x:root");
           assert.strictEqual(el.getName(), "root");
           assert.ok(el.is("root", "https://github.com/astro/ltx"));
         },
         buffer: function () {
-          var buf = Buffer.from("<root/>");
-          var el = parse(buf);
+          const buf = Buffer.from("<root/>");
+          const el = parse(buf);
           assert.strictEqual(el.name, "root");
           assert.strictEqual(0, el.children.length);
         },
         "utf-8 text": function () {
-          var el = parse(
+          const el = parse(
             '<?xml version="1.0" encoding="utf-8"?><text>Möwe</text>'
           );
           assert.strictEqual(el.name, "text");
@@ -68,8 +68,8 @@ parsers.forEach(function (Parser) {
         },
         "iso8859-1 text": function () {
           if (Parser.name === "SaxLibxmljs") return;
-          var el = parse(
-            '<?xml version="1.0" encoding="iso-8859-1"?><text>M\xF6we</text>'
+          const el = parse(
+            '<?xml version="1.0" encoding="iso-8859-1"?><text>M\u00F6we</text>'
           );
           assert.strictEqual(el.name, "text");
           assert.strictEqual(el.getText(), "Möwe");
@@ -77,15 +77,15 @@ parsers.forEach(function (Parser) {
       },
       "SAX parsing": {
         "XMPP stream": function () {
-          var parser = new Parser();
-          var events = [];
-          parser.on("startElement", function (name, attrs) {
+          const parser = new Parser();
+          const events = [];
+          parser.on("startElement", (name, attrs) => {
             events.push({ start: name, attrs: attrs });
           });
-          parser.on("endElement", function (name) {
+          parser.on("endElement", (name) => {
             events.push({ end: name });
           });
-          parser.on("text", function (s) {
+          parser.on("text", (s) => {
             events.push({ text: s });
           });
           parser.write(
@@ -142,15 +142,15 @@ parsers.forEach(function (Parser) {
           assert.strictEqual(events.length, 18);
         },
         "bug: partial attrs": function () {
-          var parser = new Parser();
-          var events = [];
-          parser.on("startElement", function (name, attrs) {
+          const parser = new Parser();
+          const events = [];
+          parser.on("startElement", (name, attrs) => {
             events.push({ start: name, attrs: attrs });
           });
-          parser.on("endElement", function (name) {
+          parser.on("endElement", (name) => {
             events.push({ end: name });
           });
-          parser.on("text", function (s) {
+          parser.on("text", (s) => {
             events.push({ text: s });
           });
           parser.write("<");
@@ -181,15 +181,15 @@ parsers.forEach(function (Parser) {
           });
         },
         "bug: elements in comments": function () {
-          var parser = new Parser();
-          var events = [];
-          parser.on("startElement", function (name, attrs) {
+          const parser = new Parser();
+          const events = [];
+          parser.on("startElement", (name, attrs) => {
             events.push({ start: name, attrs: attrs });
           });
-          parser.on("endElement", function (name) {
+          parser.on("endElement", (name) => {
             events.push({ end: name });
           });
-          parser.on("comment", function (s) {
+          parser.on("comment", (s) => {
             events.push({ comment: s });
           });
           parser.write(
@@ -203,7 +203,7 @@ parsers.forEach(function (Parser) {
       },
     })
     .export(module);
-});
+}
 
 function testStanza(data, stanza) {
   assert.strictEqual(data.start, stanza.name);
@@ -211,7 +211,7 @@ function testStanza(data, stanza) {
     Object.keys(data.attrs).length,
     Object.keys(stanza.attrs).length
   );
-  for (var k in stanza.attrs) {
+  for (const k in stanza.attrs) {
     assert.strictEqual(data.attrs[k], stanza.attrs[k]);
   }
 }

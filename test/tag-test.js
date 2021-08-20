@@ -1,10 +1,10 @@
 "use strict";
 
-var vows = require("vows");
-var assert = require("assert");
-var ltx = require("..");
-var tag = require("../lib/tag");
-var Element = ltx.Element;
+const vows = require("vows");
+const assert = require("assert");
+const ltx = require("..");
+const tag = require("../lib/tag");
+const { Element } = ltx;
 
 vows
   .describe("tag")
@@ -14,18 +14,18 @@ vows
     },
     "parses the string and return an Element object": function () {
       // var r = tag`<foo>${'bar'}</foo>`
-      var r = tag(["<foo>", "</foo>"], "bar");
+      const r = tag(["<foo>", "</foo>"], "bar");
       assert(r instanceof Element);
-      var c = new Element("foo").t("bar");
+      const c = new Element("foo").t("bar");
       assert(c.equals(r));
       assert(r.equals(c));
       assert.strictEqual(r.toString(), c.toString());
     },
     "multiple substitutions": function () {
       // var r = tag`<foo a="${'b'}">${'bar'}</foo>`
-      var r = tag(['<foo a="', '">', "</foo>"], "b", "bar");
+      const r = tag(['<foo a="', '">', "</foo>"], "b", "bar");
       assert(r instanceof Element);
-      var c = new Element("foo", { a: "b" }).t("bar");
+      const c = new Element("foo", { a: "b" }).t("bar");
       assert(c.equals(r));
       assert(r.equals(c));
       assert.strictEqual(r.toString(), c.toString());

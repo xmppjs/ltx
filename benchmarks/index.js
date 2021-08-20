@@ -7,15 +7,15 @@ const suites = [
   require("./write"),
 ];
 
-suites.forEach(function (suite) {
+for (const suite of suites) {
   console.log("suite", suite.name);
   suite
-    .on("cycle", function (event) {
+    .on("cycle", (event) => {
       console.log(event.target.toString());
     })
-    .on("complete", function () {
+    .on("complete", () => {
       console.log('Fastest is "' + this.filter("fastest").map("name") + '"');
     })
     .run({ async: false });
   console.log("\n");
-});
+}
