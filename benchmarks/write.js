@@ -4,21 +4,21 @@
   benchmark the serialization speed of the the supported backends
  */
 
-var benchmark = require("benchmark");
-var parsers = require("../lib/parsers");
-var fs = require("fs");
-var path = require("path");
+const benchmark = require("benchmark");
+const parsers = require("../lib/parsers");
+const fs = require("fs");
+const path = require("path");
 
-var XML = fs.readFileSync(path.join(__dirname, "data.xml"), "utf8");
+const XML = fs.readFileSync(path.join(__dirname, "data.xml"), "utf8");
 
-var suite = new benchmark.Suite("backends write");
+const suite = new benchmark.Suite("backends write");
 
-parsers.forEach(function (Parser) {
-  var parser = new Parser();
+for (const Parser of parsers) {
+  const parser = new Parser();
   parser.write("<r>");
-  suite.add(Parser.name.slice(3), function () {
+  suite.add(Parser.name.slice(3), () => {
     parser.write(XML);
   });
-});
+}
 
 module.exports = suite;

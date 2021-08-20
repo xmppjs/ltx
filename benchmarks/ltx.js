@@ -6,33 +6,31 @@
   the different methods.
  */
 
-var benchmark = require("benchmark");
-var ltx = require("../index");
-var createElement = ltx.createElement;
-var tag = ltx.tag;
-var Element = ltx.Element;
-var parse = ltx.parse;
+const benchmark = require("benchmark");
+const ltx = require("../index");
+const { createElement } = ltx;
+const { tag } = ltx;
+const { Element } = ltx;
+const { parse } = ltx;
 
-var XML = [
+const XML = [
   '<message to="foo@bar" from="bar@foo" type="chat" id="foobar">',
   "<body>Where there is love there is life.</body>",
   "</message>",
 ].join("");
-var el = parse(XML);
+const el = parse(XML);
 
-var suite = new benchmark.Suite("ltx");
+const suite = new benchmark.Suite("ltx");
 
-suite.add("tag with template literal", function () {
-  /* eslint-disable */
+suite.add("tag with template literal", () => {
   tag`
     <message to="${"foo@bar"}" from="${"bar@foo"}" type="${"chat"}" id="${"foobar"}">
       <body>${"Where there is love there is life."}</body>
     </message>
   `;
-  /* eslint-enable */
 });
 
-suite.add("tag with direct call", function () {
+suite.add("tag with direct call", () => {
   tag(
     [
       '\n  <message to="',
@@ -50,15 +48,15 @@ suite.add("tag with direct call", function () {
   );
 });
 
-suite.add("serialize and parse", function () {
+suite.add("serialize and parse", () => {
   parse(el.toString());
 });
 
-suite.add("parse", function () {
+suite.add("parse", () => {
   parse(XML);
 });
 
-suite.add("createElement (jsx)", function () {
+suite.add("createElement (jsx)", () => {
   createElement(
     "message",
     { to: "foo@bar", from: "bar@foo", type: "chat", id: "foobar" },
@@ -66,15 +64,15 @@ suite.add("createElement (jsx)", function () {
   );
 });
 
-suite.add("serialize", function () {
+suite.add("serialize", () => {
   el.toString();
 });
 
-suite.add("clone", function () {
+suite.add("clone", () => {
   el.clone();
 });
 
-suite.add("Element", function () {
+suite.add("Element", () => {
   new Element("message", {
     to: "foo@bar",
     from: "bar@foo",

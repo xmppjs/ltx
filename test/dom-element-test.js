@@ -1,13 +1,13 @@
 "use strict";
 
-var vows = require("vows");
-var assert = require("assert");
-var ltx = require("..");
-var parsers = require("../lib/parsers");
-var DOMElement = require("../lib/DOMElement");
+const vows = require("vows");
+const assert = require("assert");
+const ltx = require("..");
+const parsers = require("../lib/parsers");
+const DOMElement = require("../lib/DOMElement");
 
-parsers.forEach(function (Parser) {
-  var parse = function (s) {
+for (const Parser of parsers) {
+  const parse = function (s) {
     return ltx.parse(s, { Parser: Parser, Element: DOMElement });
   };
   vows
@@ -15,17 +15,17 @@ parsers.forEach(function (Parser) {
     .addBatch({
       DOMElement: {
         "Returns DOMElement on parse": function () {
-          var stanza =
+          const stanza =
             '<message><body xmlns="http://www.w3.org/1999/xhtml">' +
             "<p>DOM</p></body></message>";
-          var el = parse(stanza);
+          const el = parse(stanza);
 
           assert(el.getChild("body") instanceof DOMElement);
           assert.strictEqual(
             el.getChild("body").constructor.name,
             "DOMElement"
           );
-          var body = el.getChild("body");
+          const body = el.getChild("body");
           assert.isDefined(body.localName);
           assert.strictEqual(body.localName, "body");
 
@@ -47,8 +47,8 @@ parsers.forEach(function (Parser) {
       },
       createElement: {
         "create a new element and set children": function () {
-          var c = new DOMElement("bar");
-          var e = DOMElement.createElement("foo", { foo: "bar" }, "foo", c);
+          const c = new DOMElement("bar");
+          const e = DOMElement.createElement("foo", { foo: "bar" }, "foo", c);
           assert(e instanceof DOMElement);
           assert.strictEqual(e.localName, "foo");
           assert.strictEqual(e.getAttribute("foo"), "bar");
@@ -59,4 +59,4 @@ parsers.forEach(function (Parser) {
       },
     })
     .export(module);
-});
+}

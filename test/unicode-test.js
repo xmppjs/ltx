@@ -1,16 +1,16 @@
 "use strict";
 
-var vows = require("vows");
-var assert = require("assert");
-var Element = require("../lib/Element");
+const vows = require("vows");
+const assert = require("assert");
+const Element = require("../lib/Element");
 
 vows
   .describe("unicode")
   .addBatch({
     "unicode forming": {
       "issue-29": function () {
-        var text = "Hello ɝ";
-        var element = new Element("iq");
+        const text = "Hello ɝ";
+        const element = new Element("iq");
         element.t(text);
         assert.strictEqual(element.toString(), "<iq>" + text + "</iq>");
       },
@@ -25,8 +25,8 @@ vows
     },
     */
       "issue-29 test #3": function () {
-        var text = "니코드<";
-        var element = new Element("message", {
+        const text = "니코드<";
+        const element = new Element("message", {
           to: "you@server.com",
           type: "chat",
         })
@@ -35,19 +35,20 @@ vows
         assert.strictEqual(element.getText(), text);
       },
       "issue-29 test write": function () {
-        var text = "유니코드";
-        var result =
+        const text = "유니코드";
+        let result =
           '<0message0 0to0="0-1@chat.fb.com0"0 0type0="0chat0"0>0<0body0>'.split(
             0
           );
         result.push(text);
+        // eslint-disable-next-line unicorn/prefer-spread
         result = result.concat("</0body0>0</0message0>".split(0));
-        var element = new Element("message", {
+        const element = new Element("message", {
           to: "-1@chat.fb.com",
           type: "chat",
         });
         element.c("body").t(text.toString("utf8"));
-        element.write(function (c) {
+        element.write((c) => {
           assert.strictEqual(result.shift(), c);
         });
         assert.strictEqual(result.length, 0);

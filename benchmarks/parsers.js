@@ -5,79 +5,79 @@
  * difference with parse.js benchmark is that this doesn't use ltx at all
  */
 
-var benchmark = require("benchmark");
-var nodeXml = require("node-xml");
-var libxml = require("libxmljs");
-var expat = require("node-expat");
-var sax = require("sax");
-var saxes = require("saxes");
-var LtxSaxParser = require("../lib/parsers/ltx");
-var fs = require("fs");
-var path = require("path");
+const benchmark = require("benchmark");
+const nodeXml = require("node-xml");
+const libxml = require("libxmljs");
+const expat = require("node-expat");
+const sax = require("sax");
+const saxes = require("saxes");
+const LtxSaxParser = require("../lib/parsers/ltx");
+const fs = require("fs");
+const path = require("path");
 
-var XML = fs.readFileSync(path.join(__dirname, "data.xml"), "utf8");
+const XML = fs.readFileSync(path.join(__dirname, "data.xml"), "utf8");
 
 function NodeXmlParser() {
-  var parser = new nodeXml.SaxParser(function (cb) {});
-  this.parse = function (s) {
+  const parser = new nodeXml.SaxParser(() => {});
+  this.parse = (s) => {
     parser.parseString(s);
   };
   this.name = "node-xml";
 }
 function LibXmlJsParser() {
-  var parser = new libxml.SaxPushParser(function (cb) {});
-  this.parse = function (s) {
+  const parser = new libxml.SaxPushParser(() => {});
+  this.parse = (s) => {
     parser.push(s, false);
   };
   this.name = "libxmljs";
 }
 function SaxParser() {
-  var parser = sax.parser();
-  this.parse = function (s) {
+  const parser = sax.parser();
+  this.parse = (s) => {
     parser.write(s).close();
   };
   this.name = "sax";
 }
 function SaxesParser() {
-  var parser = new saxes.SaxesParser({ fragment: true });
-  this.parse = function (s) {
+  const parser = new saxes.SaxesParser({ fragment: true });
+  this.parse = (s) => {
     parser.write(s);
   };
   this.name = "saxes";
 }
 function ExpatParser() {
-  var parser = new expat.Parser();
-  this.parse = function (s) {
+  const parser = new expat.Parser();
+  this.parse = (s) => {
     parser.parse(s, false);
   };
   this.name = "node-expat";
 }
 function LtxParser() {
-  var parser = new LtxSaxParser();
-  this.parse = function (s) {
+  const parser = new LtxSaxParser();
+  this.parse = (s) => {
     parser.write(s);
   };
   this.name = "ltx";
 }
 
-var parsers = [
+const parsers = [
   SaxParser,
   SaxesParser,
   NodeXmlParser,
   LibXmlJsParser,
   ExpatParser,
   LtxParser,
-].map(function (Parser) {
+].map((Parser) => {
   return new Parser();
 });
 
-var suite = new benchmark.Suite("XML parsers comparison");
+const suite = new benchmark.Suite("XML parsers comparison");
 
-parsers.forEach(function (parser) {
+for (const parser of parsers) {
   parser.parse("<r>");
-  suite.add(parser.name, function () {
+  suite.add(parser.name, () => {
     parser.parse(XML);
   });
-});
+}
 
 module.exports = suite;
