@@ -22,18 +22,19 @@ module.exports = {
   rules: {
     strict: ["error", "global"],
     "no-empty": ["error", { allowEmptyCatch: true }],
-    // "no-multi-assign": 0,
     "func-names": ["error", "as-needed"],
     "operator-linebreak": [
       "error",
       "after",
       { overrides: { "?": "before", ":": "before" } },
     ],
-    "capitalized-comments": 0,
+    "capitalized-comments": ["off"],
+
+    // ECMAScript 6
+    // https://eslint.org/docs/rules/#ecmascript-6
     "no-var": ["error"],
+    "prefer-arrow-callback": ["error", { allowNamedFunctions: true }],
     "prefer-const": ["error"],
-    "prefer-rest-params": ["error"],
-    "prefer-spread": ["error"],
     "prefer-destructuring": [
       "error",
       {
@@ -41,6 +42,9 @@ module.exports = {
         object: true,
       },
     ],
-    "prefer-arrow-callback": ["error", { allowNamedFunctions: true }],
+    "prefer-rest-params": ["error"],
+    "prefer-spread": ["error"],
+    // Potentially slower
+    // "prefer-template": ["error"],
   },
 };
