@@ -3,9 +3,6 @@ ltx
 
 `JavaScript XML library`
 
-[![build status](https://img.shields.io/travis/xmppjs/ltx/master.svg?style=flat-square)](https://travis-ci.org/xmppjs/ltx/branches)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
-
 ltx is a fast XML builder, parser, serialization and manipulation library for JavaScript.
 
 The builder is a convenient and succinct API to build XML documents represented in memory as JavaScript primitives that can be serialized to XML strings.
@@ -36,9 +33,9 @@ ltx supports third party parsers when such features are needed.
 | [saxes](https://github.com/lddubeau/saxes)                                                 |  62,246 | ☑      | ☑      |
 | [node-xml](https://github.com/dylang/node-xml)                                             |  81,980 | ☑      | ☑      |
 | [node-expat](https://github.com/astro/node-expat)                                          |  72,720 | ☐      | ☑      |
-| **[ltx/lib/parsers/ltx](https://github.com/xmppjs/ltx/blob/master/lib/parsers/ltx.js)**    | 490,593 | ☑      | ☑      |
+| **[ltx/lib/parsers/ltx](lib/parsers/ltx.js)**    | 490,593 | ☑      | ☑      |
 
-From [ltx/benchmarks/parsers.js](https://github.com/xmppjs/ltx/blob/master/benchmarks/parsers.js), higher is better.
+From [ltx/benchmarks/parsers.js](benchmarks/parsers.js), higher is better.
 Node.js v10.11.0 - i5-2520M
 
 ## Benchmark
