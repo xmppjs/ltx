@@ -42,7 +42,6 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^7.0.1",
-    "libxmljs": "^0.19.7",
     "lint-staged": "^11.1.2",
     "microtime": "^3.0.0",
     "node-expat": "^2.4.0",
