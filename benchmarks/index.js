@@ -14,7 +14,7 @@ for (const suite of suites) {
       console.log(event.target.toString());
     })
     .on("complete", () => {
-      console.log('Fastest is "' + this.filter("fastest").map("name") + '"');
+      console.log('Fastest is "' + suite.filter("fastest").map("name") + '"');
     })
     .run({ async: false });
   console.log("\n");

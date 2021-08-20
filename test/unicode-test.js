@@ -41,7 +41,6 @@ vows
             0
           );
         result.push(text);
-        // eslint-disable-next-line unicorn/prefer-spread
         result = result.concat("</0body0>0</0message0>".split(0));
         const element = new Element("message", {
           to: "-1@chat.fb.com",
