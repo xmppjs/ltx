@@ -21,8 +21,16 @@
     "benchmark": "node benchmarks/",
     "bundle": "browserify -s ltx index.js -o bundle.js && cp bundle.js dist/ltx.js",
     "unit": "vows --spec",
-    "lint": "standard",
-    "test": "npm run unit && npm run lint && npm run bundle"
+    "lint": "eslint --cache .",
+    "test": "npm run unit && npm run lint && npm run bundle",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,cjs,mjs}": "eslint --cache --fix",
+    "*.{json,md,html,css,yaml,yml}": "prettier --write"
+  },
+  "engines": {
+    "node": ">= 12.4.0"
   },
   "dependencies": {
     "inherits": "^2.0.4"
@@ -30,13 +38,20 @@
   "devDependencies": {
     "benchmark": "^2.1.4",
     "browserify": "^17.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-unicorn": "^35.0.0",
+    "husky": "^7.0.1",
     "libxmljs": "^0.19.7",
+    "lint-staged": "^11.1.2",
     "microtime": "^3.0.0",
     "node-expat": "^2.4.0",
     "node-xml": "^1.0.2",
+    "prettier": "^2.3.2",
     "sax": "^1.2.4",
     "saxes": "^5.0.1",
-    "standard": "^14.3.4",
     "vows": "^0.8.3"
   }
 }
