@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /*
   benchmark the speed of the different methods to create elements
@@ -6,33 +6,33 @@
   the different methods.
  */
 
-var benchmark = require('benchmark')
-var ltx = require('../index')
-var createElement = ltx.createElement
-var tag = ltx.tag
-var Element = ltx.Element
-var parse = ltx.parse
+var benchmark = require("benchmark");
+var ltx = require("../index");
+var createElement = ltx.createElement;
+var tag = ltx.tag;
+var Element = ltx.Element;
+var parse = ltx.parse;
 
 var XML = [
   '<message to="foo@bar" from="bar@foo" type="chat" id="foobar">',
-  '<body>Where there is love there is life.</body>',
-  '</message>'
-].join('')
-var el = parse(XML)
+  "<body>Where there is love there is life.</body>",
+  "</message>",
+].join("");
+var el = parse(XML);
 
-var suite = new benchmark.Suite('ltx')
+var suite = new benchmark.Suite("ltx");
 
-suite.add('tag with template literal', function () {
+suite.add("tag with template literal", function () {
   /* eslint-disable */
   tag`
-    <message to="${'foo@bar'}" from="${'bar@foo'}" type="${'chat'}" id="${'foobar'}">
-      <body>${'Where there is love there is life.'}</body>
+    <message to="${"foo@bar"}" from="${"bar@foo"}" type="${"chat"}" id="${"foobar"}">
+      <body>${"Where there is love there is life."}</body>
     </message>
-  `
+  `;
   /* eslint-enable */
-})
+});
 
-suite.add('tag with direct call', function () {
+suite.add("tag with direct call", function () {
   tag(
     [
       '\n  <message to="',
@@ -40,42 +40,50 @@ suite.add('tag with direct call', function () {
       '" type="',
       '" id="',
       '">\n    <body>',
-      '</body>\n  </message>\n'
+      "</body>\n  </message>\n",
     ],
-    'foo@bar',
-    'bar@foo',
-    'chat',
-    'foobar',
-    'Where there is love there is life.'
-  )
-})
+    "foo@bar",
+    "bar@foo",
+    "chat",
+    "foobar",
+    "Where there is love there is life."
+  );
+});
 
-suite.add('serialize and parse', function () {
-  parse(el.toString())
-})
+suite.add("serialize and parse", function () {
+  parse(el.toString());
+});
 
-suite.add('parse', function () {
-  parse(XML)
-})
+suite.add("parse", function () {
+  parse(XML);
+});
 
-suite.add('createElement (jsx)', function () {
+suite.add("createElement (jsx)", function () {
   createElement(
-    'message', { to: 'foo@bar', from: 'bar@foo', type: 'chat', id: 'foobar' },
-    createElement('body', null, 'Where there is love there is life.')
-  )
-})
+    "message",
+    { to: "foo@bar", from: "bar@foo", type: "chat", id: "foobar" },
+    createElement("body", null, "Where there is love there is life.")
+  );
+});
 
-suite.add('serialize', function () {
-  el.toString()
-})
+suite.add("serialize", function () {
+  el.toString();
+});
 
-suite.add('clone', function () {
-  el.clone()
-})
+suite.add("clone", function () {
+  el.clone();
+});
 
-suite.add('Element', function () {
-  new Element('message', { to: 'foo@bar', from: 'bar@foo', type: 'chat', id: 'foobar' })
-    .c('body').t('Where there is love there is life.').root()
-})
+suite.add("Element", function () {
+  new Element("message", {
+    to: "foo@bar",
+    from: "bar@foo",
+    type: "chat",
+    id: "foobar",
+  })
+    .c("body")
+    .t("Where there is love there is life.")
+    .root();
+});
 
-module.exports = suite
+module.exports = suite;
