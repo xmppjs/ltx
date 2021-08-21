@@ -29,6 +29,18 @@ vows
       const b = new Element("foo").t("bar").c("test").up().t("baz");
       assert.strictEqual(e.root().toString(), b.root().toString());
     },
+    "boolean children are discarded": () => {
+      assert.deepEqual(
+        createElement("foo", null, true, false),
+        new Element("foo")
+      );
+    },
+    "falsy numbers": () => {
+      assert.deepEqual(
+        createElement("foo", null, -1, 0, 1).toString(),
+        "<foo>-101</foo>"
+      );
+    },
     "__source and __self attributes are discarded": () => {
       const e = createElement("foo", {
         __self: "foo",
@@ -38,6 +50,16 @@ vows
       assert.equal(e.attrs.__self, undefined);
       assert.equal(e.attrs.__source, undefined);
       assert.equal(e.attrs.foo, "bar");
+    },
+    "children array": () => {
+      assert.deepEqual(
+        createElement("bar", null, "foo", [
+          "foo",
+          ["foo", ["foo"]],
+          "foo",
+        ]).toString(),
+        "<bar>foofoofoofoofoo</bar>"
+      );
     },
   })
   .run();
