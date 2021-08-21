@@ -2,7 +2,6 @@
 
 const vows = require("vows");
 const assert = require("assert");
-const inherits = require("inherits");
 const ltx = require("..");
 const { Element } = ltx;
 
@@ -229,10 +228,7 @@ vows
         assert.strictEqual(clone.getChildText("description"), "foobar");
       },
       "use original constructor for the clone": function () {
-        const Foo = function (name, attrs) {
-          Element.call(this, name, attrs);
-        };
-        inherits(Foo, Element);
+        class Foo extends Element {}
         const foo = new Foo();
         assert(foo.clone() instanceof Element);
         assert(foo.clone() instanceof Foo);
