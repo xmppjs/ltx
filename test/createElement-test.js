@@ -29,5 +29,15 @@ vows
       const b = new Element("foo").t("bar").c("test").up().t("baz");
       assert.strictEqual(e.root().toString(), b.root().toString());
     },
+    "__source and __self attributes are discarded": () => {
+      const e = createElement("foo", {
+        __self: "foo",
+        __source: "bar",
+        foo: "bar",
+      });
+      assert.equal(e.attrs.__self, undefined);
+      assert.equal(e.attrs.__source, undefined);
+      assert.equal(e.attrs.foo, "bar");
+    },
   })
   .run();
