@@ -1,7 +1,7 @@
 import vows from "vows";
 import assert from "assert";
-import _parse from "../lib/parse.js";
-import parsers from "../lib/parsers.js";
+import _parse from "../src/parse.js";
+import parsers from "../src/parsers.js";
 
 /* globals Buffer */
 

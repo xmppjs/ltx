@@ -1,8 +1,8 @@
 import vows from "vows";
 import assert from "assert";
-import parsers from "../lib/parsers.js";
-import DOMElement from "../lib/DOMElement.js";
-import _parse from "../lib/parse.js";
+import parsers from "../src/parsers.js";
+import DOMElement from "../src/DOMElement.js";
+import _parse from "../src/parse.js";
 
 for (const Parser of parsers) {
   // eslint-disable-next-line no-inner-declarations

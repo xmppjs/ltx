@@ -1,7 +1,7 @@
 import vows from "vows";
 import assert from "assert";
-import _clone from "../lib/clone.js";
-import Element from "../lib/Element.js";
+import _clone from "../src/clone.js";
+import Element from "../src/Element.js";
 
 vows
   .describe("clone")

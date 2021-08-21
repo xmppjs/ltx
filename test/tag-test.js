@@ -1,8 +1,8 @@
 import vows from "vows";
 import assert from "assert";
-import tag from "../lib/tag.js";
-import Element from "../lib/Element.js";
-import equal from "../lib/equal.js";
+import tag from "../src/tag.js";
+import Element from "../src/Element.js";
+import equal from "../src/equal.js";
 
 vows
   .describe("tag")

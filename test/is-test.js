@@ -1,7 +1,7 @@
 import vows from "vows";
 import assert from "assert";
-import { isNode, isElement, isText } from "../lib/is.js";
-import Element from "../lib/Element.js";
+import { isNode, isElement, isText } from "../src/is.js";
+import Element from "../src/Element.js";
 
 vows.describe("isNode").addBatch({
   isNode: {

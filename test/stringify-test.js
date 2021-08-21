@@ -1,7 +1,7 @@
 import vows from "vows";
 import assert from "assert";
-import tag from "../lib/tag.js";
-import stringify from "../lib/stringify.js";
+import tag from "../src/tag.js";
+import stringify from "../src/stringify.js";
 
 vows
   .describe("stringify")

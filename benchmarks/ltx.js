@@ -6,10 +6,10 @@
 
 import benchmark from "benchmark";
 
-import createElement from "../lib/createElement.js";
-import tag from "../lib/tag.js";
-import Element from "../lib/Element.js";
-import parse from "../lib/parse.js";
+import createElement from "../src/createElement.js";
+import tag from "../src/tag.js";
+import Element from "../src/Element.js";
+import parse from "../src/parse.js";
 
 const XML = [
   '<message to="foo@bar" from="bar@foo" type="chat" id="foobar">',

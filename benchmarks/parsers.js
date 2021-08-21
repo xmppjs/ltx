@@ -13,7 +13,7 @@ import expat from "node-expat";
 import sax from "sax";
 import saxes from "saxes";
 
-import LtxSaxParser from "../lib/parsers/ltx.js";
+import LtxSaxParser from "../src/parsers/ltx.js";
 
 const XML = fs.readFileSync(new URL("data.xml", import.meta.url), "utf8");
 

@@ -1,6 +1,6 @@
 import vows from "vows";
 import assert from "assert";
-import Element from "../lib/Element.js";
+import Element from "../src/Element.js";
 
 vows
   .describe("unicode")

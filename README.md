@@ -33,7 +33,7 @@ ltx supports third party parsers when such features are needed.
 | [node-expat](https://github.com/astro/node-expat) |  63,805 |  ☐  |   ☑    |
 | [sax-js](https://github.com/isaacs/sax-js)        |  79,375 |  ☑  |   ☑    |
 | [saxes](https://github.com/lddubeau/saxes)        | 168,263 |  ☑  |   ☑    |
-| **[ltx/lib/parsers/ltx](lib/parsers/ltx.js)**     | 527,728 |  ☑  |   ☑    |
+| **[ltx/src/parsers/ltx](lib/parsers/ltx.js)**     | 527,728 |  ☑  |   ☑    |
 
 From [ltx/benchmarks/parsers.js](benchmarks/parsers.js), higher is better.
 Node.js v14.17.0 - AMD Ryzen 9 5900HX

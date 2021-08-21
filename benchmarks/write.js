@@ -3,7 +3,7 @@
  */
 
 import benchmark from "benchmark";
-import parsers from "../lib/parsers.js";
+import parsers from "../src/parsers.js";
 import fs from "fs";
 
 const XML = fs.readFileSync(new URL("data.xml", import.meta.url), "utf8");

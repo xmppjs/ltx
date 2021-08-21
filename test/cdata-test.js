@@ -1,12 +1,12 @@
 import vows from "vows";
 import assert from "assert";
-import _parse from "../lib/parse.js";
-import LTXParser from "../lib/parsers/ltx.js";
-import h from "../lib/createElement.js";
-import Parser from "../lib/Parser.js";
+import _parse from "../src/parse.js";
+import LtxParser from "../src/parsers/ltx.js";
+import h from "../src/createElement.js";
+import Parser from "../src/Parser.js";
 
 function parse(s) {
-  return _parse(s, { Parser: LTXParser });
+  return _parse(s, { Parser: LtxParser });
 }
 
 function parseChunks(chunks) {

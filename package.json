@@ -7,6 +7,8 @@
   "homepage": "http://github.com/xmppjs/ltx",
   "bugs": "http://github.com/xmppjs/ltx/issues",
   "type": "module",
+  "main": "lib/ltx.js",
+  "module": "src/ltx.js",
   "contributors": [
     "Stephan Maka",
     "Will Fife",
@@ -22,7 +24,8 @@
     "unit": "node test/run.js",
     "lint": "eslint --cache .",
     "test": "npm run unit && npm run lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prepublishOnly": "rollup -c rollup.config.js"
   },
   "lint-staged": {
     "*.{js,cjs,mjs}": "eslint --cache --fix",
@@ -43,6 +46,7 @@
     "node-expat": "^2.4.0",
     "node-xml": "^1.0.2",
     "prettier": "^2.3.2",
+    "rollup": "^2.56.2",
     "sax": "^1.2.4",
     "saxes": "^5.0.1",
     "vows": "^0.8.3"

@@ -1,7 +1,7 @@
 import vows from "vows";
 import assert from "assert";
-import JSONify from "../lib/JSONify.js";
-import Element from "../lib/Element.js";
+import JSONify from "../src/JSONify.js";
+import Element from "../src/Element.js";
 
 vows
   .describe("JSONify")

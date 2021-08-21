@@ -5,7 +5,7 @@ import {
   unescapeXML,
   escapeXMLText,
   unescapeXMLText,
-} from "../ltx.js";
+} from "../src/escape.js";
 
 vows
   .describe("escape")

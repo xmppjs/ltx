@@ -1,7 +1,7 @@
 import vows from "vows";
 import assert from "assert";
-import Element from "../lib/Element.js";
-import parse from "../lib/parse.js";
+import Element from "../src/Element.js";
+import parse from "../src/parse.js";
 
 vows
   .describe("Element")

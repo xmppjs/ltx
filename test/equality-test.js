@@ -1,7 +1,7 @@
 import vows from "vows";
 import assert from "assert";
-import Element from "../lib/Element.js";
-import equal, { nameEqual, attrsEqual, childrenEqual } from "../lib/equal.js";
+import Element from "../src/Element.js";
+import equal, { nameEqual, attrsEqual, childrenEqual } from "../src/equal.js";
 
 vows
   .describe("equality")
