@@ -1,22 +1,15 @@
-"use strict";
+import vows from "vows";
+import assert from "assert";
+import _parse from "../lib/parse.js";
+import LTXParser from "../lib/parsers/ltx.js";
+import h from "../lib/createElement.js";
+import Parser from "../lib/Parser.js";
 
-const vows = require("vows");
-const assert = require("assert");
-const ltx = require("..");
-const parsers = require("../lib/parsers");
-const h = ltx.createElement;
+function parse(s) {
+  return _parse(s, { Parser: LTXParser });
+}
 
-const LTXParser = parsers.find((parser) => {
-  return parser.name === "SaxLtx";
-});
-
-const parse = function (s) {
-  return ltx.parse(s, { Parser: LTXParser });
-};
-
-const Parser = require("../lib/Parser");
-
-const parseChunks = function (chunks) {
+function parseChunks(chunks) {
   const p = new Parser();
 
   let result = null;
@@ -39,18 +32,18 @@ const parseChunks = function (chunks) {
   } else {
     return result;
   }
-};
+}
 
 vows
   .describe("sax_ltx")
   .addBatch({
     "CDATA parsing": {
-      "issue-19: parse CDATA content as text": function () {
+      "issue-19: parse CDATA content as text": () => {
         const el = parse("<root><![CDATA[Content]]></root>");
         assert.strictEqual(el.name, "root");
         assert.strictEqual(el.getText(), "Content");
       },
-      "do not unescape CDATA content": function () {
+      "do not unescape CDATA content": () => {
         const el = parse(
           '<root><![CDATA[Content &amp; "more content&quot;]]></root>'
         );
@@ -88,4 +81,4 @@ vows
       },
     },
   })
-  .export(module);
+  .run();

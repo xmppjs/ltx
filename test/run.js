@@ -1,0 +1,11 @@
+import "./cdata-test.js";
+import "./createElement-test.js";
+import "./dom-element-test.js";
+import "./element-test.js";
+import "./equality-test.js";
+import "./escape-test.js";
+import "./is-test.js";
+import "./parse-test.js";
+import "./stringify-test.js";
+import "./tag-test.js";
+import "./unicode-test.js";

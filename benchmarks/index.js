@@ -1,11 +1,9 @@
-"use strict";
+import ltx from "./ltx.js";
+import parsers from "./parsers.js";
+import parse from "./parse.js";
+import write from "./write.js";
 
-const suites = [
-  require("./ltx"),
-  require("./parsers"),
-  require("./parse"),
-  require("./write"),
-];
+const suites = [ltx, parsers, parse, write];
 
 for (const suite of suites) {
   console.log("suite", suite.name);

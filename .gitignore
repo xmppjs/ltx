@@ -1,6 +1,2 @@
-.eslintcache
-
-dist/
 node_modules/
-
-bundle.js
+.eslintcache

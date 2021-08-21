@@ -1,55 +1,40 @@
-"use strict";
+import vows from "vows";
+import assert from "assert";
+import { isNode, isElement, isText } from "../lib/is.js";
+import Element from "../lib/Element.js";
 
-const vows = require("vows");
-const assert = require("assert");
-const ltx = require("..");
-const { isNode, isElement, isText } = require("../lib/is");
-const { Element } = ltx;
-
-vows
-  .describe("isNode")
-  .addBatch({
-    isNode: {
-      "exported correctly": function () {
-        assert.strictEqual(ltx.isNode, isNode);
-      },
-      "returns true for Element": function () {
-        assert.strictEqual(isNode(new Element()), true);
-      },
-      "returns true for strings": function () {
-        assert.strictEqual(isNode("string"), true);
-      },
-      "returns false for anything else": function () {
-        for (const value of [123, null, undefined, {}, [], true]) {
-          assert.strictEqual(isNode(value), false);
-        }
-      },
+vows.describe("isNode").addBatch({
+  isNode: {
+    "returns true for Element": () => {
+      assert.strictEqual(isNode(new Element()), true);
     },
-    isElement: {
-      "exported correctly": function () {
-        assert.strictEqual(ltx.isElement, isElement);
-      },
-      "returns true for Element": function () {
-        assert.strictEqual(isElement(new Element()), true);
-      },
-      "returns false for anything else": function () {
-        for (const value of [123, null, undefined, {}, "string", [], true]) {
-          assert.strictEqual(isElement(value), false);
-        }
-      },
+    "returns true for strings": () => {
+      assert.strictEqual(isNode("string"), true);
     },
-    isText: {
-      "exported correctly": function () {
-        assert.strictEqual(ltx.isText, isText);
-      },
-      "returns true for strings": function () {
-        assert.strictEqual(isText("foo"), true);
-      },
-      "returns false for anything else": function () {
-        for (const value of [123, null, undefined, {}, Element, [], true]) {
-          assert.strictEqual(isText(value), false);
-        }
-      },
+    "returns false for anything else": () => {
+      for (const value of [123, null, undefined, {}, [], true]) {
+        assert.strictEqual(isNode(value), false);
+      }
     },
-  })
-  .export(module);
+  },
+  isElement: {
+    "returns true for Element": () => {
+      assert.strictEqual(isElement(new Element()), true);
+    },
+    "returns false for anything else": () => {
+      for (const value of [123, null, undefined, {}, "string", [], true]) {
+        assert.strictEqual(isElement(value), false);
+      }
+    },
+  },
+  isText: {
+    "returns true for strings": () => {
+      assert.strictEqual(isText("foo"), true);
+    },
+    "returns false for anything else": () => {
+      for (const value of [123, null, undefined, {}, Element, [], true]) {
+        assert.strictEqual(isText(value), false);
+      }
+    },
+  },
+}).run;

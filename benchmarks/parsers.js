@@ -1,21 +1,21 @@
-"use strict";
-
 /*
  * benchmark the parsing speed of the supported backends
  * difference with parse.js benchmark is that this doesn't use ltx at all
  */
 
-const benchmark = require("benchmark");
-const nodeXml = require("node-xml");
-const libxml = require("libxmljs");
-const expat = require("node-expat");
-const sax = require("sax");
-const saxes = require("saxes");
-const LtxSaxParser = require("../lib/parsers/ltx");
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
 
-const XML = fs.readFileSync(path.join(__dirname, "data.xml"), "utf8");
+import benchmark from "benchmark";
+
+import nodeXml from "node-xml";
+import libxml from "libxmljs";
+import expat from "node-expat";
+import sax from "sax";
+import saxes from "saxes";
+
+import LtxSaxParser from "../lib/parsers/ltx.js";
+
+const XML = fs.readFileSync(new URL("data.xml", import.meta.url), "utf8");
 
 function NodeXmlParser() {
   const parser = new nodeXml.SaxParser(() => {});
@@ -80,4 +80,4 @@ for (const parser of parsers) {
   });
 }
 
-module.exports = suite;
+export default suite;

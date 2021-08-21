@@ -1,15 +1,13 @@
-"use strict";
-
-const vows = require("vows");
-const assert = require("assert");
-const ltx = require("..");
-const { Element } = ltx;
+import vows from "vows";
+import assert from "assert";
+import Element from "../lib/Element.js";
+import parse from "../lib/parse.js";
 
 vows
   .describe("Element")
   .addBatch({
     "new element": {
-      "doesn't reference original attrs object": function () {
+      "doesn't reference original attrs object": () => {
         const o = { foo: "bar" };
         const e = new Element("e", o);
         assert.notStrictEqual(e.attrs, o);
@@ -18,74 +16,73 @@ vows
         o.foobar = "barfoo";
         assert.strictEqual(e.attrs.foobar, undefined);
       },
-      "set xmlns attribute if a string is passed as second argument":
-        function () {
-          const ns = "xmlns:test";
-          const e = new Element("e", ns);
-          assert.strictEqual(e.attrs.xmlns, ns);
-          assert.strictEqual(e.getAttr("xmlns"), ns);
-        },
+      "set xmlns attribute if a string is passed as second argument": () => {
+        const ns = "xmlns:test";
+        const e = new Element("e", ns);
+        assert.strictEqual(e.attrs.xmlns, ns);
+        assert.strictEqual(e.getAttr("xmlns"), ns);
+      },
     },
     serialization: {
-      "serialize an element": function () {
+      "serialize an element": () => {
         const e = new Element("e");
         assert.strictEqual(e.toString(), "<e/>");
       },
-      "serialize an element with attributes": function () {
+      "serialize an element with attributes": () => {
         const e = new Element("e", { a1: "foo" });
         assert.strictEqual(e.toString(), '<e a1="foo"/>');
       },
-      "serialize an element with attributes to entities": function () {
+      "serialize an element with attributes to entities": () => {
         const e = new Element("e", { a1: '"well"' });
         assert.strictEqual(e.toString(), '<e a1="&quot;well&quot;"/>');
       },
-      "serialize an element with text": function () {
+      "serialize an element with text": () => {
         const e = new Element("e").t("bar").root();
         assert.strictEqual(e.toString(), "<e>bar</e>");
       },
-      "serialize an element with text to entities": function () {
+      "serialize an element with text to entities": () => {
         const e = new Element("e").t("1 < 2").root();
         assert.strictEqual(e.toString(), "<e>1 &lt; 2</e>");
       },
-      "serialize an element with a number attribute": function () {
+      "serialize an element with a number attribute": () => {
         const e = new Element("e", { a: 23 });
         assert.strictEqual(e.toString(), '<e a="23"/>');
       },
-      "serialize an element with number contents": function () {
+      "serialize an element with number contents": () => {
         const e = new Element("e");
         e.c("foo").t(23);
         e.c("bar").t(0);
         assert.strictEqual(e.toString(), "<e><foo>23</foo><bar>0</bar></e>");
       },
-      "serialize with undefined attribute": function () {
+      "serialize with undefined attribute": () => {
         const e = new Element("e", { foo: undefined });
         assert.strictEqual(e.toString(), "<e/>");
       },
-      "serialize with null attribute": function () {
+      "serialize with null attribute": () => {
         const e = new Element("e", { foo: null });
         assert.strictEqual(e.toString(), "<e/>");
       },
-      "serialize with number attribute": function () {
+      "serialize with number attribute": () => {
         const e = new Element("e", { foo: 23, bar: 0 });
         const s = e.toString();
         assert.ok(s.match(/foo="23"/));
         assert.ok(s.match(/bar="0"/));
       },
-      "serialize with undefined child": function () {
+      "serialize with undefined child": () => {
         const e = new Element("e");
         e.children = [undefined];
         assert.strictEqual(e.toString(), "<e></e>");
       },
-      "serialize with null child": function () {
+      "serialize with null child": () => {
         const e = new Element("e");
         e.children = [null];
         assert.strictEqual(e.toString(), "<e></e>");
       },
-      "serialize with integer text": function () {
+      "serialize with integer text": () => {
         const e = new Element("e").t(1000);
         assert.strictEqual(e.getText(), "1000");
       },
-      "serialize to json": function () {
+      "serialize to json": () => {
         const e = new Element("e", { foo: 23, bar: 0, nil: null })
           .c("f")
           .t(1000)
@@ -98,7 +95,7 @@ vows
       },
     },
     remove: {
-      "by element": function () {
+      "by element": () => {
         const el = new Element("e")
           .c("c")
           .c("x")
@@ -112,7 +109,7 @@ vows
         assert.strictEqual(el.getChildren("c").length, 1);
         assert.strictEqual(el.getChildren("c2").length, 1);
       },
-      "by name": function () {
+      "by name": () => {
         const el = new Element("e").c("c").up().c("c2").up().c("c").up();
         el.remove("c");
         assert.strictEqual(el.getChildren("c").length, 0);
@@ -120,19 +117,19 @@ vows
       },
     },
     getAttr: {
-      "without ns": function () {
+      "without ns": () => {
         const stanza =
           '<team xmlns:job="http://site.tld/job">' +
           '<person name="julien" job:title="hacker" /></team>';
-        const doc = ltx.parse(stanza);
+        const doc = parse(stanza);
         const el = doc.getChild("person");
         assert.strictEqual(el.getAttr("name"), "julien");
       },
-      "with ns": function () {
+      "with ns": () => {
         const stanza =
           '<team xmlns:job="http://site.tld/job">' +
           '<person name="julien" job:title="hacker" /></team>';
-        const doc = ltx.parse(stanza);
+        const doc = parse(stanza);
         const el = doc.getChild("person");
         assert.strictEqual(
           el.getAttr("title", "http://site.tld/job"),
@@ -142,7 +139,7 @@ vows
     },
     // extensively tested in equality-test.js
     equality: {
-      name: function () {
+      name: () => {
         const a = new Element("foo");
         let b = new Element("foo");
         assert.strictEqual(a.nameEquals(a), true);
@@ -153,7 +150,7 @@ vows
         assert.strictEqual(a.nameEquals(b), false);
         assert.strictEqual(b.nameEquals(a), false);
       },
-      attrs: function () {
+      attrs: () => {
         const a = new Element("foo", { foo: "bar" });
         let b = new Element("foo", { foo: "bar" });
         assert.strictEqual(a.attrsEquals(a), true);
@@ -164,7 +161,7 @@ vows
         assert.strictEqual(a.attrsEquals(b), false);
         assert.strictEqual(b.attrsEquals(a), false);
       },
-      children: function () {
+      children: () => {
         const a = new Element("foo").c("foo").root();
         let b = new Element("foo").c("foo").root();
         assert.strictEqual(a.childrenEquals(a), true);
@@ -177,7 +174,7 @@ vows
       },
     },
     clone: {
-      clones: function () {
+      clones: () => {
         const orig = new Element("msg", { type: "get" })
           .c("content")
           .t("foo")
@@ -195,7 +192,7 @@ vows
         assert.strictEqual(orig.getChild("content").up(), orig);
         assert.strictEqual(clone.getChild("content").up(), clone);
       },
-      "mod attr": function () {
+      "mod attr": () => {
         const orig = new Element("msg", { type: "get" });
         const clone = orig.clone();
         clone.attrs.type += "-result";
@@ -203,7 +200,7 @@ vows
         assert.strictEqual(orig.attrs.type, "get");
         assert.strictEqual(clone.attrs.type, "get-result");
       },
-      "rm attr": function () {
+      "rm attr": () => {
         const orig = new Element("msg", { from: "me" });
         const clone = orig.clone();
         delete clone.attrs.from;
@@ -214,7 +211,7 @@ vows
         assert.strictEqual(clone.attrs.from, undefined);
         assert.strictEqual(clone.attrs.to, "you");
       },
-      "mod child": function () {
+      "mod child": () => {
         const orig = new Element("msg", { type: "get" })
           .c("content")
           .t("foo")
@@ -227,7 +224,7 @@ vows
         assert.strictEqual(clone.children[0].name, "description");
         assert.strictEqual(clone.getChildText("description"), "foobar");
       },
-      "use original constructor for the clone": function () {
+      "use original constructor for the clone": () => {
         class Foo extends Element {}
         const foo = new Foo();
         assert(foo.clone() instanceof Element);
@@ -235,7 +232,7 @@ vows
       },
     },
     children: {
-      getChildren: function () {
+      getChildren: () => {
         const el = new Element("a")
           .c("b")
           .c("b2")
@@ -255,7 +252,7 @@ vows
         assert.strictEqual(children[2].name, "c");
         assert.strictEqual(children[3], "bar");
       },
-      getChildElements: function () {
+      getChildElements: () => {
         const el = new Element("a")
           .c("b")
           .c("b2")
@@ -276,7 +273,7 @@ vows
     },
 
     recursive: {
-      getChildrenByAttr: function () {
+      getChildrenByAttr: () => {
         const el = new Element("a")
           .c("b")
           .c("c", { myProperty: "x" })
@@ -292,7 +289,7 @@ vows
         assert.strictEqual(results[0].toString(), '<c myProperty="x">bar</c>');
         assert.strictEqual(results[1].toString(), '<e myProperty="x"/>');
       },
-      getChildByAttr: function () {
+      getChildByAttr: () => {
         const el = new Element("a").c("b").c("c", { id: "x" }).t("bar").root();
         assert.strictEqual(
           el.getChildByAttr("id", "x", null, true).toString(),
@@ -302,28 +299,28 @@ vows
     },
 
     "issue #15: Inconsistency with prefixed elements": {
-      topic: function () {
-        return ltx.parse("<root><x:foo>bar</x:foo></root>");
+      topic: () => {
+        return parse("<root><x:foo>bar</x:foo></root>");
       },
-      "getChildText prefixed": function (el) {
+      "getChildText prefixed": (el) => {
         assert.strictEqual(el.getChildText("x:foo"), null);
       },
-      "getChildText unprefixed": function (el) {
+      "getChildText unprefixed": (el) => {
         assert.strictEqual(el.getChildText("foo"), "bar");
       },
-      "getChild prefixed": function (el) {
+      "getChild prefixed": (el) => {
         assert.strictEqual(el.getChild("x:foo"), undefined);
       },
-      "getChild unprefixed": function (el) {
+      "getChild unprefixed": (el) => {
         assert.strictEqual(el.getChild("foo").getText(), "bar");
       },
     },
 
     "issue-37: Element instanceof Fails": {
-      instanceof: function () {
+      instanceof: () => {
         const el = new Element("root").c("children");
         assert.ok(el instanceof Element);
       },
     },
   })
-  .export(module);
+  .run();

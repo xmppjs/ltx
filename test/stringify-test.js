@@ -1,18 +1,13 @@
-"use strict";
-
-const vows = require("vows");
-const assert = require("assert");
-const ltx = require("..");
-const stringify = require("../lib/stringify");
+import vows from "vows";
+import assert from "assert";
+import tag from "../lib/tag.js";
+import stringify from "../lib/stringify.js";
 
 vows
   .describe("stringify")
   .addBatch({
-    "is exported correctly": function () {
-      assert.strictEqual(ltx.stringify, stringify);
-    },
-    "returns the same result than .toString()": function () {
-      const el = ltx`
+    "returns the same result than .toString()": () => {
+      const el = tag`
       <foo bar="foo">
         text
         <child foo="bar">
@@ -24,8 +19,8 @@ vows
       assert.strictEqual(el.toString(), stringify(el));
     },
     "while having entities in text, return the same result than .toString()":
-      function () {
-        const el = ltx`
+      () => {
+        const el = tag`
       <foo bar="foo">
         &gt;text
         <child foo="bar">
@@ -37,8 +32,8 @@ vows
         assert.strictEqual(el.toString(), stringify(el));
       },
     "while having entities in attribute, return the same result than .toString()":
-      function () {
-        const el = ltx`
+      () => {
+        const el = tag`
       <foo bar="&amp;foo">
         &gt;text
         <child foo="&amp;bar">
@@ -49,8 +44,8 @@ vows
     `;
         assert.strictEqual(el.toString(), stringify(el));
       },
-    "indents correctly": function () {
-      const el = ltx`<foo><bar hello="world">text<self/></bar></foo>`;
+    "indents correctly": () => {
+      const el = tag`<foo><bar hello="world">text<self/></bar></foo>`;
 
       const expected = [
         "<foo>",
@@ -64,7 +59,7 @@ vows
       assert.strictEqual(stringify(el, 2), expected);
       assert.strictEqual(stringify(el, "  "), expected);
     },
-    "ignores empty string children": function () {
+    "ignores empty string children": () => {
       const el = {
         name: "foo",
         attrs: {},
@@ -72,7 +67,7 @@ vows
       };
       assert.strictEqual(stringify(el), "<foo>bar</foo>");
     },
-    "ignores deep empty string children": function () {
+    "ignores deep empty string children": () => {
       const el = {
         name: "foo",
         attrs: {},
@@ -89,4 +84,4 @@ vows
       assert.strictEqual(stringify(el), "<foo><bar></bar></foo>");
     },
   })
-  .export(module);
+  .run();

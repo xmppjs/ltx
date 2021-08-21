@@ -1,23 +1,20 @@
-"use strict";
-
 /*
   benchmark the parsing speed of the supported backends
  */
 
-const benchmark = require("benchmark");
-const ltx = require("../index");
-const parsers = require("../lib/parsers");
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import benchmark from "benchmark";
+import parse from "../lib/parse.js";
+import parsers from "../lib/parsers.js";
 
-const XML = fs.readFileSync(path.join(__dirname, "data.xml"), "utf8");
+const XML = fs.readFileSync(new URL("data.xml", import.meta.url), "utf8");
 
 const suite = new benchmark.Suite("backends parse");
 
 for (const Parser of parsers) {
   suite.add(Parser.name.slice(3), () => {
-    ltx.parse(XML, { Parser: Parser });
+    parse(XML, { Parser: Parser });
   });
 }
 
-module.exports = suite;
+export default suite;

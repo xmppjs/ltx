@@ -1,17 +1,15 @@
-"use strict";
-
 /*
   benchmark the speed of the different methods to create elements
   Not all tests are equally functional but it gives a good idea of what to expect from
   the different methods.
  */
 
-const benchmark = require("benchmark");
-const ltx = require("../index");
-const { createElement } = ltx;
-const { tag } = ltx;
-const { Element } = ltx;
-const { parse } = ltx;
+import benchmark from "benchmark";
+
+import createElement from "../lib/createElement.js";
+import tag from "../lib/tag.js";
+import Element from "../lib/Element.js";
+import parse from "../lib/parse.js";
 
 const XML = [
   '<message to="foo@bar" from="bar@foo" type="chat" id="foobar">',
@@ -84,4 +82,4 @@ suite.add("Element", () => {
     .root();
 });
 
-module.exports = suite;
+export default suite;

@@ -6,6 +6,7 @@
   "repository": "github:xmppjs/ltx",
   "homepage": "http://github.com/xmppjs/ltx",
   "bugs": "http://github.com/xmppjs/ltx/issues",
+  "type": "module",
   "contributors": [
     "Stephan Maka",
     "Will Fife",
@@ -16,13 +17,11 @@
   ],
   "license": "MIT",
   "scripts": {
-    "prepublish": "npm run bundle",
     "preversion": "npm test",
     "benchmark": "node benchmarks/",
-    "bundle": "browserify -s ltx index.js -o bundle.js && cp bundle.js dist/ltx.js",
-    "unit": "vows --spec",
+    "unit": "node test/run.js",
     "lint": "eslint --cache .",
-    "test": "npm run unit && npm run lint && npm run bundle",
+    "test": "npm run unit && npm run lint",
     "prepare": "husky install"
   },
   "lint-staged": {

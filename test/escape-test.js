@@ -1,113 +1,99 @@
-"use strict";
-
-const vows = require("vows");
-const assert = require("assert");
-const ltx = require("..");
-const escape = require("../lib/escape");
-const { escapeXML } = escape;
-const { unescapeXML } = escape;
-const { escapeXMLText } = escape;
-const { unescapeXMLText } = escape;
+import vows from "vows";
+import assert from "assert";
+import {
+  escapeXML,
+  unescapeXML,
+  escapeXMLText,
+  unescapeXMLText,
+} from "../ltx.js";
 
 vows
   .describe("escape")
   .addBatch({
     escapeXML: {
-      "exported correctly": function () {
-        assert.strictEqual(ltx.escapeXML, escapeXML);
-      },
-      "escapes &": function () {
+      "escapes &": () => {
         assert.strictEqual(escapeXML("&"), "&amp;");
       },
-      "escapes <": function () {
+      "escapes <": () => {
         assert.strictEqual(escapeXML("<"), "&lt;");
       },
-      "escapes >": function () {
+      "escapes >": () => {
         assert.strictEqual(escapeXML(">"), "&gt;");
       },
-      'escapes "': function () {
+      'escapes "': () => {
         assert.strictEqual(escapeXML('"'), "&quot;");
       },
-      "escapes '": function () {
+      "escapes '": () => {
         assert.strictEqual(escapeXML("'"), "&apos;");
       },
     },
     unescapeXML: {
-      "exported correctly": function () {
-        assert.strictEqual(ltx.unescapeXML, unescapeXML);
-      },
-      "unescapes &": function () {
+      "unescapes &": () => {
         assert.strictEqual(unescapeXML("&amp;"), "&");
       },
-      "unescapes <": function () {
+      "unescapes <": () => {
         assert.strictEqual(unescapeXML("&lt;"), "<");
       },
-      "unescapes >": function () {
+      "unescapes >": () => {
         assert.strictEqual(unescapeXML("&gt;"), ">");
       },
-      'unescapes "': function () {
+      'unescapes "': () => {
         assert.strictEqual(unescapeXML("&quot;"), '"');
       },
-      "unescapes '": function () {
+      "unescapes '": () => {
         assert.strictEqual(unescapeXML("&apos;"), "'");
       },
-      "throws on invalid entities": function () {
+      "throws on invalid entities": () => {
         assert.throws(
           () => unescapeXML("&foobar;"),
           Error,
           "Illegal XML entity &foobar;"
         );
       },
-      "unescapes numeric entities": function () {
+      "unescapes numeric entities": () => {
         assert.strictEqual(unescapeXML("&#64;"), "@");
       },
-      "throws on invalid characters": function () {
+      "throws on invalid characters": () => {
         assert.throws(
           () => unescapeXML("&#0;"),
           Error,
           "Illegal XML character 0x0"
         );
       },
-      "unescapes hexadecimal entities": function () {
+      "unescapes hexadecimal entities": () => {
         assert.strictEqual(unescapeXML("&#x40;"), "@");
       },
-      "unescapes multibyte hex entities": function () {
+      "unescapes multibyte hex entities": () => {
         assert.strictEqual(unescapeXML("&#x1f40d;"), "\uD83D\uDC0D");
       },
-      "unescapes multibyte uppercase hex entities": function () {
+      "unescapes multibyte uppercase hex entities": () => {
         assert.strictEqual(unescapeXML("&#x1F40D;"), "\uD83D\uDC0D");
       },
-      "unescapes multibyte decimal entities": function () {
+      "unescapes multibyte decimal entities": () => {
         assert.strictEqual(unescapeXML("&#128013;"), "\uD83D\uDC0D");
       },
     },
     escapeXMLText: {
-      "exported correctly": function () {
-        assert.strictEqual(ltx.escapeXMLText, escapeXMLText);
-      },
-      "escapes &": function () {
+      "escapes &": () => {
         assert.strictEqual(escapeXMLText("&"), "&amp;");
       },
-      "escapes <": function () {
+      "escapes <": () => {
         assert.strictEqual(escapeXMLText("<"), "&lt;");
       },
-      "escapes >": function () {
+      "escapes >": () => {
         assert.strictEqual(escapeXMLText(">"), "&gt;");
       },
     },
     unescapeXMLText: {
-      "exported correctly": function () {
-        assert.strictEqual(ltx.unescapeXMLText, unescapeXMLText);
-      },
-      "unescapes &": function () {
+      "unescapes &": () => {
         assert.strictEqual(unescapeXMLText("&amp;"), "&");
       },
-      "unescapes <": function () {
+      "unescapes <": () => {
         assert.strictEqual(unescapeXMLText("&lt;"), "<");
       },
-      "unescapes >": function () {
+      "unescapes >": () => {
         assert.strictEqual(unescapeXMLText("&gt;"), ">");
       },
     },
   })
-  .export(module);
+  .run();

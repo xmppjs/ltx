@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = {
   root: true,
 
@@ -7,12 +5,11 @@ module.exports = {
 
   env: {
     es6: true,
-    commonjs: true,
     "shared-node-browser": true,
   },
 
   parserOptions: {
-    sourceType: "script",
+    sourceType: "module",
     ecmaVersion: 2020,
     // ecmaFeatures: {
     //   jsx: true,
@@ -22,18 +19,19 @@ module.exports = {
   rules: {
     strict: ["error", "global"],
     "no-empty": ["error", { allowEmptyCatch: true }],
-    "func-names": ["error", "as-needed"],
+    "func-names": ["error", "always"],
     "operator-linebreak": [
       "error",
       "after",
       { overrides: { "?": "before", ":": "before" } },
     ],
     "capitalized-comments": ["off"],
+    "func-style": ["error", "declaration"],
 
     // ECMAScript 6
     // https://eslint.org/docs/rules/#ecmascript-6
     "no-var": ["error"],
-    "prefer-arrow-callback": ["error", { allowNamedFunctions: true }],
+    "prefer-arrow-callback": ["error"],
     "prefer-const": ["error"],
     "prefer-destructuring": [
       "error",
@@ -47,4 +45,13 @@ module.exports = {
     // Potentially slower
     // "prefer-template": ["error"],
   },
+
+  overrides: [
+    {
+      files: ["**.cjs"],
+      env: {
+        commonjs: true,
+      },
+    },
+  ],
 };

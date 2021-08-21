@@ -1,18 +1,12 @@
-"use strict";
-
-const vows = require("vows");
-const assert = require("assert");
-const ltx = require("..");
-const tag = require("../lib/tag");
-const { Element } = ltx;
+import vows from "vows";
+import assert from "assert";
+import tag from "../lib/tag.js";
+import Element from "../lib/Element.js";
 
 vows
   .describe("tag")
   .addBatch({
-    "exported correctly": function () {
-      assert.strictEqual(ltx.tag, tag);
-    },
-    "parses the string and return an Element object": function () {
+    "parses the string and return an Element object": () => {
       // var r = tag`<foo>${'bar'}</foo>`
       const r = tag(["<foo>", "</foo>"], "bar");
       assert(r instanceof Element);
@@ -21,7 +15,7 @@ vows
       assert(r.equals(c));
       assert.strictEqual(r.toString(), c.toString());
     },
-    "multiple substitutions": function () {
+    "multiple substitutions": () => {
       // var r = tag`<foo a="${'b'}">${'bar'}</foo>`
       const r = tag(['<foo a="', '">', "</foo>"], "b", "bar");
       assert(r instanceof Element);
@@ -31,4 +25,4 @@ vows
       assert.strictEqual(r.toString(), c.toString());
     },
   })
-  .export(module);
+  .run();

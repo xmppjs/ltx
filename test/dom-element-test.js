@@ -1,20 +1,19 @@
-"use strict";
-
-const vows = require("vows");
-const assert = require("assert");
-const ltx = require("..");
-const parsers = require("../lib/parsers");
-const DOMElement = require("../lib/DOMElement");
+import vows from "vows";
+import assert from "assert";
+import parsers from "../lib/parsers.js";
+import DOMElement from "../lib/DOMElement.js";
+import _parse from "../lib/parse.js";
 
 for (const Parser of parsers) {
-  const parse = function (s) {
-    return ltx.parse(s, { Parser: Parser, Element: DOMElement });
-  };
+  // eslint-disable-next-line no-inner-declarations
+  function parse(s) {
+    return _parse(s, { Parser: Parser, Element: DOMElement });
+  }
   vows
     .describe("Parsing returns DOMElement's")
     .addBatch({
       DOMElement: {
-        "Returns DOMElement on parse": function () {
+        "Returns DOMElement on parse": () => {
           const stanza =
             '<message><body xmlns="http://www.w3.org/1999/xhtml">' +
             "<p>DOM</p></body></message>";
@@ -46,7 +45,7 @@ for (const Parser of parsers) {
         },
       },
       createElement: {
-        "create a new element and set children": function () {
+        "create a new element and set children": () => {
           const c = new DOMElement("bar");
           const e = DOMElement.createElement("foo", { foo: "bar" }, "foo", c);
           assert(e instanceof DOMElement);
@@ -58,5 +57,5 @@ for (const Parser of parsers) {
         },
       },
     })
-    .export(module);
+    .run();
 }

@@ -1,15 +1,12 @@
-"use strict";
-
-const vows = require("vows");
-const assert = require("assert");
-const ltx = require("..");
-const { Element } = ltx;
-const { createElement } = ltx;
+import vows from "vows";
+import assert from "assert";
+import Element from "../lib/Element.js";
+import createElement from "../lib/createElement.js";
 
 vows
   .describe("createElement")
   .addBatch({
-    "create a new element and set children": function () {
+    "create a new element and set children": () => {
       const c = new Element("bar");
       const e = createElement("foo", { foo: "bar" }, "foo", c);
       assert(e instanceof Element);
@@ -19,7 +16,7 @@ vows
       assert.strictEqual(e.children[0], "foo");
       assert.strictEqual(e.children[1], c);
     },
-    "null and undefined children are discarded": function () {
+    "null and undefined children are discarded": () => {
       const e = createElement(
         "foo",
         null,
@@ -33,4 +30,4 @@ vows
       assert.strictEqual(e.root().toString(), b.root().toString());
     },
   })
-  .export(module);
+  .run();

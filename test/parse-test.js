@@ -1,72 +1,73 @@
-"use strict";
+import vows from "vows";
+import assert from "assert";
+import _parse from "../lib/parse.js";
+import parsers from "../lib/parsers.js";
 
-const vows = require("vows");
-const assert = require("assert");
-const ltx = require("..");
-const parsers = require("../lib/parsers");
+/* globals Buffer */
 
 for (const Parser of parsers) {
   if (Parser.name === "SaxSaxesjs") continue;
-  const parse = function (s) {
-    return ltx.parse(s, { Parser: Parser });
-  };
+  // eslint-disable-next-line no-inner-declarations
+  function parse(s) {
+    return _parse(s, { Parser: Parser });
+  }
   vows
-    .describe("ltx with " + Parser.name)
+    .describe(`parse with ${Parser.name} parser`)
     .addBatch({
       "DOM parsing": {
-        "simple document": function () {
+        "simple document": () => {
           const el = parse("<root/>");
           assert.strictEqual(el.name, "root");
           assert.strictEqual(0, el.children.length);
         },
-        "text with commas": function () {
+        "text with commas": () => {
           const el = parse("<body>sa'sa'1'sasa</body>");
           assert.strictEqual("sa'sa'1'sasa", el.getText());
         },
-        "text with entities": function () {
+        "text with entities": () => {
           const el = parse("<body>&lt;&gt;&amp;&quot;&apos;</body>");
           assert.strictEqual("<>&\"'", el.getText());
         },
-        "attribute with entities": function () {
+        "attribute with entities": () => {
           const el = parse("<body title='&lt;&gt;&amp;&quot;&apos;'/>");
           assert.strictEqual("<>&\"'", el.attrs.title);
         },
-        "erroneous document raises error": function () {
+        "erroneous document raises error": () => {
           assert.throws(() => {
             parse("<root></toor>");
           });
         },
-        "incomplete document raises error": function () {
+        "incomplete document raises error": () => {
           assert.throws(() => {
             parse("<root>");
           });
         },
-        "namespace declaration": function () {
+        "namespace declaration": () => {
           const el = parse("<root xmlns='https://github.com/astro/ltx'/>");
           assert.strictEqual(el.name, "root");
           assert.strictEqual(el.attrs.xmlns, "https://github.com/astro/ltx");
           assert.ok(el.is("root", "https://github.com/astro/ltx"));
         },
-        "namespace declaration with prefix": function () {
+        "namespace declaration with prefix": () => {
           const el = parse("<x:root xmlns:x='https://github.com/astro/ltx'/>");
           assert.strictEqual(el.name, "x:root");
           assert.strictEqual(el.getName(), "root");
           assert.ok(el.is("root", "https://github.com/astro/ltx"));
         },
-        buffer: function () {
+        buffer: () => {
           const buf = Buffer.from("<root/>");
           const el = parse(buf);
           assert.strictEqual(el.name, "root");
           assert.strictEqual(0, el.children.length);
         },
-        "utf-8 text": function () {
+        "utf-8 text": () => {
           const el = parse(
             '<?xml version="1.0" encoding="utf-8"?><text>Möwe</text>'
           );
           assert.strictEqual(el.name, "text");
           assert.strictEqual(el.getText(), "Möwe");
         },
-        "iso8859-1 text": function () {
+        "iso8859-1 text": () => {
           if (Parser.name === "SaxLibxmljs") return;
           const el = parse(
             '<?xml version="1.0" encoding="iso-8859-1"?><text>M\u00F6we</text>'
@@ -76,7 +77,7 @@ for (const Parser of parsers) {
         },
       },
       "SAX parsing": {
-        "XMPP stream": function () {
+        "XMPP stream": () => {
           const parser = new Parser();
           const events = [];
           parser.on("startElement", (name, attrs) => {
@@ -141,7 +142,7 @@ for (const Parser of parsers) {
           parser.write("></stream:features>");
           assert.strictEqual(events.length, 18);
         },
-        "bug: partial attrs": function () {
+        "bug: partial attrs": () => {
           const parser = new Parser();
           const events = [];
           parser.on("startElement", (name, attrs) => {
@@ -180,7 +181,7 @@ for (const Parser of parsers) {
             },
           });
         },
-        "bug: elements in comments": function () {
+        "bug: elements in comments": () => {
           const parser = new Parser();
           const events = [];
           parser.on("startElement", (name, attrs) => {
@@ -202,7 +203,7 @@ for (const Parser of parsers) {
         },
       },
     })
-    .export(module);
+    .run();
 }
 
 function testStanza(data, stanza) {
