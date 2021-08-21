@@ -82,17 +82,6 @@ vows
         const e = new Element("e").t(1000);
         assert.strictEqual(e.getText(), "1000");
       },
-      "serialize to json": () => {
-        const e = new Element("e", { foo: 23, bar: 0, nil: null })
-          .c("f")
-          .t(1000)
-          .up();
-        assert.deepStrictEqual(e.toJSON(), {
-          name: "e",
-          attrs: { foo: 23, bar: 0, nil: null },
-          children: [{ name: "f", attrs: {}, children: [1000] }],
-        });
-      },
     },
     remove: {
       "by element": () => {
@@ -135,100 +124,6 @@ vows
           el.getAttr("title", "http://site.tld/job"),
           "hacker"
         );
-      },
-    },
-    // extensively tested in equality-test.js
-    equality: {
-      name: () => {
-        const a = new Element("foo");
-        let b = new Element("foo");
-        assert.strictEqual(a.nameEquals(a), true);
-        assert.strictEqual(a.nameEquals(b), true);
-        assert.strictEqual(b.nameEquals(a), true);
-
-        b = new Element("b");
-        assert.strictEqual(a.nameEquals(b), false);
-        assert.strictEqual(b.nameEquals(a), false);
-      },
-      attrs: () => {
-        const a = new Element("foo", { foo: "bar" });
-        let b = new Element("foo", { foo: "bar" });
-        assert.strictEqual(a.attrsEquals(a), true);
-        assert.strictEqual(a.attrsEquals(b), true);
-        assert.strictEqual(b.attrsEquals(a), true);
-
-        b = new Element("foo", { bar: "foo" });
-        assert.strictEqual(a.attrsEquals(b), false);
-        assert.strictEqual(b.attrsEquals(a), false);
-      },
-      children: () => {
-        const a = new Element("foo").c("foo").root();
-        let b = new Element("foo").c("foo").root();
-        assert.strictEqual(a.childrenEquals(a), true);
-        assert.strictEqual(a.childrenEquals(b), true);
-        assert.strictEqual(b.childrenEquals(a), true);
-
-        b = new Element("foo").c("bar").root();
-        assert.strictEqual(a.childrenEquals(b), false);
-        assert.strictEqual(b.childrenEquals(a), false);
-      },
-    },
-    clone: {
-      clones: () => {
-        const orig = new Element("msg", { type: "get" })
-          .c("content")
-          .t("foo")
-          .root();
-        const clone = orig.clone();
-        assert.strictEqual(clone.name, orig.name);
-        assert.strictEqual(clone.attrs.type, orig.attrs.type);
-        assert.strictEqual(clone.attrs.to, orig.attrs.to);
-        assert.strictEqual(clone.children.length, orig.children.length);
-        assert.strictEqual(
-          clone.getChildText("content"),
-          orig.getChildText("content")
-        );
-
-        assert.strictEqual(orig.getChild("content").up(), orig);
-        assert.strictEqual(clone.getChild("content").up(), clone);
-      },
-      "mod attr": () => {
-        const orig = new Element("msg", { type: "get" });
-        const clone = orig.clone();
-        clone.attrs.type += "-result";
-
-        assert.strictEqual(orig.attrs.type, "get");
-        assert.strictEqual(clone.attrs.type, "get-result");
-      },
-      "rm attr": () => {
-        const orig = new Element("msg", { from: "me" });
-        const clone = orig.clone();
-        delete clone.attrs.from;
-        clone.attrs.to = "you";
-
-        assert.strictEqual(orig.attrs.from, "me");
-        assert.strictEqual(orig.attrs.to, undefined);
-        assert.strictEqual(clone.attrs.from, undefined);
-        assert.strictEqual(clone.attrs.to, "you");
-      },
-      "mod child": () => {
-        const orig = new Element("msg", { type: "get" })
-          .c("content")
-          .t("foo")
-          .root();
-        const clone = orig.clone();
-        clone.getChild("content").t("bar").name = "description";
-
-        assert.strictEqual(orig.children[0].name, "content");
-        assert.strictEqual(orig.getChildText("content"), "foo");
-        assert.strictEqual(clone.children[0].name, "description");
-        assert.strictEqual(clone.getChildText("description"), "foobar");
-      },
-      "use original constructor for the clone": () => {
-        class Foo extends Element {}
-        const foo = new Foo();
-        assert(foo.clone() instanceof Element);
-        assert(foo.clone() instanceof Foo);
       },
     },
     children: {

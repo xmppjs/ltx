@@ -14,10 +14,7 @@ import tagString from "./lib/tagString.js";
 import { isNode, isElement, isText } from "./lib/is.js";
 import clone from "./lib/clone.js";
 import stringify from "./lib/stringify.js";
-
-export default function ltx(...args) {
-  return tag(...args);
-}
+import JSONify from "./lib/JSONify.js";
 
 export {
   Element,
@@ -39,4 +36,5 @@ export {
   tag,
   tagString,
   stringify,
+  JSONify,
 };
