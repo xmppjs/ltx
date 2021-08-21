@@ -22,13 +22,18 @@ function append(el, child) {
  * @return {Element}      Element
  */
 export default function createElement(name, attrs, ...children) {
-  // __self and __source are added by babel in development
-  // https://github.com/facebook/react/pull/4596
-  // https://babeljs.io/docs/en/babel-preset-react#development
-  // https://babeljs.io/docs/en/babel-plugin-transform-react-jsx-source
-  if (attrs) {
+  if (typeof attrs === "object" && attrs !== null) {
+    // __self and __source are added by babel in development
+    // https://github.com/facebook/react/pull/4596
+    // https://babeljs.io/docs/en/babel-preset-react#development
+    // https://babeljs.io/docs/en/babel-plugin-transform-react-jsx-source
     delete attrs.__source;
     delete attrs.__self;
+
+    for (const [key, value] of Object.entries(attrs)) {
+      if (value == null) delete attrs[key];
+      else attrs[key] = value.toString(10);
+    }
   }
 
   const el = new Element(name, attrs);

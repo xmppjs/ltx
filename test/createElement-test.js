@@ -61,5 +61,13 @@ vows
         "<bar>foofoofoofoofoo</bar>"
       );
     },
+    "null and undefined attributes are discarded": () => {
+      const e = createElement("foo", { foo: null, bar: undefined });
+      assert.deepEqual(e.attrs, {});
+    },
+    "number attribute are converted to string": () => {
+      const e = createElement("foo", { foo: 1 });
+      assert.deepEqual(e.attrs, { foo: "1" });
+    },
   })
   .run();
