@@ -217,5 +217,80 @@ vows
         assert.ok(el instanceof Element);
       },
     },
+
+    append: {
+      "single element": () => {
+        const foo = new Element("foo");
+        const bar = new Element("bar");
+        assert.equal(bar.parent, undefined);
+        foo.append(bar);
+        assert.equal(bar.parent, foo);
+
+        assert.equal(foo.children[0], bar);
+      },
+      "single string": () => {
+        const foo = new Element("foo");
+        const bar = "bar";
+        assert.equal(bar.parent, undefined);
+        foo.append(bar);
+        assert.equal(bar.parent, undefined);
+
+        assert.equal(foo.children[0], bar);
+      },
+      "multiple nodes": () => {
+        const foo = new Element("foo");
+        const bar = new Element("bar");
+        const baz = new Element("bar");
+        foo.append(bar, baz);
+
+        assert.deepEqual(foo.children, [bar, baz]);
+      },
+      "pre-existing nodes": () => {
+        const foo = new Element("foo");
+        const bar = new Element("bar");
+        const baz = new Element("bar");
+        foo.append(bar);
+        foo.append(baz);
+
+        assert.deepEqual(foo.children, [bar, baz]);
+      },
+    },
+    prepend: {
+      "single element": () => {
+        const foo = new Element("foo");
+        const bar = new Element("bar");
+        assert.equal(bar.parent, undefined);
+        foo.prepend(bar);
+        assert.equal(bar.parent, foo);
+
+        assert.equal(foo.children[0], bar);
+      },
+      "single string": () => {
+        const foo = new Element("foo");
+        const bar = "bar";
+        assert.equal(bar.parent, undefined);
+        foo.prepend(bar);
+        assert.equal(bar.parent, undefined);
+
+        assert.equal(foo.children[0], bar);
+      },
+      "multiple nodes": () => {
+        const foo = new Element("foo");
+        const bar = new Element("bar");
+        const baz = new Element("bar");
+        foo.prepend(bar, baz);
+
+        assert.deepEqual(foo.children, [bar, baz]);
+      },
+      "pre-existing nodes": () => {
+        const foo = new Element("foo");
+        const bar = new Element("bar");
+        const baz = new Element("bar");
+        foo.prepend(bar);
+        foo.prepend(baz);
+
+        assert.deepEqual(foo.children, [baz, bar]);
+      },
+    },
   })
   .run();
