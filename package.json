@@ -21,7 +21,7 @@
   "scripts": {
     "preversion": "npm test",
     "benchmark": "node benchmarks/",
-    "unit": "node test/run.js",
+    "unit": "npx --experimental-vm-modules jest",
     "lint": "eslint --cache .",
     "test": "npm run unit && npm run lint",
     "prepare": "husky install",
@@ -49,6 +49,6 @@
     "rollup": "^2.56.2",
     "sax": "^1.2.4",
     "saxes": "^5.0.1",
-    "vows": "^0.8.3"
+    "jest": "27.4.7"
   }
 }
