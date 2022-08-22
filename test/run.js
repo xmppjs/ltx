@@ -1,4 +1,4 @@
-import "./cdata-test.js";
+import "./SaxLtx-test.js";
 import "./clone-test.js";
 import "./createElement-test.js";
 import "./dom-element-test.js";

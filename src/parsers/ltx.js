@@ -36,10 +36,10 @@ class SaxLtx extends EventEmitter {
       if (!endTag) {
         this.emit("startElement", tagName, attrs);
         if (selfClosing) {
-          this.emit("endElement", tagName);
+          this.emit("endElement", tagName, true);
         }
       } else {
-        this.emit("endElement", tagName);
+        this.emit("endElement", tagName, false);
       }
     };
 
