@@ -2,5 +2,5 @@ node_modules/
 .eslintcache
 lib/
 !lib/package.json
-dist/
 bundle.js
+dist/
