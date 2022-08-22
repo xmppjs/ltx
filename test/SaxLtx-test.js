@@ -4,38 +4,30 @@ import _parse from "../src/parse.js";
 import LtxParser from "../src/parsers/ltx.js";
 import h from "../src/createElement.js";
 import Parser from "../src/Parser.js";
-
-function parse(s) {
-  return _parse(s, { Parser: LtxParser });
-}
-
-function parseChunks(chunks) {
-  const p = new Parser();
-
-  let result = null;
-  let error = null;
-
-  p.on("tree", (tree) => {
-    result = tree;
-  });
-  p.on("error", (e) => {
-    error = e;
-  });
-
-  for (const chunk of chunks) {
-    p.write(chunk);
-  }
-  p.end();
-
-  if (error) {
-    throw error;
-  } else {
-    return result;
-  }
-}
+import { once } from "events";
 
 vows
-  .describe("sax_ltx")
+  .describe("SaxLtx")
+  .addBatch({
+    endElement: {
+      "self closing": async () => {
+        const parser = new LtxParser();
+        const promise_event = once(parser, "endElement");
+        parser.write("<foo/>");
+        const [tag_name, self_closing] = await promise_event;
+        assert.strictEqual(tag_name, "foo");
+        assert.strictEqual(self_closing, true);
+      },
+      "not self closing": async () => {
+        const parser = new LtxParser();
+        const promise_event = once(parser, "endElement");
+        parser.write("<foo></foo>");
+        const [tag_name, self_closing] = await promise_event;
+        assert.strictEqual(tag_name, "foo");
+        assert.strictEqual(self_closing, false);
+      },
+    },
+  })
   .addBatch({
     "CDATA parsing": {
       "issue-19: parse CDATA content as text": () => {
@@ -82,3 +74,32 @@ vows
     },
   })
   .run();
+
+function parse(s) {
+  return _parse(s, { Parser: LtxParser });
+}
+
+function parseChunks(chunks) {
+  const p = new Parser();
+
+  let result = null;
+  let error = null;
+
+  p.on("tree", (tree) => {
+    result = tree;
+  });
+  p.on("error", (e) => {
+    error = e;
+  });
+
+  for (const chunk of chunks) {
+    p.write(chunk);
+  }
+  p.end();
+
+  if (error) {
+    throw error;
+  } else {
+    return result;
+  }
+}
