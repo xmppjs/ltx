@@ -1,8 +1,7 @@
 benchmarks/
 test/
 
-.eslintignore
-.eslintrc.cjs
+eslint.config.js
 .github
 .husky
 .editorconfig

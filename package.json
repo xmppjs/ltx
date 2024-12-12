@@ -1,17 +1,14 @@
 {
   "name": "ltx",
-  "version": "3.0.1",
+  "version": "3.0.0",
   "description": "<xml for=\"JavaScript\">",
   "author": "Astro",
   "repository": "github:xmppjs/ltx",
   "homepage": "http://github.com/xmppjs/ltx",
   "bugs": "http://github.com/xmppjs/ltx/issues",
   "type": "module",
-  "main": "src/ltx.js",
-  "exports": {
-    "import": "./src/ltx.js",
-    "require": "./lib/ltx.js"
-  },
+  "main": "lib/ltx.js",
+  "module": "src/ltx.js",
   "contributors": [
     "Stephan Maka",
     "Will Fife",
@@ -27,7 +24,6 @@
     "unit": "node test/run.js",
     "lint": "eslint .",
     "test": "npm run unit && npm run lint",
-    "prepare": "husky install",
     "prepublishOnly": "rollup -c rollup.config.js"
   },
   "lint-staged": {
@@ -39,19 +35,20 @@
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "eslint": "^8.22.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint": "^9.16.0",
+    "eslint-config-prettier": "^9.1.0",
     "husky": "^9.1.7",
     "libxmljs": "^1.0.11",
-    "lint-staged": "^15.2.1",
+    "lint-staged": "^15.2.11",
     "microtime": "^3.1.1",
-    "node-expat": "^2.4.1",
     "node-xml": "^1.0.2",
     "prettier": "^3.4.2",
     "rollup": "^4.28.1",
     "sax": "^1.4.1",
     "saxes": "^6.0.0",
     "vows": "^0.8.3"
+  },
+  "dependencies": {
+    "node-expat": "^2.4.1"
   }
 }
