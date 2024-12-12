@@ -7,7 +7,6 @@ import parsers from "../src/parsers.js";
 
 for (const Parser of parsers) {
   if (Parser.name === "SaxSaxesjs") continue;
-  // eslint-disable-next-line no-inner-declarations
   function parse(s) {
     return _parse(s, { Parser: Parser });
   }

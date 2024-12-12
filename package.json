@@ -22,13 +22,12 @@
     "preversion": "npm test",
     "benchmark": "node benchmarks/",
     "unit": "node test/run.js",
-    "lint": "eslint --cache .",
+    "lint": "eslint .",
     "test": "npm run unit && npm run lint",
-    "prepare": "husky install",
     "prepublishOnly": "rollup -c rollup.config.js"
   },
   "lint-staged": {
-    "*.{js,cjs,mjs}": "eslint --cache --fix",
+    "*.{js,cjs,mjs}": "eslint --fix",
     "*.{json,md,html,css,yaml,yml}": "prettier --write"
   },
   "engines": {
@@ -36,19 +35,20 @@
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "browserify": "^17.0.0",
-    "eslint": "^8.22.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.1",
-    "libxmljs": "^1.0.9",
-    "lint-staged": "^13.0.3",
+    "eslint": "^9.16.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.1.7",
+    "libxmljs": "^1.0.11",
+    "lint-staged": "^15.2.11",
     "microtime": "^3.1.1",
     "node-xml": "^1.0.2",
-    "prettier": "^2.7.1",
-    "rollup": "^2.78.1",
-    "sax": "^1.2.4",
+    "prettier": "^3.4.2",
+    "rollup": "^4.28.1",
+    "sax": "^1.4.1",
     "saxes": "^6.0.0",
     "vows": "^0.8.3"
+  },
+  "dependencies": {
+    "node-expat": "^2.4.1"
   }
 }

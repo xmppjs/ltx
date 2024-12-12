@@ -1,9 +1,9 @@
 benchmarks/
 test/
 
+eslint.config.js
+.github
+.husky
 .editorconfig
 .gitignore
 .npmignore
-.travis.yml
-
-CONTRIBUTING.md

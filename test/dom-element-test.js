@@ -5,7 +5,6 @@ import DOMElement from "../src/DOMElement.js";
 import _parse from "../src/parse.js";
 
 for (const Parser of parsers) {
-  // eslint-disable-next-line no-inner-declarations
   function parse(s) {
     return _parse(s, { Parser: Parser, Element: DOMElement });
   }
