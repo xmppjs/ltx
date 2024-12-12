@@ -1,14 +1,17 @@
 {
   "name": "ltx",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "<xml for=\"JavaScript\">",
   "author": "Astro",
   "repository": "github:xmppjs/ltx",
   "homepage": "http://github.com/xmppjs/ltx",
   "bugs": "http://github.com/xmppjs/ltx/issues",
   "type": "module",
-  "main": "lib/ltx.js",
-  "module": "src/ltx.js",
+  "main": "src/ltx.js",
+  "exports": {
+    "import": "./src/ltx.js",
+    "require": "./lib/ltx.js"
+  },
   "contributors": [
     "Stephan Maka",
     "Will Fife",
@@ -22,13 +25,13 @@
     "preversion": "npm test",
     "benchmark": "node benchmarks/",
     "unit": "node test/run.js",
-    "lint": "eslint --cache .",
+    "lint": "eslint .",
     "test": "npm run unit && npm run lint",
     "prepare": "husky install",
     "prepublishOnly": "rollup -c rollup.config.js"
   },
   "lint-staged": {
-    "*.{js,cjs,mjs}": "eslint --cache --fix",
+    "*.{js,cjs,mjs}": "eslint --fix",
     "*.{json,md,html,css,yaml,yml}": "prettier --write"
   },
   "engines": {
@@ -36,18 +39,18 @@
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "browserify": "^17.0.0",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
-    "libxmljs": "^1.0.9",
+    "libxmljs": "^1.0.11",
     "lint-staged": "^13.0.3",
     "microtime": "^3.1.1",
+    "node-expat": "^2.4.1",
     "node-xml": "^1.0.2",
     "prettier": "^2.7.1",
-    "rollup": "^2.78.1",
-    "sax": "^1.2.4",
+    "rollup": "^4.28.1",
+    "sax": "^1.4.1",
     "saxes": "^6.0.0",
     "vows": "^0.8.3"
   }
