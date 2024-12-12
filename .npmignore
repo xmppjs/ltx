@@ -1,9 +1,12 @@
 benchmarks/
 test/
 
-eslint.config.js
 .github
 .husky
 .editorconfig
 .gitignore
 .npmignore
+.prettierignore
+
+eslint.config.js
+rollup.config.js
