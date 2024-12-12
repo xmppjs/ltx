@@ -1,6 +1,6 @@
 {
   "name": "ltx",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "<xml for=\"JavaScript\">",
   "author": "Astro",
   "repository": {
@@ -12,8 +12,12 @@
   "type": "module",
   "main": "src/ltx.js",
   "exports": {
-    "import": "./src/ltx.js",
-    "require": "./lib/ltx.js"
+    ".": {
+      "import": "./src/ltx.js",
+      "require": "./lib/ltx.js"
+    },
+    "./src/*": "./src/*",
+    "./lib/*": "./lib/*"
   },
   "contributors": [
     "Stephan Maka",
