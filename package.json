@@ -7,8 +7,11 @@
   "homepage": "http://github.com/xmppjs/ltx",
   "bugs": "http://github.com/xmppjs/ltx/issues",
   "type": "module",
-  "main": "lib/ltx.js",
-  "module": "src/ltx.js",
+  "main": "src/ltx.js",
+  "exports": {
+    "import": "./src/ltx.js",
+    "require": "./lib/ltx.js"
+  },
   "contributors": [
     "Stephan Maka",
     "Will Fife",
