@@ -13,7 +13,11 @@ export default function stringify(el, indent, level) {
     }
   }
 
-  if (el.children.length > 0) {
+  const children_length = el.children.length
+
+  if (el.children.length === 1 && typeof el.children[0] === "string") {
+    s += `>${el.children[0]}</${el.name}>`;
+  } else if (children_length > 0) {
     s += ">";
     for (const child of el.children) {
       if (child == null) continue;

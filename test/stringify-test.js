@@ -83,5 +83,15 @@ vows
       };
       assert.strictEqual(stringify(el), "<foo><bar></bar></foo>");
     },
+    "no newline if single text child": () => {
+      const el = {
+        name: "foo",
+        attrs: {},
+        children: [
+          "hello world"
+        ]
+      }
+      assert.strictEqual(stringify(el, 2), "<foo>hello world</foo>");
+    }
   })
   .run();
