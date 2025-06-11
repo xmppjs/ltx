@@ -3,18 +3,10 @@ import eslintConfigPrettier from "eslint-config-prettier";
 import globals from "globals";
 
 export default [
-  {
-    ignores: ["lib"],
-  },
   js.configs.recommended,
   eslintConfigPrettier,
   {
-
-    languageOptions: {
-      globals: {
-        ...globals["shared-node-browser"],
-      },
-    },
+    languageOptions: { globals: { ...globals["shared-node-browser"] } },
 
     rules: {
       strict: ["error", "global"],
@@ -33,13 +25,7 @@ export default [
       "no-var": ["error"],
       "prefer-arrow-callback": ["error"],
       "prefer-const": ["error"],
-      "prefer-destructuring": [
-        "error",
-        {
-          array: false,
-          object: true,
-        },
-      ],
+      "prefer-destructuring": ["error", { array: false, object: true }],
       "prefer-rest-params": ["error"],
       "prefer-spread": ["error"],
       // Potentially slower
