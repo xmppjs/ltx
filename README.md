@@ -40,7 +40,15 @@ Node.js v14.17.0 - AMD Ryzen 9 5900HX
 
 ## Benchmark
 
+To install all modules to compare run
+
+```sh
+npm install --no-save node-xml sax saxes txml xml2js fast-xml-parser && npm install --no-save libxmljs ; npm install --no-save node-expat
 ```
+
+Some native modules may fail to install. Our benchmark only runs with available modules.
+
+```sh
 npm run benchmark
 ```
 

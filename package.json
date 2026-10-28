@@ -1,6 +1,6 @@
 {
   "name": "ltx",
-  "version": "3.1.2",
+  "version": "4.0.0",
   "description": "<xml for=\"JavaScript\">",
   "author": "Astro",
   "repository": {
@@ -38,18 +38,15 @@
     "node": ">= 20.10"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "benchmark": "^2.1.4",
-    "eslint": "^9.33.0",
+    "eslint": "^10.13.0",
     "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
     "husky": "^9.1.7",
-    "libxmljs": "^1.0.11",
-    "lint-staged": "^16.1.5",
+    "lint-staged": "^17.6.0",
     "microtime": "^3.1.1",
-    "node-expat": "^2.4.1",
-    "node-xml": "^1.0.2",
-    "prettier": "^3.6.2",
-    "sax": "^1.4.1",
-    "saxes": "^6.0.0",
+    "prettier": "^3.9.10",
     "vows": "^0.8.3"
   }
 }

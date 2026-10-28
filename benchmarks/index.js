@@ -1,9 +1,7 @@
 import ltx from "./ltx.js";
-import parsers from "./parsers.js";
 import parse from "./parse.js";
-import write from "./write.js";
 
-const suites = [ltx, parsers, parse, write];
+const suites = [ltx, parse];
 
 for (const suite of suites) {
   console.log("suite", suite.name);
