@@ -50,8 +50,10 @@ export function escapeXML(s) {
 
 export function unescapeXML(s) {
   let result = "";
+  /* eslint-disable no-useless-assignment */
   let start = -1;
   let end = -1;
+  /* eslint-enable no-useless-assignment */
   let previous = 0;
   while (
     (start = s.indexOf("&", previous)) !== -1 &&

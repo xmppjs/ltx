@@ -40,9 +40,12 @@ Node.js v14.17.0 - AMD Ryzen 9 5900HX
 
 ## Benchmark
 
-```
+```sh
+npm install --prefix benchmarks
 npm run benchmark
 ```
+
+Some native modules may fail to install. Our benchmark only runs with available modules.
 
 ## Test
 

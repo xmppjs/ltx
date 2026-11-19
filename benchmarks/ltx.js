@@ -10,6 +10,7 @@ import createElement from "../src/createElement.js";
 import tag from "../src/tag.js";
 import Element from "../src/Element.js";
 import parse from "../src/parse.js";
+import clone from "../src/clone.js";
 
 const XML = [
   '<message to="foo@bar" from="bar@foo" type="chat" id="foobar">',
@@ -42,7 +43,7 @@ suite.add("tag with direct call", () => {
     "bar@foo",
     "chat",
     "foobar",
-    "Where there is love there is life."
+    "Where there is love there is life.",
   );
 });
 
@@ -58,7 +59,7 @@ suite.add("createElement (jsx)", () => {
   createElement(
     "message",
     { to: "foo@bar", from: "bar@foo", type: "chat", id: "foobar" },
-    createElement("body", null, "Where there is love there is life.")
+    createElement("body", null, "Where there is love there is life."),
   );
 });
 
@@ -67,7 +68,7 @@ suite.add("serialize", () => {
 });
 
 suite.add("clone", () => {
-  el.clone();
+  clone(el);
 });
 
 suite.add("Element", () => {
